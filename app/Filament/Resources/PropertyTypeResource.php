@@ -23,7 +23,9 @@ class PropertyTypeResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('type_name')
+                    ->required()
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -31,7 +33,12 @@ class PropertyTypeResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('type_name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime(),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime(),
             ])
             ->filters([
                 //

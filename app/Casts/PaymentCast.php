@@ -8,22 +8,24 @@ use Illuminate\Database\Eloquent\Model;
 class PaymentCast implements CastsAttributes
 {
     /**
-     * Cast the given value.
+     * Cast the given value for display (no decimals).
      *
-     * @param  array<string, mixed>  $attributes
+     * @param  array<string, string>  $attributes
      */
     public function get(Model $model, string $key, mixed $value, array $attributes): string
     {
-        return 'Ksh ' . number_format($value, 2);
+        return 'Ksh ' . number_format($value);
     }
 
     /**
-     * Prepare the given value for storage.
+     * Prepare the given value for storage (store as integer, always ceil).
      *
-     * @param  array<string, mixed>  $attributes
+     * @param  array<string, int>  $attributes
      */
-    public function set(Model $model, string $key, mixed $value, array $attributes): mixed
+    public function set(Model $model, string $key, mixed $value, array $attributes): int
     {
-        return $value;
+        $cleaned = str_replace(['Ksh ', ','], '', (string) $value);
+
+        return (int) ceil((float) $cleaned);
     }
 }

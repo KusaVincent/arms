@@ -23,7 +23,26 @@ class TenantResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('first_name')
+                    ->required(),
+                Forms\Components\TextInput::make('middle_name'),
+                Forms\Components\TextInput::make('last_name')
+                    ->required(),
+                Forms\Components\TextInput::make('email')
+                    ->email()
+                    ->required()
+                    ->unique(ignoreRecord: true),
+                Forms\Components\TextInput::make('phone')
+                    ->tel()
+                    ->required(),
+                Forms\Components\TextInput::make('password')
+                    ->password()
+                    ->required()
+                    ->confirmed(),
+                Forms\Components\TextInput::make('password_confirmation')
+                    ->password()
+                    ->required()
+                    ->dehydrated(false),
             ]);
     }
 
@@ -31,7 +50,23 @@ class TenantResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('full_name')
+                    ->label('Full Name')
+                    ->getStateUsing(fn ($record) =>
+                    implode(' ', array_filter([
+                        $record->first_name,
+                        $record->middle_name,
+                        $record->last_name,
+                    ]))
+                    )
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('phone'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime(),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime(),
             ])
             ->filters([
                 //

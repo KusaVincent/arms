@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 final class PropertyFactory extends Factory
 {
+    protected array $images = ['property/images/prop.jpg', 'property/images/property.jpg'];
+
     /**
      * Define the model's default state.
      *
@@ -22,11 +24,11 @@ final class PropertyFactory extends Factory
     public function definition(): array
     {
         return [
-            'property_image' => 'prop.jpg',
             'available' => $this->faker->boolean(),
             'negotiable' => $this->faker->boolean(),
             'description' => $this->faker->paragraph(),
             'name' => $this->faker->words(3, true),
+            'property_image' => fake()->randomElement($this->images),
             'rent' => $this->faker->numberBetween(15000, 500000),
             'deposit' => $this->faker->numberBetween(15000, 500000),
             'location_id' => Location::inRandomOrder()->first()->id ?? Location::factory(),

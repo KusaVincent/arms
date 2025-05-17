@@ -29,17 +29,41 @@ class PropertyMediaResource extends Resource
                     ->columnSpanFull()
                     ->relationship('property', 'name'),
                 Forms\Components\FileUpload::make('image_one')
-                    ->required(),
+                    ->image()
+                    ->required()
+                    ->maxSize(5120)
+                    ->imagePreviewHeight('250')
+                    ->directory('property/images/'),
                 Forms\Components\FileUpload::make('image_two')
-                    ->required(),
+                    ->image()
+                    ->maxSize(5120)
+                    ->imagePreviewHeight('250')
+                    ->directory('property/images/'),
                 Forms\Components\FileUpload::make('image_three')
-                    ->required(),
+                    ->image()
+                    ->maxSize(5120)
+                    ->imagePreviewHeight('250')
+                    ->directory('property/images/'),
                 Forms\Components\FileUpload::make('image_four')
-                    ->required(),
+                    ->image()
+                    ->maxSize(5120)
+                    ->imagePreviewHeight('250')
+                    ->directory('property/images/'),
                 Forms\Components\FileUpload::make('image_five')
-                    ->required(),
+                    ->image()
+                    ->maxSize(5120)
+                    ->imagePreviewHeight('250')
+                    ->directory('property/images/'),
                 Forms\Components\FileUpload::make('video')
-                    ->required(),
+                    ->reactive()
+                    ->maxSize(51200)
+                    ->directory('property/videos/')
+                    ->acceptedFileTypes(['video/mp4', 'video/avi', 'video/mkv'])
+                    ->helperText(fn ($state) => $state
+                        ? '<video controls width="300"><source src="' . asset('property/videos/' . $state) . '" type="video/mp4"></video>'
+                        : null
+                    )
+                ,
             ]);
     }
 
@@ -55,6 +79,10 @@ class PropertyMediaResource extends Resource
                 Tables\Columns\ImageColumn::make('image_three'),
                 Tables\Columns\ImageColumn::make('image_four'),
                 Tables\Columns\ImageColumn::make('image_five'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime(),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime(),
             ])
             ->filters([
                 //

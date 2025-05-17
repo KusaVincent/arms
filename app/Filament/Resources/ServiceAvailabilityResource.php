@@ -23,7 +23,17 @@ class ServiceAvailabilityResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('service_name')
+                    ->required(),
+                Forms\Components\TextInput::make('service_key')
+                    ->required(),
+                Forms\Components\Select::make('is_active')
+                    ->required()
+                    ->options([
+                        true => 'Yes',
+                        false => 'No',
+                    ])
+                    ->default(false),
             ]);
     }
 
@@ -31,7 +41,18 @@ class ServiceAvailabilityResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('service_name'),
+                Tables\Columns\TextColumn::make('service_key'),
+                Tables\Columns\TextColumn::make('is_active')
+                    ->badge()
+                    ->sortable()
+                    ->searchable()
+                    ->formatStateUsing(fn ($state): string => intval($state) ? 'Yes' : 'No')
+                    ->color(fn ($state): string => intval($state) ? 'success' : 'warning'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime(),
             ])
             ->filters([
                 //

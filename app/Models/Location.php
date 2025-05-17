@@ -12,6 +12,7 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 /**
  * @method static select(string $string, string $string1)
  * @method static inRandomOrder()
+ * @method static find($value)
  */
 final class Location extends Model
 {

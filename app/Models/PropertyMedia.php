@@ -13,31 +13,6 @@ final class PropertyMedia extends Model
 {
     use HasFactory, KeepsDeletedModels;
 
-    public function getImageOneAttribute($value): string
-    {
-        return 'property/' . $value;
-    }
-
-    public function getImageTwoAttribute($value): string
-    {
-        return 'property/' . $value;
-    }
-
-    public function getImageThreeAttribute($value): string
-    {
-        return 'property/' . $value;
-    }
-
-    public function getImageFourAttribute($value): string
-    {
-        return 'property/' . $value;
-    }
-
-    public function getImageFiveAttribute($value): string
-    {
-        return 'property/' . $value;
-    }
-
     public function property(): BelongsTo
     {
         return $this->belongsTo(Property::class);
