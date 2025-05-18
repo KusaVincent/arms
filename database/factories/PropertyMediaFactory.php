@@ -13,8 +13,9 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 final class PropertyMediaFactory extends Factory
 {
-    protected array $videos = ['property/videos/test-videos.mp4'];
-    protected array $images = ['property/images/prop.jpg', 'property/images/property.jpg'];
+    private array $videos = ['property/videos/test-videos.mp4'];
+
+    private array $images = ['property/images/prop.jpg', 'property/images/property.jpg'];
 
     /**
      * Define the model's default state.
@@ -24,7 +25,7 @@ final class PropertyMediaFactory extends Factory
     public function definition(): array
     {
         return [
-            'video' =>  fake()->randomElement($this->videos),
+            'video' => fake()->randomElement($this->videos),
             'image_one' => fake()->randomElement($this->images),
             'image_two' => fake()->randomElement($this->images),
             'image_three' => fake()->randomElement($this->images),

@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\PropertyAvailable;
+use App\Enums\PropertyNegotiable;
 use App\Filament\Resources\PropertyResource\Pages;
-use App\Filament\Resources\PropertyResource\RelationManagers;
-use App\Models\Location;
 use App\Models\Property;
+use App\Utils\LocationHelper;
+use App\Utils\SanitizationHelper;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Pages\EditRecord;
@@ -29,59 +31,36 @@ class PropertyResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('rent')
                     ->required()
-                    ->formatStateUsing(fn ($state, $livewire) =>
-                        $livewire instanceof EditRecord
-                            ? self::stripFormatting($state)
+                    ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
+                            ? SanitizationHelper::stripFormatting($state)
                             : $state
                     )
                     ->dehydrateStateUsing(fn ($state) => $state)
-                    ->rules(fn ($livewire) => !$livewire instanceof ViewRecord ? ['numeric'] : []),
+                    ->rules(fn ($livewire): array => $livewire instanceof ViewRecord ? [] : ['numeric']),
                 Forms\Components\TextInput::make('deposit')
                     ->required()
-                    ->formatStateUsing(fn ($state, $livewire) =>
-                        $livewire instanceof EditRecord
-                            ? self::stripFormatting($state)
+                    ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
+                            ? SanitizationHelper::stripFormatting($state)
                             : $state
                     )
                     ->dehydrateStateUsing(fn ($state) => $state)
-                    ->rules(fn ($livewire) => !$livewire instanceof ViewRecord ? ['numeric'] : []),
+                    ->rules(fn ($livewire): array => $livewire instanceof ViewRecord ? [] : ['numeric']),
                 Forms\Components\Select::make('negotiable')
                     ->required()
-                    ->options([
-                        true => 'Yes',
-                        false => 'No',
-                    ])
+                    ->options(PropertyNegotiable::class)
                     ->default(false),
                 Forms\Components\Select::make('available')
                     ->required()
-                    ->options([
-                        true => 'Yes',
-                        false => 'No',
-                    ])
-                    ->visible(fn ($livewire) => $livewire instanceof EditRecord),
+                    ->label('Availability')
+                    ->options(PropertyAvailable::class)
+                    ->visible(fn ($livewire): bool => $livewire instanceof EditRecord),
                 Forms\Components\Select::make('location_id')
                     ->required()
                     ->searchable()
                     ->relationship('location', 'id')
-                    ->getOptionLabelUsing(fn ($value) => optional(Location::find($value))->full_details)
-                    ->getSearchResultsUsing(fn (string $search) => Location::query()
-                        ->where('area', 'like', "%{$search}%")
-                        ->orWhere('town_city', 'like', "%{$search}%")
-                        ->orWhere('address', 'like', "%{$search}%")
-                        ->get()
-                        ->pluck('full_details', 'id')
-                    )
-                    ->options(function () {
-                        return Location::all()->mapWithKeys(function ($location) {
-                            return [
-                                $location->id => implode(', ', array_filter([
-                                    $location->town_city,
-                                    $location->area,
-                                    $location->address,
-                                ])),
-                            ];
-                        })->toArray();
-                    }),
+                    ->getOptionLabelUsing(fn ($value): ?string => LocationHelper::getFullDetails($value))
+                    ->getSearchResultsUsing(fn (string $search): array => LocationHelper::getSearchResults($search))
+                    ->options(fn (): array => LocationHelper::getOptions()),
                 Forms\Components\Select::make('property_type_id')
                     ->required()
                     ->searchable()
@@ -118,35 +97,15 @@ class PropertyResource extends Resource
                     ->badge()
                     ->sortable()
                     ->searchable()
-                    ->formatStateUsing(fn ($state): string => intval($state) ? 'Yes' : 'No')
-                    ->color(fn ($state): string => intval($state) ? 'success' : 'warning'),
+                    ->label('Availability'),
                 Tables\Columns\TextColumn::make('negotiable')
                     ->badge()
                     ->sortable()
-                    ->searchable()
-                    ->formatStateUsing(fn ($state): string => intval($state) ? 'Yes' : 'No')
-                    ->color(fn ($state): string => intval($state) ? 'success' : 'warning'),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('location_summary')
                     ->label('Location')
-                    ->getStateUsing(function ($record) {
-                        $parts = [];
-                        if ($record->location?->town_city) {
-                            $parts[] = $record->location->town_city;
-                        }
-                        if ($record->location?->area) {
-                            $parts[] = $record->location->area;
-                        }
-                        if ($record->location?->address) {
-                            $parts[] = $record->location->address;
-                        }
-                        return empty($parts) ? null : implode(', ', $parts);
-                    })
-                    ->searchable(query: function (Builder $query, string $search) {
-                        return $query
-                            ->orWhereRelation('location', 'town_city', 'like', "%{$search}%")
-                            ->orWhereRelation('location', 'area',     'like', "%{$search}%")
-                            ->orWhereRelation('location', 'address',  'like', "%{$search}%");
-                    }),
+                    ->getStateUsing(fn($record): ?string => LocationHelper::formatLocation($record->location))
+                    ->searchable(query: fn(Builder $query, string $search): \Illuminate\Database\Eloquent\Builder => LocationHelper::applyLocationSearch($query, $search)),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
@@ -181,13 +140,5 @@ class PropertyResource extends Resource
             'create' => Pages\CreateProperty::route('/create'),
             'edit' => Pages\EditProperty::route('/{record}/edit'),
         ];
-    }
-
-    protected static function stripFormatting($value): float
-    {
-        if (is_string($value)) {
-            return (float) str_replace(['Ksh ', ','], '', $value);
-        }
-        return $value;
     }
 }

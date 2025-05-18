@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('property_types', function (Blueprint $table) {
+        Schema::create('property_types', function (Blueprint $table): void {
             $table->id();
             $table->string('type_name')->unique();
             $table->timestamps();

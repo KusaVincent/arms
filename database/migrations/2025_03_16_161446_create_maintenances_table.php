@@ -15,7 +15,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('maintenances', function (Blueprint $table) {
+        Schema::create('maintenances', function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(Property::class)
                 ->constrained()
@@ -24,7 +24,8 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
             $table->text('description');
-            $table->enum('status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
+            $table->enum('status', ['Pending', 'In Progress', 'Completed'])
+                ->default('Pending');
             $table->date('request_date');
             $table->date('completion_date')->nullable();
             $table->timestamps();

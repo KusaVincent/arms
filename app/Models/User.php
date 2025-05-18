@@ -14,7 +14,7 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 final class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, KeepsDeletedModels;
+    use HasFactory, KeepsDeletedModels, Notifiable;
 
     /**
      * The attributes that should be hidden for serialization.

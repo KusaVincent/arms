@@ -3,18 +3,21 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PropertyMediaResource\Pages;
-use App\Filament\Resources\PropertyMediaResource\RelationManagers;
 use App\Models\PropertyMedia;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PropertyMediaResource extends Resource
 {
+    protected static int $imageMaxSize = 5120;
+
+    protected static string $imagePreviewHeight = '250';
+
+    protected static string $directoryPath = 'property/images/';
+
     protected static ?string $model = PropertyMedia::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -31,39 +34,38 @@ class PropertyMediaResource extends Resource
                 Forms\Components\FileUpload::make('image_one')
                     ->image()
                     ->required()
-                    ->maxSize(5120)
-                    ->imagePreviewHeight('250')
-                    ->directory('property/images/'),
+                    ->maxSize(self::$imageMaxSize)
+                    ->directory(self::$directoryPath)
+                    ->imagePreviewHeight(self::$imagePreviewHeight),
                 Forms\Components\FileUpload::make('image_two')
                     ->image()
-                    ->maxSize(5120)
-                    ->imagePreviewHeight('250')
-                    ->directory('property/images/'),
+                    ->maxSize(self::$imageMaxSize)
+                    ->directory(self::$directoryPath)
+                    ->imagePreviewHeight(self::$imagePreviewHeight),
                 Forms\Components\FileUpload::make('image_three')
                     ->image()
-                    ->maxSize(5120)
-                    ->imagePreviewHeight('250')
-                    ->directory('property/images/'),
+                    ->maxSize(self::$imageMaxSize)
+                    ->directory(self::$directoryPath)
+                    ->imagePreviewHeight(self::$imagePreviewHeight),
                 Forms\Components\FileUpload::make('image_four')
                     ->image()
-                    ->maxSize(5120)
-                    ->imagePreviewHeight('250')
-                    ->directory('property/images/'),
+                    ->maxSize(self::$imageMaxSize)
+                    ->directory(self::$directoryPath)
+                    ->imagePreviewHeight(self::$imagePreviewHeight),
                 Forms\Components\FileUpload::make('image_five')
                     ->image()
-                    ->maxSize(5120)
-                    ->imagePreviewHeight('250')
-                    ->directory('property/images/'),
+                    ->maxSize(self::$imageMaxSize)
+                    ->directory(self::$directoryPath)
+                    ->imagePreviewHeight(self::$imagePreviewHeight),
                 Forms\Components\FileUpload::make('video')
                     ->reactive()
                     ->maxSize(51200)
-                    ->directory('property/videos/')
+                    ->directory(self::$directoryPath)
                     ->acceptedFileTypes(['video/mp4', 'video/avi', 'video/mkv'])
                     ->helperText(fn ($state) => $state
-                        ? '<video controls width="300"><source src="' . asset('property/videos/' . $state) . '" type="video/mp4"></video>'
+                        ? '<video controls width="300"><source src="'.asset(self::$directoryPath.$state).'" type="video/mp4"></video>'
                         : null
-                    )
-                ,
+                    ),
             ]);
     }
 
@@ -110,8 +112,8 @@ class PropertyMediaResource extends Resource
     {
         return [
             'index' => Pages\ListPropertyMedia::route('/'),
-//            'create' => Pages\CreatePropertyMedia::route('/create'),
-//            'edit' => Pages\EditPropertyMedia::route('/{record}/edit'),
+            'create' => Pages\CreatePropertyMedia::route('/create'),
+            'edit' => Pages\EditPropertyMedia::route('/{record}/edit'),
         ];
     }
 }

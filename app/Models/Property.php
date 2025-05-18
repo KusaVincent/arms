@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Casts\PaymentCast;
+use App\Enums\PropertyAvailable;
+use App\Enums\PropertyNegotiable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -34,25 +36,26 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  */
 final class Property extends Model
 {
-    use HasFactory, Searchable, KeepsDeletedModels;
+    use HasFactory, KeepsDeletedModels, Searchable;
 
     protected $casts = [
         'rent' => PaymentCast::class,
         'deposit' => PaymentCast::class,
+        'available' => PropertyAvailable::class,
+        'negotiable' => PropertyNegotiable::class,
     ];
 
     public function getNameAttribute($value): string
     {
-        return ucwords($value);
+        return ucwords((string) $value);
     }
 
     public function setNameAttribute($value): void
     {
-        $this->attributes['name'] = ucwords($value);
+        $this->attributes['name'] = ucwords((string) $value);
     }
 
-    #[Scope]
-    protected function isAvailable(Builder $query): void
+    #[Scope]private function isAvailable(Builder $query): void
     {
         $query->where('available', true);
     }

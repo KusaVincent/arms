@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\ContactSection;
 use App\Filament\Resources\ContactResource\Pages;
-use App\Filament\Resources\ContactResource\RelationManagers;
 use App\Models\Contact;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -31,12 +31,8 @@ class ContactResource extends Resource
                     ->required(),
                 Forms\Components\Select::make('section')
                     ->native(false)
-                    ->options([
-                        'all' => 'All',
-                        'contact' => 'Contact',
-                        'footer' => 'Footer',
-                    ])
-                    ->default('all')
+                    ->default(ContactSection::ALL)
+                    ->options(ContactSection::class)
                     ->columnSpanFull(),
             ]);
     }
@@ -60,12 +56,7 @@ class ContactResource extends Resource
                 Tables\Columns\TextColumn::make('section')
                     ->badge()
                     ->sortable()
-                    ->searchable()
-                    ->color(fn (string $state): string => match ($state){
-                        'all' => 'success',
-                        'footer' => 'warning',
-                        'contact' => 'danger',
-                    }),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
@@ -97,8 +88,8 @@ class ContactResource extends Resource
     {
         return [
             'index' => Pages\ListContacts::route('/'),
-//            'create' => Pages\CreateContact::route('/create'),
-//            'edit' => Pages\EditContact::route('/{record}/edit'),
+            //            'create' => Pages\CreateContact::route('/create'),
+            //            'edit' => Pages\EditContact::route('/{record}/edit'),
         ];
     }
 }

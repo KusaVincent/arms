@@ -14,7 +14,7 @@ class PaymentCast implements CastsAttributes
      */
     public function get(Model $model, string $key, mixed $value, array $attributes): string
     {
-        return 'Ksh ' . number_format($value);
+        return 'Ksh '.number_format($value);
     }
 
     /**

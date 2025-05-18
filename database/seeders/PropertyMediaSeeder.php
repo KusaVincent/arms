@@ -15,7 +15,7 @@ final class PropertyMediaSeeder extends Seeder
      */
     public function run(): void
     {
-        Property::all()->each(function ($property) {
+        Property::all()->each(function ($property): void {
             PropertyMedia::factory()->create([
                 'property_id' => $property->id,
             ]);

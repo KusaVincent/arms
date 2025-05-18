@@ -15,7 +15,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lease_agreements', function (Blueprint $table) {
+        Schema::create('lease_agreements', function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(Tenant::class)
                 ->constrained()

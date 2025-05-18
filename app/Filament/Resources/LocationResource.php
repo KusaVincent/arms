@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\LocationResource\Pages;
-use App\Filament\Resources\LocationResource\RelationManagers;
 use App\Models\Location;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class LocationResource extends Resource
 {
@@ -46,7 +43,7 @@ class LocationResource extends Resource
                 Tables\Columns\TextColumn::make('area')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('map')
-                    ->words(15),
+                    ->limit(20),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
@@ -78,8 +75,8 @@ class LocationResource extends Resource
     {
         return [
             'index' => Pages\ListLocations::route('/'),
-//            'create' => Pages\CreateLocation::route('/create'),
-//            'edit' => Pages\EditLocation::route('/{record}/edit'),
+            //            'create' => Pages\CreateLocation::route('/create'),
+            //            'edit' => Pages\EditLocation::route('/{record}/edit'),
         ];
     }
 }

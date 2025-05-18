@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TenantResource\Pages;
-use App\Filament\Resources\TenantResource\RelationManagers;
 use App\Models\Tenant;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TenantResource extends Resource
 {
@@ -52,8 +49,7 @@ class TenantResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('full_name')
                     ->label('Full Name')
-                    ->getStateUsing(fn ($record) =>
-                    implode(' ', array_filter([
+                    ->getStateUsing(fn ($record): string => implode(' ', array_filter([
                         $record->first_name,
                         $record->middle_name,
                         $record->last_name,

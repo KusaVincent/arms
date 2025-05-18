@@ -18,7 +18,7 @@ final class LeaseAgreementSeeder extends Seeder
      */
     public function run(): void
     {
-        LeaseAgreement::factory(30)->create()->each(function ($lease) {
+        LeaseAgreement::factory(30)->create()->each(function ($lease): void {
             Payment::factory(random_int(1, 5))->create(['lease_agreement_id' => $lease->id]);
         });
     }

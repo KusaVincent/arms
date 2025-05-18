@@ -2,16 +2,14 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\MaintenanceStatus;
 use App\Filament\Resources\MaintenanceResource\Pages;
-use App\Filament\Resources\MaintenanceResource\RelationManagers;
 use App\Models\Maintenance;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class MaintenanceResource extends Resource
 {
@@ -35,12 +33,8 @@ class MaintenanceResource extends Resource
                     ->required(),
                 Forms\Components\Select::make('status')
                     ->native(false)
-                    ->options([
-                        'Pending',
-                        'In Progress',
-                        'Completed',
-                    ])
-                    ->default('Pending'),
+                    ->options(MaintenanceStatus::class)
+                    ->default(MaintenanceStatus::PENDING),
                 Forms\Components\DatePicker::make('request_date')
                     ->date()
                     ->required(),
@@ -59,18 +53,13 @@ class MaintenanceResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tenant.first_name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('description')
-                    ->searchable()
-                    ->limit(10),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('description')
                     ->searchable()
-                    ->color(fn (string $state): string => match ($state){
-                        'Completed' => 'success',
-                        'In Progress' => 'warning',
-                        'Pending' => 'danger',
-                    }),
+                    ->limit(10),
                 Tables\Columns\TextColumn::make('request_date')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('completion_date')
@@ -106,8 +95,8 @@ class MaintenanceResource extends Resource
     {
         return [
             'index' => Pages\ListMaintenances::route('/'),
-//            'create' => Pages\CreateMaintenance::route('/create'),
-//            'edit' => Pages\EditMaintenance::route('/{record}/edit'),
+            //            'create' => Pages\CreateMaintenance::route('/create'),
+            //            'edit' => Pages\EditMaintenance::route('/{record}/edit'),
         ];
     }
 }

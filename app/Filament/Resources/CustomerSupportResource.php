@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CustomerSupportResource\Pages;
-use App\Filament\Resources\CustomerSupportResource\RelationManagers;
 use App\Models\CustomerSupport;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CustomerSupportResource extends Resource
 {
@@ -92,8 +89,8 @@ class CustomerSupportResource extends Resource
     {
         return [
             'index' => Pages\ListCustomerSupports::route('/'),
-//            'create' => Pages\CreateCustomerSupport::route('/create'),
-//            'edit' => Pages\EditCustomerSupport::route('/{record}/edit'),
+            //            'create' => Pages\CreateCustomerSupport::route('/create'),
+            //            'edit' => Pages\EditCustomerSupport::route('/{record}/edit'),
         ];
     }
 }

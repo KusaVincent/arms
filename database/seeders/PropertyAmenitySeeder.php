@@ -16,11 +16,11 @@ final class PropertyAmenitySeeder extends Seeder
      */
     public function run(): void
     {
-        Property::all()->each(function ($property) {
+        Property::all()->each(function ($property): void {
             Amenity::inRandomOrder()
                 ->take(fake()->numberBetween(1, 5))
                 ->pluck('id')
-                ->each(function ($amenityId) use ($property) {
+                ->each(function ($amenityId) use ($property): void {
                     PropertyAmenity::create([
                         'property_id' => $property->id,
                         'amenity_id' => $amenityId,

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('amenities', function (Blueprint $table) {
+        Schema::create('amenities', function (Blueprint $table): void {
             $table->id();
             $table->string('amenity_name')->unique();
             $table->string('amenity_icon')->nullable();

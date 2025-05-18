@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
+use App\Actions\ColorAssignment;
 use App\Filament\Resources\PaymentResource\Pages;
-use App\Filament\Resources\PaymentResource\RelationManagers;
 use App\Models\Payment;
+use App\Utils\SanitizationHelper;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\Pages\EditRecord;
+use Filament\Resources\Pages\ViewRecord;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PaymentResource extends Resource
 {
@@ -30,8 +31,13 @@ class PaymentResource extends Resource
                 Forms\Components\TextInput::make('payment_method')
                     ->required(),
                 Forms\Components\TextInput::make('payment_amount')
-                    ->numeric()
-                    ->required(),
+                    ->required()
+                    ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
+                            ? SanitizationHelper::stripFormatting($state)
+                            : $state
+                    )
+                    ->dehydrateStateUsing(fn ($state) => $state)
+                    ->rules(fn ($livewire): array => $livewire instanceof ViewRecord ? [] : ['numeric']),
                 Forms\Components\DatePicker::make('payment_date')
                     ->date()
                     ->required(),
@@ -50,9 +56,11 @@ class PaymentResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('payment_method')
+                    ->badge()
                     ->sortable()
                     ->searchable()
-                    ->label('Payment Method'),
+                    ->label('Payment Method')
+                    ->color(fn (string $state): string => ColorAssignment::getColor($state)),
                 Tables\Columns\TextColumn::make('payment_amount')
                     ->sortable()
                     ->searchable()
@@ -92,8 +100,8 @@ class PaymentResource extends Resource
     {
         return [
             'index' => Pages\ListPayments::route('/'),
-//            'create' => Pages\CreatePayment::route('/create'),
-//            'edit' => Pages\EditPayment::route('/{record}/edit'),
+            //            'create' => Pages\CreatePayment::route('/create'),
+            //            'edit' => Pages\EditPayment::route('/{record}/edit'),
         ];
     }
 }

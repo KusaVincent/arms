@@ -16,21 +16,21 @@ final class CustomerSupport extends Model
 
     public function getEmailAttribute($value): string
     {
-        return strtolower($value);
+        return strtolower((string) $value);
     }
 
     public function setEmailAttribute($value): void
     {
-        $this->attributes['email'] = strtolower($value);
+        $this->attributes['email'] = strtolower((string) $value);
     }
 
     public function getNameAttribute($value): string
     {
-        return ucwords($value);
+        return ucwords((string) $value);
     }
 
     public function setNameAttribute($value): void
     {
-        $this->attributes['name'] = ucwords($value);
+        $this->attributes['name'] = ucwords((string) $value);
     }
 }

@@ -2,16 +2,14 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\ActiveServiceAvailability;
 use App\Filament\Resources\ServiceAvailabilityResource\Pages;
-use App\Filament\Resources\ServiceAvailabilityResource\RelationManagers;
 use App\Models\ServiceAvailability;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ServiceAvailabilityResource extends Resource
 {
@@ -28,12 +26,8 @@ class ServiceAvailabilityResource extends Resource
                 Forms\Components\TextInput::make('service_key')
                     ->required(),
                 Forms\Components\Select::make('is_active')
-                    ->required()
-                    ->options([
-                        true => 'Yes',
-                        false => 'No',
-                    ])
-                    ->default(false),
+                    ->default(ActiveServiceAvailability::NO)
+                    ->options(ActiveServiceAvailability::class),
             ]);
     }
 
@@ -46,9 +40,7 @@ class ServiceAvailabilityResource extends Resource
                 Tables\Columns\TextColumn::make('is_active')
                     ->badge()
                     ->sortable()
-                    ->searchable()
-                    ->formatStateUsing(fn ($state): string => intval($state) ? 'Yes' : 'No')
-                    ->color(fn ($state): string => intval($state) ? 'success' : 'warning'),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('created_at')

@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AmenityResource\Pages;
-use App\Filament\Resources\AmenityResource\RelationManagers;
 use App\Models\Amenity;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AmenityResource extends Resource
 {
@@ -84,8 +81,8 @@ class AmenityResource extends Resource
     {
         return [
             'index' => Pages\ListAmenities::route('/'),
-//            'create' => Pages\CreateAmenity::route('/create'),
-//            'edit' => Pages\EditAmenity::route('/{record}/edit'),
+            //            'create' => Pages\CreateAmenity::route('/create'),
+            //            'edit' => Pages\EditAmenity::route('/{record}/edit'),
         ];
     }
 }

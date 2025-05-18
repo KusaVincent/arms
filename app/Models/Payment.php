@@ -17,6 +17,7 @@ final class Payment extends Model
     protected $casts = [
         'payment_amount' => PaymentCast::class,
     ];
+
     public function leaseAgreement(): BelongsTo
     {
         return $this->belongsTo(LeaseAgreement::class);

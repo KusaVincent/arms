@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\LeaseAgreementResource\Pages;
-use App\Filament\Resources\LeaseAgreementResource\RelationManagers;
 use App\Models\LeaseAgreement;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class LeaseAgreementResource extends Resource
 {
@@ -100,8 +97,8 @@ class LeaseAgreementResource extends Resource
     {
         return [
             'index' => Pages\ListLeaseAgreements::route('/'),
-//            'create' => Pages\CreateLeaseAgreement::route('/create'),
-//            'edit' => Pages\EditLeaseAgreement::route('/{record}/edit'),
+            //            'create' => Pages\CreateLeaseAgreement::route('/create'),
+            //            'edit' => Pages\EditLeaseAgreement::route('/{record}/edit'),
         ];
     }
 }
