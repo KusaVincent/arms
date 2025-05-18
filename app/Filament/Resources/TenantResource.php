@@ -47,14 +47,7 @@ class TenantResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('full_name')
-                    ->label('Full Name')
-                    ->getStateUsing(fn ($record): string => implode(' ', array_filter([
-                        $record->first_name,
-                        $record->middle_name,
-                        $record->last_name,
-                    ]))
-                    )
+                Tables\Columns\TextColumn::make('fullname')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email'),

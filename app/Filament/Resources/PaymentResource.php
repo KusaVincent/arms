@@ -48,7 +48,7 @@ class PaymentResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('leaseAgreement.tenant.last_name')
+                Tables\Columns\TextColumn::make('leaseAgreement.tenant.fullname')
                     ->sortable()
                     ->searchable()
                     ->label('Tenant Name'),

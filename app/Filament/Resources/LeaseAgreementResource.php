@@ -49,7 +49,7 @@ class LeaseAgreementResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('tenant.first_name')
+                Tables\Columns\TextColumn::make('tenant.fullname')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('property.name')

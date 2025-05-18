@@ -51,7 +51,7 @@ class MaintenanceResource extends Resource
                 Tables\Columns\TextColumn::make('property.name')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('tenant.first_name')
+                Tables\Columns\TextColumn::make('tenant.fullname')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
