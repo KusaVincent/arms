@@ -6,13 +6,13 @@ namespace Database\Factories;
 
 use App\Models\Amenity;
 use App\Models\Property;
-use App\Models\PropertyAmenity;
+use App\Models\AmenityProperty;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<PropertyAmenity>
+ * @extends Factory<AmenityProperty>
  */
-final class PropertyAmenityFactory extends Factory
+final class AmenityPropertyFactory extends Factory
 {
     /**
      * Define the model's default state.

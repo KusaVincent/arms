@@ -6,10 +6,10 @@ namespace Database\Seeders;
 
 use App\Models\Amenity;
 use App\Models\Property;
-use App\Models\PropertyAmenity;
+use App\Models\AmenityProperty;
 use Illuminate\Database\Seeder;
 
-final class PropertyAmenitySeeder extends Seeder
+final class AmenityPropertySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -21,7 +21,7 @@ final class PropertyAmenitySeeder extends Seeder
                 ->take(fake()->numberBetween(1, 5))
                 ->pluck('id')
                 ->each(function ($amenityId) use ($property): void {
-                    PropertyAmenity::create([
+                    AmenityProperty::create([
                         'property_id' => $property->id,
                         'amenity_id' => $amenityId,
                     ]);

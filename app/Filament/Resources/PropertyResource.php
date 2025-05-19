@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Enums\PropertyAvailable;
 use App\Enums\PropertyNegotiable;
 use App\Filament\Resources\PropertyResource\Pages;
+use App\Filament\Resources\PropertyResource\RelationManagers\AmenitiesRelationManager;
+use App\Filament\Resources\PropertyResource\RelationManagers\AmenityRelationManager;
 use App\Models\Property;
 use App\Utils\LocationHelper;
 use App\Utils\SanitizationHelper;
@@ -129,7 +131,7 @@ class PropertyResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            AmenitiesRelationManager::class,
         ];
     }
 

@@ -19,6 +19,9 @@ final class Amenity extends Model
 
     public function properties(): BelongsToMany
     {
-        return $this->belongsToMany(Property::class, 'property_amenities');
+        return $this->belongsToMany(Property::class)
+            ->using(AmenityProperty::class)
+            ->withPivot(['created_by'])
+            ->withTimestamps();
     }
 }

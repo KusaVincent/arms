@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('amenities', function (Blueprint $table): void {
             $table->id();
-            $table->string('amenity_name')->unique();
+            $table->string('amenity_name');
             $table->string('amenity_icon')->nullable();
             $table->text('amenity_description')->nullable();
             $table->string('amenity_icon_color')->nullable();
