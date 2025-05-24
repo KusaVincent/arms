@@ -20,4 +20,8 @@ final class ServiceAvailability extends Model
     protected $casts = [
         'is_active' => ActiveServiceAvailability::class,
     ];
+
+    protected $attributes = [
+        'is_active' => ActiveServiceAvailability::YES,
+    ];
 }

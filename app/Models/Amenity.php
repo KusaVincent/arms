@@ -17,6 +17,11 @@ final class Amenity extends Model
 {
     use HasFactory, KeepsDeletedModels;
 
+    protected $attributes = [
+        'amenity_icon' => 'house',
+        'amenity_icon_color' => 'text-blue-500',
+    ];
+
     public function properties(): BelongsToMany
     {
         return $this->belongsToMany(Property::class)

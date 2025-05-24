@@ -2,7 +2,7 @@
 
 namespace App\Actions;
 
-class ColorAssignment
+class AssignColor
 {
     private static array $colorMap = [];
 

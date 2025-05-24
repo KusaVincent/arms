@@ -18,6 +18,10 @@ final class Maintenance extends Model
         'status' => MaintenanceStatus::class,
     ];
 
+    protected $attributes = [
+        'status' => MaintenanceStatus::PENDING,
+    ];
+
     public function property(): BelongsTo
     {
         return $this->belongsTo(Property::class);

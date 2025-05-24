@@ -20,4 +20,8 @@ final class Contact extends Model
     protected $casts = [
         'section' => ContactSection::class,
     ];
+
+    protected $attributes = [
+        'section' => ContactSection::ALL,
+    ];
 }

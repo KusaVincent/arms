@@ -24,19 +24,11 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
             $table->text('description');
-            $table->enum('status', ['Pending', 'In Progress', 'Completed'])
-                ->default('Pending');
+            $table->enum('status',
+                ['Pending', 'In Progress', 'Completed']);
             $table->date('request_date');
             $table->date('completion_date')->nullable();
             $table->timestamps();
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('maintenances');
     }
 };

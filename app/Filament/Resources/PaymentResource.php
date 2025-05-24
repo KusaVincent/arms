@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Actions\ColorAssignment;
+use App\Actions\AssignColor;
 use App\Filament\Resources\PaymentResource\Pages;
 use App\Models\Payment;
 use App\Utils\SanitizationHelper;
@@ -60,7 +60,7 @@ class PaymentResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->label('Payment Method')
-                    ->color(fn (string $state): string => ColorAssignment::getColor($state)),
+                    ->color(fn (string $state): string => AssignColor::getColor($state)),
                 Tables\Columns\TextColumn::make('payment_amount')
                     ->sortable()
                     ->searchable()

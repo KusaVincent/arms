@@ -73,8 +73,10 @@ class PropertyResource extends Resource
                     ->image()
                     ->required()
                     ->maxSize(5120)
-                    ->imagePreviewHeight('240')
-                    ->directory('property/images/'),
+                    ->disk('sftp')
+                    ->directory('images')
+                    ->visibility('public')
+                    ->imagePreviewHeight('240'),
             ]);
     }
 
@@ -85,8 +87,7 @@ class PropertyResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('property_image')
-                    ->searchable(),
+                Tables\Columns\ImageColumn::make('property_image'),
                 Tables\Columns\TextColumn::make('propertyType.type_name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('rent')
@@ -107,7 +108,7 @@ class PropertyResource extends Resource
                 Tables\Columns\TextColumn::make('location_summary')
                     ->label('Location')
                     ->getStateUsing(fn($record): ?string => LocationHelper::formatLocation($record->location))
-                    ->searchable(query: fn(Builder $query, string $search): \Illuminate\Database\Eloquent\Builder => LocationHelper::applyLocationSearch($query, $search)),
+                    ->searchable(query: fn(Builder $query, string $search): Builder => LocationHelper::applyLocationSearch($query, $search)),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')

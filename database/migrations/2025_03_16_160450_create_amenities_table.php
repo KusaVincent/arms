@@ -20,14 +20,8 @@ return new class extends Migration
             $table->text('amenity_description')->nullable();
             $table->string('amenity_icon_color')->nullable();
             $table->timestamps();
-        });
-    }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('amenities');
+            $table->unique(['amenity_name', 'amenity_description']);
+        });
     }
 };

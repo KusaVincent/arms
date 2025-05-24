@@ -28,17 +28,9 @@ return new class extends Migration
             $table->text('property_image');
             $table->integer('rent');
             $table->integer('deposit');
-            $table->boolean('available')->default(true);
-            $table->boolean('negotiable')->default(false);
+            $table->boolean('available');
+            $table->boolean('negotiable');
             $table->timestamps();
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('properties');
     }
 };

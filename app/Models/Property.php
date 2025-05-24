@@ -45,6 +45,11 @@ final class Property extends Model
         'negotiable' => PropertyNegotiable::class,
     ];
 
+    protected $attributes = [
+        'available' => PropertyAvailable::YES,
+        'negotiable' => PropertyNegotiable::NO,
+    ];
+
     #[Scope]
     private function isAvailable(Builder $query): void
     {
