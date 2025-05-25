@@ -70,8 +70,8 @@ class PropertyTypeResource extends Resource
     {
         return [
             'index' => Pages\ListPropertyTypes::route('/'),
-//            'create' => Pages\CreatePropertyType::route('/create'),
-//            'edit' => Pages\EditPropertyType::route('/{record}/edit'),
+            //            'create' => Pages\CreatePropertyType::route('/create'),
+            //            'edit' => Pages\EditPropertyType::route('/{record}/edit'),
         ];
     }
 }

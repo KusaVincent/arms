@@ -3,7 +3,6 @@
 namespace App\Utils;
 
 use App\Models\Location;
-use Illuminate\Database\Eloquent\Builder;
 
 class LocationHelper
 {
@@ -34,7 +33,7 @@ class LocationHelper
      */
     public static function getOptions(): array
     {
-        return Location::all()->mapWithKeys(fn($location) => [
+        return Location::all()->mapWithKeys(fn ($location) => [
             $location->id => implode(', ', array_filter([
                 $location->town_city,
                 $location->area,

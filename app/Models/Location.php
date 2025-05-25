@@ -13,6 +13,7 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  * @method static select(string $string, string $string1)
  * @method static inRandomOrder()
  * @method static find($value)
+ *
  * @property mixed $town_city
  * @property mixed $area
  * @property mixed $address
@@ -28,6 +29,6 @@ final class Location extends Model
 
     public function getLocationSummaryAttribute(): string
     {
-        return $this->town_city . ', ' . $this->area . ', ' . $this->address;
+        return $this->town_city.', '.$this->area.', '.$this->address;
     }
 }

@@ -6,7 +6,6 @@ use App\Enums\PropertyAvailable;
 use App\Enums\PropertyNegotiable;
 use App\Filament\Resources\PropertyResource\Pages;
 use App\Filament\Resources\PropertyResource\RelationManagers\AmenitiesRelationManager;
-use App\Filament\Resources\PropertyResource\RelationManagers\AmenityRelationManager;
 use App\Models\Property;
 use App\Utils\LocationHelper;
 use App\Utils\SanitizationHelper;
@@ -18,7 +17,6 @@ use Filament\Resources\Pages\ViewRecord;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 
 class PropertyResource extends Resource
 {
@@ -31,81 +29,81 @@ class PropertyResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make()
-                ->schema([
-                    Forms\Components\Group::make()
-                        ->schema([
-                            Forms\Components\Section::make()
-                                ->schema([
-                                    Forms\Components\TextInput::make('name')
-                                        ->required(),
-                                    Forms\Components\Select::make('property_type_id')
-                                        ->required()
-                                        ->searchable()
-                                        ->label('Property Type')
-                                        ->relationship('propertyType', 'type_name'),
-                                ])->columns(),
-                            Forms\Components\Section::make()
-                                ->schema([
-                                    Forms\Components\TextInput::make('rent')
-                                        ->required()
-                                        ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
-                                            ? SanitizationHelper::stripFormatting($state)
-                                            : $state
-                                        )
-                                        ->dehydrateStateUsing(fn ($state) => $state)
-                                        ->rules(fn ($livewire): array => $livewire instanceof ViewRecord ? [] : ['numeric']),
-                                    Forms\Components\TextInput::make('deposit')
-                                        ->required()
-                                        ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
-                                            ? SanitizationHelper::stripFormatting($state)
-                                            : $state
-                                        )
-                                        ->dehydrateStateUsing(fn ($state) => $state)
-                                        ->rules(fn ($livewire): array => $livewire instanceof ViewRecord ? [] : ['numeric']),
-                                ])->columns(),
-                            Forms\Components\Section::make()
-                                ->schema([Forms\Components\Section::make()
-                                    ->description('Is rent negotiable or fixed?')
+                    ->schema([
+                        Forms\Components\Group::make()
+                            ->schema([
+                                Forms\Components\Section::make()
                                     ->schema([
-                                        Forms\Components\Select::make('negotiable')
+                                        Forms\Components\TextInput::make('name')
+                                            ->required(),
+                                        Forms\Components\Select::make('property_type_id')
                                             ->required()
-                                            ->options(PropertyNegotiable::class)
-                                            ->default(false),
-                                    ])->columnSpan(1),
-                                    Forms\Components\Section::make()
+                                            ->searchable()
+                                            ->label('Property Type')
+                                            ->relationship('propertyType', 'type_name'),
+                                    ])->columns(),
+                                Forms\Components\Section::make()
+                                    ->schema([
+                                        Forms\Components\TextInput::make('rent')
+                                            ->required()
+                                            ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
+                                                ? SanitizationHelper::stripFormatting($state)
+                                                : $state
+                                            )
+                                            ->dehydrateStateUsing(fn ($state) => $state)
+                                            ->rules(fn ($livewire): array => $livewire instanceof ViewRecord ? [] : ['numeric']),
+                                        Forms\Components\TextInput::make('deposit')
+                                            ->required()
+                                            ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
+                                                ? SanitizationHelper::stripFormatting($state)
+                                                : $state
+                                            )
+                                            ->dehydrateStateUsing(fn ($state) => $state)
+                                            ->rules(fn ($livewire): array => $livewire instanceof ViewRecord ? [] : ['numeric']),
+                                    ])->columns(),
+                                Forms\Components\Section::make()
+                                    ->schema([Forms\Components\Section::make()
+                                        ->description('Is rent negotiable or fixed?')
                                         ->schema([
-                                            Forms\Components\Select::make('location_id')
+                                            Forms\Components\Select::make('negotiable')
                                                 ->required()
-                                                ->searchable()
-                                                ->relationship('location', 'id')
-                                                ->getOptionLabelUsing(fn ($value): ?string => LocationHelper::getFullDetails($value))
-                                                ->getSearchResultsUsing(fn (string $search): array => LocationHelper::getSearchResults($search))
-                                                ->options(fn (): array => LocationHelper::getOptions()),
+                                                ->options(PropertyNegotiable::class)
+                                                ->default(false),
                                         ])->columnSpan(1),
-                                ])->columns()
-                        ])->columnSpan(2),
-                    Forms\Components\Group::make()
-                        ->schema([
-                            Forms\Components\Section::make()
-                                ->schema([
-                                    Forms\Components\Select::make('available')
-                                        ->required()
-                                        ->label('Availability')
-                                        ->options(PropertyAvailable::class)
-                                        ->visible(fn ($livewire): bool => !$livewire instanceof CreateRecord),
-                                    Forms\Components\MarkdownEditor::make('description')
-                                        ->required(),
-                                    Forms\Components\FileUpload::make('property_image')
-                                        ->image()
-                                        ->required()
-                                        ->maxSize(5120)
-                                        ->disk('sftp')
-                                        ->directory('images')
-                                        ->visibility('public')
-                                        ->imagePreviewHeight('240'),
-                                ])
-                        ])->columnSpan(1),
-                ])->columns(3),
+                                        Forms\Components\Section::make()
+                                            ->schema([
+                                                Forms\Components\Select::make('location_id')
+                                                    ->required()
+                                                    ->searchable()
+                                                    ->relationship('location', 'id')
+                                                    ->getOptionLabelUsing(fn ($value): ?string => LocationHelper::getFullDetails($value))
+                                                    ->getSearchResultsUsing(fn (string $search): array => LocationHelper::getSearchResults($search))
+                                                    ->options(fn (): array => LocationHelper::getOptions()),
+                                            ])->columnSpan(1),
+                                    ])->columns(),
+                            ])->columnSpan(2),
+                        Forms\Components\Group::make()
+                            ->schema([
+                                Forms\Components\Section::make()
+                                    ->schema([
+                                        Forms\Components\Select::make('available')
+                                            ->required()
+                                            ->label('Availability')
+                                            ->options(PropertyAvailable::class)
+                                            ->visible(fn ($livewire): bool => ! $livewire instanceof CreateRecord),
+                                        Forms\Components\MarkdownEditor::make('description')
+                                            ->required(),
+                                        Forms\Components\FileUpload::make('property_image')
+                                            ->image()
+                                            ->required()
+                                            ->maxSize(5120)
+                                            ->disk('sftp')
+                                            ->directory('images')
+                                            ->visibility('public')
+                                            ->imagePreviewHeight('240'),
+                                    ]),
+                            ])->columnSpan(1),
+                    ])->columns(3),
             ]);
     }
 

@@ -22,30 +22,30 @@ class ContactResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make()
-                ->schema([
-                    Forms\Components\Section::make('')
-                        ->schema([
-                            Forms\Components\TextInput::make('label')
-                                ->required(),
-                            Forms\Components\TextInput::make('icon')
-                                ->required(),
-                        ])->columns(),
-                    Forms\Components\Section::make('')
-                        ->schema([
-                            Forms\Components\TextInput::make('link')
-                                ->required(),
-                            Forms\Components\TextInput::make('link_text')
-                                ->required()
-                                ->label('Link Text'),
-                        ])->columns(),
-                    Forms\Components\Section::make('')
-                        ->schema([
-                            Forms\Components\Select::make('section')
-                                ->native(false)
-                                ->default(ContactSection::ALL)
-                                ->options(ContactSection::class),
-                        ]),
-                ]),
+                    ->schema([
+                        Forms\Components\Section::make('')
+                            ->schema([
+                                Forms\Components\TextInput::make('label')
+                                    ->required(),
+                                Forms\Components\TextInput::make('icon')
+                                    ->required(),
+                            ])->columns(),
+                        Forms\Components\Section::make('')
+                            ->schema([
+                                Forms\Components\TextInput::make('link')
+                                    ->required(),
+                                Forms\Components\TextInput::make('link_text')
+                                    ->required()
+                                    ->label('Link Text'),
+                            ])->columns(),
+                        Forms\Components\Section::make('')
+                            ->schema([
+                                Forms\Components\Select::make('section')
+                                    ->native(false)
+                                    ->default(ContactSection::ALL)
+                                    ->options(ContactSection::class),
+                            ]),
+                    ]),
             ]);
     }
 

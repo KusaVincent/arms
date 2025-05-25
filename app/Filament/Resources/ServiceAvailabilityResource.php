@@ -90,8 +90,8 @@ class ServiceAvailabilityResource extends Resource
     {
         return [
             'index' => Pages\ListServiceAvailabilities::route('/'),
-//            'create' => Pages\CreateServiceAvailability::route('/create'),
-//            'edit' => Pages\EditServiceAvailability::route('/{record}/edit'),
+            //            'create' => Pages\CreateServiceAvailability::route('/create'),
+            //            'edit' => Pages\EditServiceAvailability::route('/{record}/edit'),
         ];
     }
 }

@@ -27,7 +27,7 @@ class AboutResource extends Resource
                         Forms\Components\MarkdownEditor::make('content')
                             ->required()
                             ->maxLength(255),
-                    ])
+                    ]),
             ]);
     }
 

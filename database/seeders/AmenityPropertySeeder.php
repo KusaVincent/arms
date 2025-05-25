@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use App\Models\Amenity;
-use App\Models\Property;
 use App\Models\AmenityProperty;
+use App\Models\Property;
 use Illuminate\Database\Seeder;
 
 final class AmenityPropertySeeder extends Seeder

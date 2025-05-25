@@ -81,10 +81,10 @@ return [
             // 'maxTries' => 4,
             // 'passphrase' => env('SFTP_PASSPHRASE'),
             // 'port' => env('SFTP_PORT', 22),
-             'root' => env('SFTP_ROOT', ''),
+            'root' => env('SFTP_ROOT', ''),
             // 'timeout' => 30,
             // 'useAgent' => true,
-            'url'      => env('SFTP_BASE_URL'),
+            'url' => env('SFTP_BASE_URL'),
         ],
 
     ],

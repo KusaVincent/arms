@@ -21,27 +21,27 @@ class AmenityResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make()
-                ->schema([
-                    Forms\Components\Section::make('')
-                        ->schema([
-                            Forms\Components\TextInput::make('amenity_name')
-                                ->required()
-                                ->label('Name'),
-                            Forms\Components\TextInput::make('amenity_icon')
-                                ->required()
-                                ->label('Icon'),
-                            Forms\Components\TextInput::make('amenity_icon_color')
-                                ->required()
-                                ->label('Color'),
-                        ])->columnSpan(3)->columns(3),
-                    Forms\Components\Section::make('')
-                        ->schema([
-                            Forms\Components\MarkdownEditor::make('amenity_description')
-                                ->required()
-                                ->maxLength(255)
-                                ->label('Description'),
-                        ])->columnSpan(3),
-                ]),
+                    ->schema([
+                        Forms\Components\Section::make('')
+                            ->schema([
+                                Forms\Components\TextInput::make('amenity_name')
+                                    ->required()
+                                    ->label('Name'),
+                                Forms\Components\TextInput::make('amenity_icon')
+                                    ->required()
+                                    ->label('Icon'),
+                                Forms\Components\TextInput::make('amenity_icon_color')
+                                    ->required()
+                                    ->label('Color'),
+                            ])->columnSpan(3)->columns(3),
+                        Forms\Components\Section::make('')
+                            ->schema([
+                                Forms\Components\MarkdownEditor::make('amenity_description')
+                                    ->required()
+                                    ->maxLength(255)
+                                    ->label('Description'),
+                            ])->columnSpan(3),
+                    ]),
             ]);
     }
 

@@ -22,36 +22,36 @@ class TenantResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make()
-                ->schema([
-                    Forms\Components\Section::make()
-                        ->schema([
-                            Forms\Components\TextInput::make('first_name')
-                                ->required(),
-                            Forms\Components\TextInput::make('middle_name'),
-                            Forms\Components\TextInput::make('last_name')
-                                ->required(),
-                        ])->columns(3),
-                    Forms\Components\Section::make()
-                        ->schema([
-                            Forms\Components\TextInput::make('email')
-                                ->email()
-                                ->required()
-                                ->unique(ignoreRecord: true),
-                            Forms\Components\TextInput::make('phone')
-                                ->tel()
-                                ->required(),
-                            Forms\Components\TextInput::make('password')
-                                ->visible(fn ($livewire): bool => $livewire instanceof CreateRecord)
-                                ->password()
-                                ->required()
-                                ->confirmed(),
-                            Forms\Components\TextInput::make('password_confirmation')
-                                ->visible(fn ($livewire): bool => $livewire instanceof CreateRecord)
-                                ->password()
-                                ->required()
-                                ->dehydrated(false),
-                        ])->columns(),
-                ]),
+                    ->schema([
+                        Forms\Components\Section::make()
+                            ->schema([
+                                Forms\Components\TextInput::make('first_name')
+                                    ->required(),
+                                Forms\Components\TextInput::make('middle_name'),
+                                Forms\Components\TextInput::make('last_name')
+                                    ->required(),
+                            ])->columns(3),
+                        Forms\Components\Section::make()
+                            ->schema([
+                                Forms\Components\TextInput::make('email')
+                                    ->email()
+                                    ->required()
+                                    ->unique(ignoreRecord: true),
+                                Forms\Components\TextInput::make('phone')
+                                    ->tel()
+                                    ->required(),
+                                Forms\Components\TextInput::make('password')
+                                    ->visible(fn ($livewire): bool => $livewire instanceof CreateRecord)
+                                    ->password()
+                                    ->required()
+                                    ->confirmed(),
+                                Forms\Components\TextInput::make('password_confirmation')
+                                    ->visible(fn ($livewire): bool => $livewire instanceof CreateRecord)
+                                    ->password()
+                                    ->required()
+                                    ->dehydrated(false),
+                            ])->columns(),
+                    ]),
             ]);
     }
 

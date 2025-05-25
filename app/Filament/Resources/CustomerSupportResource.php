@@ -43,7 +43,7 @@ class CustomerSupportResource extends Resource
                                     ->minLength(10)
                                     ->maxLength(12)
                                     ->label('Phone Number'),
-                                Forms\Components\MarkdownEditor::make('reply')
+                                Forms\Components\MarkdownEditor::make('reply'),
                             ])->columnSpan(1),
                     ])->columns(),
             ]);

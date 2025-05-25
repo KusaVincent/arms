@@ -14,6 +14,7 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  * @property mixed $middle_name
  * @property mixed $last_name
  * @property mixed $first_name
+ *
  * @template TFactory of Factory
  *
  * @mixin Model
@@ -42,6 +43,6 @@ final class Tenant extends Model
 
     public function getFullnameAttribute(): string
     {
-        return $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name;
+        return $this->first_name.' '.$this->middle_name.' '.$this->last_name;
     }
 }
