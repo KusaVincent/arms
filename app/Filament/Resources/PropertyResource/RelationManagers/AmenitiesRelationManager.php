@@ -15,14 +15,16 @@ class AmenitiesRelationManager extends RelationManager
     public function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\TextInput::make('amenity_name')
-                    ->required()
-                    ->columns(3),
-                Forms\Components\MarkdownEditor::make('amenity_description')
-                    ->required()
-                    ->columnSpan(3)
-                    ->maxLength(255),
+            ->schema([ Forms\Components\Section::make()
+                ->schema([
+                    Forms\Components\TextInput::make('amenity_name')
+                        ->required()
+                        ->label('Name'),
+                    Forms\Components\MarkdownEditor::make('amenity_description')
+                        ->required()
+                        ->maxLength(255)
+                        ->label('Description'),
+                ]),
             ]);
     }
 
