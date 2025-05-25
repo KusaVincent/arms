@@ -20,24 +20,32 @@ class CustomerSupportResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->minLength(3),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required(),
-                Forms\Components\TextInput::make('subject')
-                    ->required(),
-                Forms\Components\TextInput::make('phone_number')
-                    ->tel()
-                    ->required()
-                    ->minLength(10)
-                    ->maxLength(12),
-                Forms\Components\MarkdownEditor::make('message')
-                    ->required()
-                    ->columnSpanFull(),
-                Forms\Components\MarkdownEditor::make('reply')
-                    ->columnSpanFull(),
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\Section::make()
+                            ->schema([
+                                Forms\Components\TextInput::make('name')
+                                    ->required()
+                                    ->minLength(3),
+                                Forms\Components\TextInput::make('email')
+                                    ->email()
+                                    ->required(),
+                                Forms\Components\MarkdownEditor::make('message')
+                                    ->required(),
+                            ])->columnSpan(1),
+                        Forms\Components\Section::make()
+                            ->schema([
+                                Forms\Components\TextInput::make('subject')
+                                    ->required(),
+                                Forms\Components\TextInput::make('phone_number')
+                                    ->tel()
+                                    ->required()
+                                    ->minLength(10)
+                                    ->maxLength(12)
+                                    ->label('Phone Number'),
+                                Forms\Components\MarkdownEditor::make('reply')
+                            ])->columnSpan(1),
+                    ])->columns(),
             ]);
     }
 
@@ -59,9 +67,13 @@ class CustomerSupportResource extends Resource
                 Tables\Columns\TextColumn::make('reply')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->label('Added On')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->label('Date Updated')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -89,8 +101,8 @@ class CustomerSupportResource extends Resource
     {
         return [
             'index' => Pages\ListCustomerSupports::route('/'),
-            //            'create' => Pages\CreateCustomerSupport::route('/create'),
-            //            'edit' => Pages\EditCustomerSupport::route('/{record}/edit'),
+            'create' => Pages\CreateCustomerSupport::route('/create'),
+            'edit' => Pages\EditCustomerSupport::route('/{record}/edit'),
         ];
     }
 }

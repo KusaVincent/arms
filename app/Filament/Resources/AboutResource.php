@@ -20,13 +20,14 @@ class AboutResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->columnSpanFull(),
-                Forms\Components\MarkdownEditor::make('content')
-                    ->required()
-                    ->columnSpanFull()
-                    ->maxLength(255),
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('title')
+                            ->required(),
+                        Forms\Components\MarkdownEditor::make('content')
+                            ->required()
+                            ->maxLength(255),
+                    ])
             ]);
     }
 
@@ -41,9 +42,13 @@ class AboutResource extends Resource
                     ->searchable()
                     ->limit(30),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->label('Added On')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->label('Date Updated')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -71,8 +76,8 @@ class AboutResource extends Resource
     {
         return [
             'index' => Pages\ListAbouts::route('/'),
-            //            'create' => Pages\CreateAbout::route('/create'),
-            //            'edit' => Pages\EditAbout::route('/{record}/edit'),
+            'create' => Pages\CreateAbout::route('/create'),
+            'edit' => Pages\EditAbout::route('/{record}/edit'),
         ];
     }
 }

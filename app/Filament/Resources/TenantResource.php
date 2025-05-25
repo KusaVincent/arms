@@ -6,6 +6,7 @@ use App\Filament\Resources\TenantResource\Pages;
 use App\Models\Tenant;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -20,26 +21,37 @@ class TenantResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('first_name')
-                    ->required(),
-                Forms\Components\TextInput::make('middle_name'),
-                Forms\Components\TextInput::make('last_name')
-                    ->required(),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->unique(ignoreRecord: true),
-                Forms\Components\TextInput::make('phone')
-                    ->tel()
-                    ->required(),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->required()
-                    ->confirmed(),
-                Forms\Components\TextInput::make('password_confirmation')
-                    ->password()
-                    ->required()
-                    ->dehydrated(false),
+                Forms\Components\Section::make()
+                ->schema([
+                    Forms\Components\Section::make()
+                        ->schema([
+                            Forms\Components\TextInput::make('first_name')
+                                ->required(),
+                            Forms\Components\TextInput::make('middle_name'),
+                            Forms\Components\TextInput::make('last_name')
+                                ->required(),
+                        ])->columns(3),
+                    Forms\Components\Section::make()
+                        ->schema([
+                            Forms\Components\TextInput::make('email')
+                                ->email()
+                                ->required()
+                                ->unique(ignoreRecord: true),
+                            Forms\Components\TextInput::make('phone')
+                                ->tel()
+                                ->required(),
+                            Forms\Components\TextInput::make('password')
+                                ->visible(fn ($livewire): bool => $livewire instanceof CreateRecord)
+                                ->password()
+                                ->required()
+                                ->confirmed(),
+                            Forms\Components\TextInput::make('password_confirmation')
+                                ->visible(fn ($livewire): bool => $livewire instanceof CreateRecord)
+                                ->password()
+                                ->required()
+                                ->dehydrated(false),
+                        ])->columns(),
+                ]),
             ]);
     }
 
@@ -53,9 +65,13 @@ class TenantResource extends Resource
                 Tables\Columns\TextColumn::make('email'),
                 Tables\Columns\TextColumn::make('phone'),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->label('Added On')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->label('Date Updated')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

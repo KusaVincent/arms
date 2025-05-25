@@ -20,14 +20,18 @@ class LocationResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('address')
-                    ->required(),
-                Forms\Components\TextInput::make('town_city')
-                    ->required(),
-                Forms\Components\TextInput::make('area')
-                    ->required(),
-                Forms\Components\TextInput::make('map')
-                    ->required(),
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('town_city')
+                            ->required(),
+                        Forms\Components\TextInput::make('area')
+                            ->required(),
+                        Forms\Components\TextInput::make('address')
+                            ->required(),
+                        Forms\Components\TextInput::make('map')
+                            ->required()
+                            ->label('Map Link'),
+                    ])->columns(),
             ]);
     }
 
@@ -35,19 +39,24 @@ class LocationResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('town_city')
+                    ->searchable()
+                    ->label('Town City'),
+                Tables\Columns\TextColumn::make('area')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('address')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('town_city')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('area')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('map')
-                    ->limit(20),
+                    ->limit(30),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->label('Added On')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->label('Date Updated')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -75,8 +84,8 @@ class LocationResource extends Resource
     {
         return [
             'index' => Pages\ListLocations::route('/'),
-            //            'create' => Pages\CreateLocation::route('/create'),
-            //            'edit' => Pages\EditLocation::route('/{record}/edit'),
+            'create' => Pages\CreateLocation::route('/create'),
+            'edit' => Pages\EditLocation::route('/{record}/edit'),
         ];
     }
 }

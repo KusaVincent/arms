@@ -26,8 +26,8 @@ return new class extends Migration
             $table->text('description');
             $table->enum('status',
                 ['Pending', 'In Progress', 'Completed']);
-            $table->date('request_date');
-            $table->date('completion_date')->nullable();
+            $table->dateTime('request_date');
+            $table->dateTime('completion_date')->nullable();
             $table->timestamps();
         });
     }

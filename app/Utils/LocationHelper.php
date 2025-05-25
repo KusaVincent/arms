@@ -42,34 +42,4 @@ class LocationHelper
             ])),
         ])->toArray();
     }
-
-    /**
-     * Format location details as a single string.
-     */
-    public static function formatLocation($location): ?string
-    {
-        $parts = [];
-        if ($location?->town_city) {
-            $parts[] = $location->town_city;
-        }
-        if ($location?->area) {
-            $parts[] = $location->area;
-        }
-        if ($location?->address) {
-            $parts[] = $location->address;
-        }
-
-        return $parts === [] ? null : implode(', ', $parts);
-    }
-
-    /**
-     * Apply a search query to the location relationship.
-     */
-    public static function applyLocationSearch(Builder $query, string $search): Builder
-    {
-        return $query
-            ->orWhereRelation('location', 'town_city', 'like', "%{$search}%")
-            ->orWhereRelation('location', 'area', 'like', "%{$search}%")
-            ->orWhereRelation('location', 'address', 'like', "%{$search}%");
-    }
 }

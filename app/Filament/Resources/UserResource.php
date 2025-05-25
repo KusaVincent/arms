@@ -6,6 +6,8 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\Pages\CreateRecord;
+use Filament\Resources\Pages\ViewRecord;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -20,20 +22,25 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required(),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->unique(ignoreRecord: true),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->required()
-                    ->confirmed(),
-                Forms\Components\TextInput::make('password_confirmation')
-                    ->password()
-                    ->required()
-                    ->dehydrated(false),
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->required(),
+                        Forms\Components\TextInput::make('email')
+                            ->email()
+                            ->required()
+                            ->unique(ignoreRecord: true),
+                        Forms\Components\TextInput::make('password')
+                            ->password()
+                            ->required()
+                            ->confirmed()
+                            ->visible(fn ($livewire): bool => $livewire instanceof CreateRecord),
+                        Forms\Components\TextInput::make('password_confirmation')
+                            ->password()
+                            ->required()
+                            ->dehydrated(false)
+                            ->visible(fn ($livewire): bool => $livewire instanceof CreateRecord),
+                    ])->columns(),
             ]);
     }
 
@@ -44,9 +51,13 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('email'),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->toggleable()
+                    ->label('Added On'),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->toggleable()
+                    ->label('Date Updated'),
             ])
             ->filters([
                 //

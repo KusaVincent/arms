@@ -7,6 +7,7 @@ use App\Filament\Resources\MaintenanceResource\Pages;
 use App\Models\Maintenance;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\Pages\ViewRecord;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -21,26 +22,39 @@ class MaintenanceResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('property_id')
-                    ->required()
-                    ->searchable()
-                    ->relationship('property', 'name'),
-                Forms\Components\Select::make('tenant_id')
-                    ->required()
-                    ->searchable()
-                    ->relationship('tenant', 'first_name'),
-                Forms\Components\MarkdownEditor::make('description')
-                    ->required(),
-                Forms\Components\Select::make('status')
-                    ->native(false)
-                    ->options(MaintenanceStatus::class)
-                    ->default(MaintenanceStatus::PENDING),
-                Forms\Components\DatePicker::make('request_date')
-                    ->date()
-                    ->required(),
-                Forms\Components\DatePicker::make('completion_date')
-                    ->date()
-                    ->required(),
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\Section::make()
+                            ->schema([
+                                Forms\Components\Select::make('property_id')
+                                    ->required()
+                                    ->searchable()
+                                    ->relationship('property', 'name'),
+                                Forms\Components\Select::make('tenant_id')
+                                    ->required()
+                                    ->searchable()
+                                    ->relationship('tenant', 'first_name'),
+                                Forms\Components\Select::make('status')
+                                    ->native(false)
+                                    ->options(MaintenanceStatus::class)
+                                    ->default(MaintenanceStatus::PENDING),
+                            ])->columns(3),
+                        Forms\Components\Section::make()
+                            ->schema([
+                                Forms\Components\DatePicker::make('request_date')
+                                    ->date()
+                                    ->required(),
+                                Forms\Components\DatePicker::make('completion_date')
+                                    ->date()
+                                    ->required(),
+                            ])->columns()
+                            ->visible(fn ($livewire): bool => $livewire instanceof ViewRecord),
+                        Forms\Components\Section::make()
+                            ->schema([
+                                Forms\Components\MarkdownEditor::make('description')
+                                    ->required(),
+                            ]),
+                    ]),
             ]);
     }
 
@@ -61,13 +75,22 @@ class MaintenanceResource extends Resource
                     ->searchable()
                     ->limit(10),
                 Tables\Columns\TextColumn::make('request_date')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('completion_date')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->sortable()
+                    ->label('Added On')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->sortable()
+                    ->label('Date Updated')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -95,8 +118,8 @@ class MaintenanceResource extends Resource
     {
         return [
             'index' => Pages\ListMaintenances::route('/'),
-            //            'create' => Pages\CreateMaintenance::route('/create'),
-            //            'edit' => Pages\EditMaintenance::route('/{record}/edit'),
+            'create' => Pages\CreateMaintenance::route('/create'),
+            'edit' => Pages\EditMaintenance::route('/{record}/edit'),
         ];
     }
 }

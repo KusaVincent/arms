@@ -21,13 +21,24 @@ class ServiceAvailabilityResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('service_name')
-                    ->required(),
-                Forms\Components\TextInput::make('service_key')
-                    ->required(),
-                Forms\Components\Select::make('is_active')
-                    ->default(ActiveServiceAvailability::NO)
-                    ->options(ActiveServiceAvailability::class),
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('service_name')
+                            ->required()
+                            ->label('Service Name'),
+                        Forms\Components\Section::make()
+                            ->description('This field is what is used by the system to check if service is active or not')
+                            ->schema([
+                                Forms\Components\TextInput::make('service_key')
+                                    ->required()
+                                    ->unique(ignoreRecord: true)
+                                    ->label('Service Key'),
+                            ]),
+                        Forms\Components\Select::make('is_active')
+                            ->label('Active')
+                            ->default(ActiveServiceAvailability::NO)
+                            ->options(ActiveServiceAvailability::class),
+                    ]),
             ]);
     }
 
@@ -35,16 +46,23 @@ class ServiceAvailabilityResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('service_name'),
-                Tables\Columns\TextColumn::make('service_key'),
+                Tables\Columns\TextColumn::make('service_name')
+                    ->label('Service'),
+                Tables\Columns\TextColumn::make('service_key')
+                    ->label('Key'),
                 Tables\Columns\TextColumn::make('is_active')
                     ->badge()
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->label('Active'),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->label('Added On')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->label('Date Updated')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -72,8 +90,8 @@ class ServiceAvailabilityResource extends Resource
     {
         return [
             'index' => Pages\ListServiceAvailabilities::route('/'),
-            'create' => Pages\CreateServiceAvailability::route('/create'),
-            'edit' => Pages\EditServiceAvailability::route('/{record}/edit'),
+//            'create' => Pages\CreateServiceAvailability::route('/create'),
+//            'edit' => Pages\EditServiceAvailability::route('/{record}/edit'),
         ];
     }
 }

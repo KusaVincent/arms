@@ -26,46 +26,61 @@ class PropertyMediaResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('property_id')
-                    ->required()
-                    ->searchable()
-                    ->columnSpanFull()
-                    ->relationship('property', 'name'),
-                Forms\Components\FileUpload::make('image_one')
-                    ->image()
-                    ->required()
-                    ->maxSize(self::$imageMaxSize)
-                    ->directory(self::$directoryPath)
-                    ->imagePreviewHeight(self::$imagePreviewHeight),
-                Forms\Components\FileUpload::make('image_two')
-                    ->image()
-                    ->maxSize(self::$imageMaxSize)
-                    ->directory(self::$directoryPath)
-                    ->imagePreviewHeight(self::$imagePreviewHeight),
-                Forms\Components\FileUpload::make('image_three')
-                    ->image()
-                    ->maxSize(self::$imageMaxSize)
-                    ->directory(self::$directoryPath)
-                    ->imagePreviewHeight(self::$imagePreviewHeight),
-                Forms\Components\FileUpload::make('image_four')
-                    ->image()
-                    ->maxSize(self::$imageMaxSize)
-                    ->directory(self::$directoryPath)
-                    ->imagePreviewHeight(self::$imagePreviewHeight),
-                Forms\Components\FileUpload::make('image_five')
-                    ->image()
-                    ->maxSize(self::$imageMaxSize)
-                    ->directory(self::$directoryPath)
-                    ->imagePreviewHeight(self::$imagePreviewHeight),
-                Forms\Components\FileUpload::make('video')
-                    ->reactive()
-                    ->maxSize(51200)
-                    ->directory(self::$directoryPath)
-                    ->acceptedFileTypes(['video/mp4', 'video/avi', 'video/mkv'])
-                    ->helperText(fn ($state) => $state
-                        ? '<video controls width="300"><source src="'.asset(self::$directoryPath.$state).'" type="video/mp4"></video>'
-                        : null
-                    ),
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\Section::make()
+                            ->schema([
+                                Forms\Components\Select::make('property_id')
+                                    ->required()
+                                    ->searchable()
+                                    ->columnSpanFull()
+                                    ->relationship('property', 'name'),
+                            ]),
+                        Forms\Components\Section::make()
+                            ->schema([
+                                Forms\Components\FileUpload::make('image_one')
+                                    ->image()
+                                    ->required()
+                                    ->maxSize(self::$imageMaxSize)
+                                    ->directory(self::$directoryPath)
+                                    ->imagePreviewHeight(self::$imagePreviewHeight),
+                                Forms\Components\FileUpload::make('image_two')
+                                    ->image()
+                                    ->maxSize(self::$imageMaxSize)
+                                    ->directory(self::$directoryPath)
+                                    ->imagePreviewHeight(self::$imagePreviewHeight),
+                            ])->columns(),
+                        Forms\Components\Section::make()
+                            ->schema([
+                                Forms\Components\FileUpload::make('image_three')
+                                    ->image()
+                                    ->maxSize(self::$imageMaxSize)
+                                    ->directory(self::$directoryPath)
+                                    ->imagePreviewHeight(self::$imagePreviewHeight),
+                                Forms\Components\FileUpload::make('image_four')
+                                    ->image()
+                                    ->maxSize(self::$imageMaxSize)
+                                    ->directory(self::$directoryPath)
+                                    ->imagePreviewHeight(self::$imagePreviewHeight),
+                            ])->columns(),
+                        Forms\Components\Section::make()
+                            ->schema([
+                                Forms\Components\FileUpload::make('image_five')
+                                    ->image()
+                                    ->maxSize(self::$imageMaxSize)
+                                    ->directory(self::$directoryPath)
+                                    ->imagePreviewHeight(self::$imagePreviewHeight),
+                                Forms\Components\FileUpload::make('video')
+                                    ->reactive()
+                                    ->maxSize(51200)
+                                    ->directory(self::$directoryPath)
+                                    ->acceptedFileTypes(['video/mp4', 'video/avi', 'video/mkv'])
+                                    ->helperText(fn ($state) => $state
+                                        ? '<video controls width="300"><source src="'.asset(self::$directoryPath.$state).'" type="video/mp4"></video>'
+                                        : null
+                                    ),
+                            ])->columns(),
+                    ]),
             ]);
     }
 
@@ -82,9 +97,13 @@ class PropertyMediaResource extends Resource
                 Tables\Columns\ImageColumn::make('image_four'),
                 Tables\Columns\ImageColumn::make('image_five'),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->label('Added On')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->label('Date Updated')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

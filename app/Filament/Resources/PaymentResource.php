@@ -24,23 +24,30 @@ class PaymentResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('lease_agreement_id')
-                    ->required()
-                    ->searchable()
-                    ->relationship('leaseAgreement.tenant', 'last_name'),
-                Forms\Components\TextInput::make('payment_method')
-                    ->required(),
-                Forms\Components\TextInput::make('payment_amount')
-                    ->required()
-                    ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
-                            ? SanitizationHelper::stripFormatting($state)
-                            : $state
-                    )
-                    ->dehydrateStateUsing(fn ($state) => $state)
-                    ->rules(fn ($livewire): array => $livewire instanceof ViewRecord ? [] : ['numeric']),
-                Forms\Components\DatePicker::make('payment_date')
-                    ->date()
-                    ->required(),
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\Select::make('lease_agreement_id')
+                            ->required()
+                            ->searchable()
+                            ->label('Lease Agreement')
+                            ->relationship('leaseAgreement.tenant', 'last_name'),
+                        Forms\Components\TextInput::make('payment_method')
+                            ->required()
+                            ->label('Payment Method'),
+                        Forms\Components\TextInput::make('payment_amount')
+                            ->required()
+                            ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
+                                ? SanitizationHelper::stripFormatting($state)
+                                : $state
+                            )
+                            ->label('Payment Amount')
+                            ->dehydrateStateUsing(fn ($state) => $state)
+                            ->rules(fn ($livewire): array => $livewire instanceof ViewRecord ? [] : ['numeric']),
+                        Forms\Components\DatePicker::make('payment_date')
+                            ->date()
+                            ->required()
+                            ->label('Payment Date'),
+                    ])->columns(),
             ]);
     }
 
@@ -70,9 +77,13 @@ class PaymentResource extends Resource
                     ->searchable()
                     ->label('Payment Date'),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->label('Added On')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->label('Date Updated')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -100,8 +111,8 @@ class PaymentResource extends Resource
     {
         return [
             'index' => Pages\ListPayments::route('/'),
-            //            'create' => Pages\CreatePayment::route('/create'),
-            //            'edit' => Pages\EditPayment::route('/{record}/edit'),
+            'create' => Pages\CreatePayment::route('/create'),
+            'edit' => Pages\EditPayment::route('/{record}/edit'),
         ];
     }
 }

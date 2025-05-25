@@ -21,19 +21,31 @@ class ContactResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('label')
-                    ->required(),
-                Forms\Components\TextInput::make('icon')
-                    ->required(),
-                Forms\Components\TextInput::make('link')
-                    ->required(),
-                Forms\Components\TextInput::make('link_text')
-                    ->required(),
-                Forms\Components\Select::make('section')
-                    ->native(false)
-                    ->default(ContactSection::ALL)
-                    ->options(ContactSection::class)
-                    ->columnSpanFull(),
+                Forms\Components\Section::make()
+                ->schema([
+                    Forms\Components\Section::make('')
+                        ->schema([
+                            Forms\Components\TextInput::make('label')
+                                ->required(),
+                            Forms\Components\TextInput::make('icon')
+                                ->required(),
+                        ])->columns(),
+                    Forms\Components\Section::make('')
+                        ->schema([
+                            Forms\Components\TextInput::make('link')
+                                ->required(),
+                            Forms\Components\TextInput::make('link_text')
+                                ->required()
+                                ->label('Link Text'),
+                        ])->columns(),
+                    Forms\Components\Section::make('')
+                        ->schema([
+                            Forms\Components\Select::make('section')
+                                ->native(false)
+                                ->default(ContactSection::ALL)
+                                ->options(ContactSection::class),
+                        ]),
+                ]),
             ]);
     }
 
@@ -58,9 +70,13 @@ class ContactResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->label('Added On')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->label('Date Updated')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -88,8 +104,8 @@ class ContactResource extends Resource
     {
         return [
             'index' => Pages\ListContacts::route('/'),
-            //            'create' => Pages\CreateContact::route('/create'),
-            //            'edit' => Pages\EditContact::route('/{record}/edit'),
+            'create' => Pages\CreateContact::route('/create'),
+            'edit' => Pages\EditContact::route('/{record}/edit'),
         ];
     }
 }

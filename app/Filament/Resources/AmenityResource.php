@@ -20,19 +20,28 @@ class AmenityResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('amenity_name')
-                    ->required()
-                    ->columns(3),
-                Forms\Components\TextInput::make('amenity_icon')
-                    ->required()
-                    ->columns(3),
-                Forms\Components\TextInput::make('amenity_icon_color')
-                    ->required()
-                    ->columns(3),
-                Forms\Components\MarkdownEditor::make('amenity_description')
-                    ->required()
-                    ->columnSpan(3)
-                    ->maxLength(255),
+                Forms\Components\Section::make()
+                ->schema([
+                    Forms\Components\Section::make('')
+                        ->schema([
+                            Forms\Components\TextInput::make('amenity_name')
+                                ->required()
+                                ->label('Name'),
+                            Forms\Components\TextInput::make('amenity_icon')
+                                ->required()
+                                ->label('Icon'),
+                            Forms\Components\TextInput::make('amenity_icon_color')
+                                ->required()
+                                ->label('Color'),
+                        ])->columnSpan(3)->columns(3),
+                    Forms\Components\Section::make('')
+                        ->schema([
+                            Forms\Components\MarkdownEditor::make('amenity_description')
+                                ->required()
+                                ->maxLength(255)
+                                ->label('Description'),
+                        ])->columnSpan(3),
+                ]),
             ]);
     }
 
@@ -51,9 +60,13 @@ class AmenityResource extends Resource
                     ->searchable()
                     ->limit(15),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->label('Added On')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->label('Date Updated')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -81,8 +94,8 @@ class AmenityResource extends Resource
     {
         return [
             'index' => Pages\ListAmenities::route('/'),
-            //            'create' => Pages\CreateAmenity::route('/create'),
-            //            'edit' => Pages\EditAmenity::route('/{record}/edit'),
+            'create' => Pages\CreateAmenity::route('/create'),
+            'edit' => Pages\EditAmenity::route('/{record}/edit'),
         ];
     }
 }

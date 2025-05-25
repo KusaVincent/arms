@@ -20,9 +20,11 @@ class PropertyTypeResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('type_name')
-                    ->required()
-                    ->columnSpanFull(),
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('type_name')
+                            ->required(),
+                    ]),
             ]);
     }
 
@@ -31,11 +33,16 @@ class PropertyTypeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('type_name')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->toggleable()
+                    ->label('Added On'),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()
+                    ->label('Date Updated')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -63,8 +70,8 @@ class PropertyTypeResource extends Resource
     {
         return [
             'index' => Pages\ListPropertyTypes::route('/'),
-            'create' => Pages\CreatePropertyType::route('/create'),
-            'edit' => Pages\EditPropertyType::route('/{record}/edit'),
+//            'create' => Pages\CreatePropertyType::route('/create'),
+//            'edit' => Pages\EditPropertyType::route('/{record}/edit'),
         ];
     }
 }
