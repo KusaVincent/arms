@@ -7,6 +7,7 @@ use App\Enums\PropertyNegotiable;
 use App\Filament\Resources\PropertyResource\Pages;
 use App\Filament\Resources\PropertyResource\RelationManagers\AmenitiesRelationManager;
 use App\Filament\Resources\PropertyResource\RelationManagers\LocationRelationManager;
+use App\Filament\Resources\PropertyResource\RelationManagers\PropertyMediaRelationManager;
 use App\Filament\Resources\PropertyResource\RelationManagers\PropertyTypeRelationManager;
 use App\Filament\ReusableResources\ReusablePropertyResource;
 use App\Models\Property;
@@ -135,6 +136,7 @@ class PropertyResource extends Resource
             AmenitiesRelationManager::class,
             LocationRelationManager::class,
             PropertyTypeRelationManager::class,
+            PropertyMediaRelationManager::class,
         ];
     }
 

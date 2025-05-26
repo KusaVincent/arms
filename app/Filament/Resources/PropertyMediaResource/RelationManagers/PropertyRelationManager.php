@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\MaintenanceResource\RelationManagers;
+namespace App\Filament\Resources\PropertyMediaResource\RelationManagers;
 
-use App\Filament\ReusableResources\ReusableTenantResource;
+use App\Filament\ReusableResources\ReusablePropertyResource;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -11,9 +11,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TenantRelationManager extends RelationManager
+class PropertyRelationManager extends RelationManager
 {
-    protected static string $relationship = 'tenant';
+    protected static string $relationship = 'property';
 
     public function form(Form $form): Form
     {
@@ -25,8 +25,8 @@ class TenantRelationManager extends RelationManager
 
     public function table(Table $table): Table
     {
-        return ReusableTenantResource::columns($table)
-            ->recordTitleAttribute('fullname')
+        return ReusablePropertyResource::columns($table)
+            ->recordTitleAttribute('name')
             ->filters([
                 //
             ])

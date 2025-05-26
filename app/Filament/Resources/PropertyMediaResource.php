@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PropertyMediaResource\Pages;
+use App\Filament\Resources\PropertyMediaResource\RelationManagers\PropertyRelationManager;
 use App\Models\PropertyMedia;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -123,7 +124,7 @@ class PropertyMediaResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PropertyRelationManager::class,
         ];
     }
 

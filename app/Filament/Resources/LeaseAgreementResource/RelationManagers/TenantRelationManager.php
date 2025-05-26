@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\LeaseAgreementResource\RelationManagers;
 
+use App\Filament\ReusableResources\ReusableTenantResource;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -24,23 +25,8 @@ class TenantRelationManager extends RelationManager
 
     public function table(Table $table): Table
     {
-        return $table
+        return ReusableTenantResource::columns($table)
             ->recordTitleAttribute('fullname')
-            ->columns([
-                Tables\Columns\TextColumn::make('fullname')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('phone'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->label('Added On')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->label('Date Updated')
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
             ->filters([
                 //
             ])

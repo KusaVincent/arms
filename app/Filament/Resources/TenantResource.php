@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TenantResource\Pages;
+use App\Filament\ReusableResources\ReusableTenantResource;
 use App\Models\Tenant;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -57,22 +58,7 @@ class TenantResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('fullname')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('phone'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->label('Added On')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->label('Date Updated')
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
+        return ReusableTenantResource::columns($table)
             ->filters([
                 //
             ])
