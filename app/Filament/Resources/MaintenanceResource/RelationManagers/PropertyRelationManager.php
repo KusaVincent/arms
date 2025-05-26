@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\LocationResource\RelationManagers;
+namespace App\Filament\Resources\MaintenanceResource\RelationManagers;
 
 use App\Filament\ReusableResources\ReusablePropertyResource;
 use Filament\Forms;
@@ -11,15 +11,17 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class PropertiesRelationManager extends RelationManager
+class PropertyRelationManager extends RelationManager
 {
-    protected static string $relationship = 'properties';
+    protected static string $relationship = 'property';
 
     public function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
             ]);
     }
 
@@ -31,15 +33,15 @@ class PropertiesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-//                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-//                Tables\Actions\EditAction::make(),
-//                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-//                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

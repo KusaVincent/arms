@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Enums\MaintenanceStatus;
 use App\Filament\Resources\MaintenanceResource\Pages;
+use App\Filament\Resources\MaintenanceResource\RelationManagers\PropertyRelationManager;
+use App\Filament\Resources\MaintenanceResource\RelationManagers\TenantRelationManager;
 use App\Models\Maintenance;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -110,7 +112,8 @@ class MaintenanceResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TenantRelationManager::class,
+            PropertyRelationManager::class,
         ];
     }
 

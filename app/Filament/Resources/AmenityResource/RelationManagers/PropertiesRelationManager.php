@@ -4,6 +4,7 @@ namespace App\Filament\Resources\AmenityResource\RelationManagers;
 
 use App\Enums\PropertyAvailable;
 use App\Enums\PropertyNegotiable;
+use App\Filament\ReusableResources\ReusablePropertyResource;
 use App\Utils\LocationHelper;
 use App\Utils\SanitizationHelper;
 use Filament\Forms;
@@ -106,46 +107,8 @@ class PropertiesRelationManager extends RelationManager
 
     public function table(Table $table): Table
     {
-        return $table
+        return ReusablePropertyResource::columns($table)
             ->recordTitleAttribute('name')
-            ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\ImageColumn::make('property_image')
-                    ->label('Image'),
-                Tables\Columns\TextColumn::make('propertyType.type_name')
-                    ->searchable()
-                    ->label('Property Type'),
-                Tables\Columns\TextColumn::make('rent')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('deposit')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('available')
-                    ->badge()
-                    ->sortable()
-                    ->searchable()
-                    ->label('Availability'),
-                Tables\Columns\TextColumn::make('negotiable')
-                    ->badge()
-                    ->sortable()
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('location.location_summary')
-                    ->limit(20)
-                    ->label('Location')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->label('Added On')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->label('Date Updated')
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
             ->filters([
                 //
             ])
