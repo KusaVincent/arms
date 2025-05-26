@@ -11,7 +11,6 @@ use App\Filament\Resources\PropertyResource\RelationManagers\PropertyMediaRelati
 use App\Filament\Resources\PropertyResource\RelationManagers\PropertyTypeRelationManager;
 use App\Filament\ReusableResources\ReusablePropertyResource;
 use App\Models\Property;
-use App\Traits\ReusablePropertyColumn;
 use App\Utils\LocationHelper;
 use App\Utils\SanitizationHelper;
 use Filament\Forms;
