@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AmenityResource\Pages;
+use App\Filament\Resources\AmenityResource\RelationManagers\PropertiesRelationManager;
 use App\Models\Amenity;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -86,7 +87,7 @@ class AmenityResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PropertiesRelationManager::class,
         ];
     }
 

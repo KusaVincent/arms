@@ -3,6 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\LeaseAgreementResource\Pages;
+use App\Filament\Resources\LeaseAgreementResource\RelationManagers\PropertyRelationManager;
+use App\Filament\Resources\LeaseAgreementResource\RelationManagers\TenantRelationManager;
 use App\Models\LeaseAgreement;
 use App\Utils\SanitizationHelper;
 use Filament\Forms;
@@ -117,7 +119,8 @@ class LeaseAgreementResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TenantRelationManager::class,
+            PropertyRelationManager::class,
         ];
     }
 

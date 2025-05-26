@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\LocationResource\Pages;
+use App\Filament\Resources\LocationResource\RelationManagers\PropertiesRelationManager;
 use App\Models\Location;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -76,7 +77,7 @@ class LocationResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PropertiesRelationManager::class,
         ];
     }
 

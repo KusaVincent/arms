@@ -1,14 +1,9 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\AmenityResource\RelationManagers;
 
 use App\Enums\PropertyAvailable;
 use App\Enums\PropertyNegotiable;
-use App\Filament\Resources\PropertyResource\Pages;
-use App\Filament\Resources\PropertyResource\RelationManagers\AmenitiesRelationManager;
-use App\Filament\Resources\PropertyResource\RelationManagers\LocationRelationManager;
-use App\Filament\Resources\PropertyResource\RelationManagers\PropertyTypeRelationManager;
-use App\Models\Property;
 use App\Utils\LocationHelper;
 use App\Utils\SanitizationHelper;
 use Filament\Forms;
@@ -16,17 +11,17 @@ use Filament\Forms\Form;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Resources\Pages\ViewRecord;
-use Filament\Resources\Resource;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class PropertyResource extends Resource
+class PropertiesRelationManager extends RelationManager
 {
-    protected static ?string $model = Property::class;
+    protected static string $relationship = 'properties';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -109,9 +104,10 @@ class PropertyResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
+            ->recordTitleAttribute('name')
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->sortable()
@@ -153,8 +149,10 @@ class PropertyResource extends Resource
             ->filters([
                 //
             ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
+            ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
@@ -163,23 +161,5 @@ class PropertyResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            AmenitiesRelationManager::class,
-            LocationRelationManager::class,
-            PropertyTypeRelationManager::class,
-        ];
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListProperties::route('/'),
-            'create' => Pages\CreateProperty::route('/create'),
-            'edit' => Pages\EditProperty::route('/{record}/edit'),
-        ];
     }
 }
