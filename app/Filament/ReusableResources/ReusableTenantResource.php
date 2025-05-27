@@ -2,7 +2,6 @@
 
 namespace App\Filament\ReusableResources;
 
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 

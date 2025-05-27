@@ -3,13 +3,10 @@
 namespace App\Filament\Resources\MaintenanceResource\RelationManagers;
 
 use App\Filament\ReusableResources\ReusablePropertyResource;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PropertyRelationManager extends RelationManager
 {
@@ -19,9 +16,7 @@ class PropertyRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
+                //
             ]);
     }
 

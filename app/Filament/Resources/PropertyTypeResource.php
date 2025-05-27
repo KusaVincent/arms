@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PropertyTypeResource\Pages;
+use App\Filament\Resources\PropertyTypeResource\RelationManagers\PropertiesRelationManager;
 use App\Models\PropertyType;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -62,7 +63,7 @@ class PropertyTypeResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PropertiesRelationManager::class,
         ];
     }
 
@@ -71,7 +72,7 @@ class PropertyTypeResource extends Resource
         return [
             'index' => Pages\ListPropertyTypes::route('/'),
             //            'create' => Pages\CreatePropertyType::route('/create'),
-            //            'edit' => Pages\EditPropertyType::route('/{record}/edit'),
+            'edit' => Pages\EditPropertyType::route('/{record}/edit'),
         ];
     }
 }

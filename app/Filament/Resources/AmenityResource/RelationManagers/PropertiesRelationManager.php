@@ -2,21 +2,11 @@
 
 namespace App\Filament\Resources\AmenityResource\RelationManagers;
 
-use App\Enums\PropertyAvailable;
-use App\Enums\PropertyNegotiable;
 use App\Filament\ReusableResources\ReusablePropertyResource;
-use App\Utils\LocationHelper;
-use App\Utils\SanitizationHelper;
-use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Pages\CreateRecord;
-use Filament\Resources\Pages\EditRecord;
-use Filament\Resources\Pages\ViewRecord;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PropertiesRelationManager extends RelationManager
 {
@@ -24,85 +14,7 @@ class PropertiesRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\Section::make()
-                    ->schema([
-                        Forms\Components\Group::make()
-                            ->schema([
-                                Forms\Components\Section::make()
-                                    ->schema([
-                                        Forms\Components\TextInput::make('name')
-                                            ->required(),
-                                        Forms\Components\Select::make('property_type_id')
-                                            ->required()
-                                            ->searchable()
-                                            ->label('Property Type')
-                                            ->relationship('propertyType', 'type_name'),
-                                    ])->columns(),
-                                Forms\Components\Section::make()
-                                    ->schema([
-                                        Forms\Components\TextInput::make('rent')
-                                            ->required()
-                                            ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
-                                                ? SanitizationHelper::stripFormatting($state)
-                                                : $state
-                                            )
-                                            ->dehydrateStateUsing(fn ($state) => $state)
-                                            ->rules(fn ($livewire): array => $livewire instanceof ViewRecord ? [] : ['numeric']),
-                                        Forms\Components\TextInput::make('deposit')
-                                            ->required()
-                                            ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
-                                                ? SanitizationHelper::stripFormatting($state)
-                                                : $state
-                                            )
-                                            ->dehydrateStateUsing(fn ($state) => $state)
-                                            ->rules(fn ($livewire): array => $livewire instanceof ViewRecord ? [] : ['numeric']),
-                                    ])->columns(),
-                                Forms\Components\Section::make()
-                                    ->schema([Forms\Components\Section::make()
-                                        ->description('Is rent negotiable or fixed?')
-                                        ->schema([
-                                            Forms\Components\Select::make('negotiable')
-                                                ->required()
-                                                ->options(PropertyNegotiable::class)
-                                                ->default(false),
-                                        ])->columnSpan(1),
-                                        Forms\Components\Section::make()
-                                            ->schema([
-                                                Forms\Components\Select::make('location_id')
-                                                    ->required()
-                                                    ->searchable()
-                                                    ->relationship('location', 'id')
-                                                    ->getOptionLabelUsing(fn ($value): ?string => LocationHelper::getFullDetails($value))
-                                                    ->getSearchResultsUsing(fn (string $search): array => LocationHelper::getSearchResults($search))
-                                                    ->options(fn (): array => LocationHelper::getOptions()),
-                                            ])->columnSpan(1),
-                                    ])->columns(),
-                            ])->columnSpan(2),
-                        Forms\Components\Group::make()
-                            ->schema([
-                                Forms\Components\Section::make()
-                                    ->schema([
-                                        Forms\Components\Select::make('available')
-                                            ->required()
-                                            ->label('Availability')
-                                            ->options(PropertyAvailable::class)
-                                            ->visible(fn ($livewire): bool => ! $livewire instanceof CreateRecord),
-                                        Forms\Components\MarkdownEditor::make('description')
-                                            ->required(),
-                                        Forms\Components\FileUpload::make('property_image')
-                                            ->image()
-                                            ->required()
-                                            ->maxSize(5120)
-                                            ->disk('sftp')
-                                            ->directory('images')
-                                            ->visibility('public')
-                                            ->imagePreviewHeight('240'),
-                                    ]),
-                            ])->columnSpan(1),
-                    ])->columns(3),
-            ]);
+        return ReusablePropertyResource::form($form);
     }
 
     public function table(Table $table): Table
@@ -113,7 +25,7 @@ class PropertiesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                //                Tables\Actions\CreateAction::make(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -121,7 +33,7 @@ class PropertiesRelationManager extends RelationManager
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    //                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

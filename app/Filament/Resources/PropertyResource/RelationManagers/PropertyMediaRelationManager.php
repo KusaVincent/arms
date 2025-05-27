@@ -2,13 +2,11 @@
 
 namespace App\Filament\Resources\PropertyResource\RelationManagers;
 
-use Filament\Forms;
+use App\Filament\ReusableResources\ReusablePropertyMediaResource;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PropertyMediaRelationManager extends RelationManager
 {
@@ -16,26 +14,18 @@ class PropertyMediaRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('image_one')
-                    ->required()
-                    ->maxLength(255),
-            ]);
+        return ReusablePropertyMediaResource::form($form);
     }
 
     public function table(Table $table): Table
     {
-        return $table
-            ->recordTitleAttribute('image_one')
-            ->columns([
-                Tables\Columns\TextColumn::make('image_one'),
-            ])
+        return ReusablePropertyMediaResource::columns($table)
+            ->recordTitleAttribute('property.name')
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                //                Tables\Actions\CreateAction::make(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -43,7 +33,7 @@ class PropertyMediaRelationManager extends RelationManager
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    //                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\LocationResource\RelationManagers;
+namespace App\Filament\Resources\PropertyTypeResource\RelationManagers;
 
 use App\Filament\ReusableResources\ReusablePropertyResource;
 use Filament\Forms\Form;
@@ -14,10 +14,7 @@ class PropertiesRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return ReusablePropertyResource::form($form);
     }
 
     public function table(Table $table): Table
@@ -31,8 +28,8 @@ class PropertiesRelationManager extends RelationManager
                 //                Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                //                Tables\Actions\EditAction::make(),
-                //                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

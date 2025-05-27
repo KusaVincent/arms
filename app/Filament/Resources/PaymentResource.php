@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Actions\AssignColor;
 use App\Filament\Resources\PaymentResource\Pages;
+use App\Filament\Resources\PaymentResource\RelationManagers\LeaseAgreementsRelationManager;
 use App\Models\Payment;
 use App\Utils\SanitizationHelper;
 use Filament\Forms;
@@ -103,7 +104,7 @@ class PaymentResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            LeaseAgreementsRelationManager::class,
         ];
     }
 

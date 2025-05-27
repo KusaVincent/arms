@@ -15,7 +15,7 @@ class AmenitiesRelationManager extends RelationManager
     public function form(Form $form): Form
     {
         return $form
-            ->schema([ Forms\Components\Section::make()
+            ->schema([Forms\Components\Section::make()
                 ->schema([
                     Forms\Components\TextInput::make('amenity_name')
                         ->required()
