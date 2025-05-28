@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
+use App\Filament\ReusableResources\ReusableUserResource;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -19,45 +20,12 @@ class UserResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\Section::make()
-                    ->schema([
-                        Forms\Components\TextInput::make('name')
-                            ->required(),
-                        Forms\Components\TextInput::make('email')
-                            ->email()
-                            ->required()
-                            ->unique(ignoreRecord: true),
-                        Forms\Components\TextInput::make('password')
-                            ->password()
-                            ->required()
-                            ->confirmed()
-                            ->visible(fn ($livewire): bool => $livewire instanceof CreateRecord),
-                        Forms\Components\TextInput::make('password_confirmation')
-                            ->password()
-                            ->required()
-                            ->dehydrated(false)
-                            ->visible(fn ($livewire): bool => $livewire instanceof CreateRecord),
-                    ])->columns(),
-            ]);
+        return ReusableUserResource::form($form);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->toggleable()
-                    ->label('Added On'),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->toggleable()
-                    ->label('Date Updated'),
-            ])
+        return ReusableUserResource::columns($table)
             ->filters([
                 //
             ])

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PropertyResource\RelationManagers;
 
+use App\Filament\ReusableResources\ReusableAmenityResource;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -30,19 +31,8 @@ class AmenitiesRelationManager extends RelationManager
 
     public function table(Table $table): Table
     {
-        return $table
+        return ReusableAmenityResource::columns($table)
             ->recordTitleAttribute('amenity_name')
-            ->columns([
-                Tables\Columns\TextColumn::make('amenity_name')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('amenity_description')
-                    ->searchable()
-                    ->limit(50),
-                Tables\Columns\TextColumn::make('pivot.created_at')
-                    ->label('Added On')
-                    ->dateTime(),
-            ])
             ->filters([
                 //
             ])

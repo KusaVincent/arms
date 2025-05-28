@@ -4,7 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PropertyResource\Pages;
 use App\Filament\Resources\PropertyResource\RelationManagers\AmenitiesRelationManager;
+use App\Filament\Resources\PropertyResource\RelationManagers\LeaseAgreementsRelationManager;
 use App\Filament\Resources\PropertyResource\RelationManagers\LocationRelationManager;
+use App\Filament\Resources\PropertyResource\RelationManagers\MaintenanceRelationManager;
 use App\Filament\Resources\PropertyResource\RelationManagers\PropertyMediaRelationManager;
 use App\Filament\Resources\PropertyResource\RelationManagers\PropertyTypeRelationManager;
 use App\Filament\ReusableResources\ReusablePropertyResource;
@@ -50,6 +52,8 @@ class PropertyResource extends Resource
             LocationRelationManager::class,
             PropertyTypeRelationManager::class,
             PropertyMediaRelationManager::class,
+            LeaseAgreementsRelationManager::class,
+            MaintenanceRelationManager::class,
         ];
     }
 

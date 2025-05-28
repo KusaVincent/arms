@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PropertyTypeResource\Pages;
 use App\Filament\Resources\PropertyTypeResource\RelationManagers\PropertiesRelationManager;
+use App\Filament\ReusableResources\ReusablePropertyTypeResource;
 use App\Models\PropertyType;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -19,32 +20,12 @@ class PropertyTypeResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\Section::make()
-                    ->schema([
-                        Forms\Components\TextInput::make('type_name')
-                            ->required(),
-                    ]),
-            ]);
+        return ReusablePropertyTypeResource::form($form);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('type_name')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->toggleable()
-                    ->label('Added On'),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->label('Date Updated')
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
+        return ReusablePropertyTypeResource::columns($table)
             ->filters([
                 //
             ])

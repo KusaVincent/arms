@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CustomerSupportResource\Pages;
+use App\Filament\ReusableResources\ReusableCustomerSupportResource;
 use App\Models\CustomerSupport;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -18,63 +19,12 @@ class CustomerSupportResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\Section::make()
-                    ->schema([
-                        Forms\Components\Section::make()
-                            ->schema([
-                                Forms\Components\TextInput::make('name')
-                                    ->required()
-                                    ->minLength(3),
-                                Forms\Components\TextInput::make('email')
-                                    ->email()
-                                    ->required(),
-                                Forms\Components\MarkdownEditor::make('message')
-                                    ->required(),
-                            ])->columnSpan(1),
-                        Forms\Components\Section::make()
-                            ->schema([
-                                Forms\Components\TextInput::make('subject')
-                                    ->required(),
-                                Forms\Components\TextInput::make('phone_number')
-                                    ->tel()
-                                    ->required()
-                                    ->minLength(10)
-                                    ->maxLength(12)
-                                    ->label('Phone Number'),
-                                Forms\Components\MarkdownEditor::make('reply'),
-                            ])->columnSpan(1),
-                    ])->columns(),
-            ]);
+        return ReusableCustomerSupportResource::form($form);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('subject')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('phone_number')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('message')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('reply')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->label('Added On')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->label('Date Updated')
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
+        return ReusableCustomerSupportResource::columns($table)
             ->filters([
                 //
             ])

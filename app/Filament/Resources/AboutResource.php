@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AboutResource\Pages;
+use App\Filament\ReusableResources\ReusableAboutResource;
 use App\Models\About;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -18,38 +19,12 @@ class AboutResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\Section::make()
-                    ->schema([
-                        Forms\Components\TextInput::make('title')
-                            ->required(),
-                        Forms\Components\MarkdownEditor::make('content')
-                            ->required()
-                            ->maxLength(255),
-                    ]),
-            ]);
+        return ReusableAboutResource::form($form);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('title')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('content')
-                    ->searchable()
-                    ->limit(30),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->label('Added On')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->label('Date Updated')
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
+        return ReusableAboutResource::columns($table)
             ->filters([
                 //
             ])

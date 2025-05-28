@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PropertyResource\RelationManagers;
 
+use App\Filament\ReusableResources\ReusablePropertyTypeResource;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
@@ -21,19 +22,8 @@ class PropertyTypeRelationManager extends RelationManager
 
     public function table(Table $table): Table
     {
-        return $table
+        return ReusablePropertyTypeResource::columns($table)
             ->recordTitleAttribute('type_name')
-            ->columns([
-                Tables\Columns\TextColumn::make('type_name'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->toggleable()
-                    ->label('Added On'),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->label('Date Updated')
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
             ->filters([
                 //
             ])

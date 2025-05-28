@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PropertyResource\RelationManagers;
 
+use App\Filament\ReusableResources\ReusableLocationResource;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
@@ -21,28 +22,8 @@ class LocationRelationManager extends RelationManager
 
     public function table(Table $table): Table
     {
-        return $table
+        return ReusableLocationResource::columns($table)
             ->recordTitleAttribute('town_city')
-            ->columns([
-                Tables\Columns\TextColumn::make('town_city')
-                    ->searchable()
-                    ->label('Town City'),
-                Tables\Columns\TextColumn::make('area')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('address')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('map')
-                    ->limit(30),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->label('Added On')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->label('Date Updated')
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
             ->filters([
                 //
             ])

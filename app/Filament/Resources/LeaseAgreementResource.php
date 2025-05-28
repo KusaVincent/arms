@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\LeaseAgreementResource\Pages;
+use App\Filament\Resources\LeaseAgreementResource\RelationManagers\PaymentsRelationManager;
 use App\Filament\Resources\LeaseAgreementResource\RelationManagers\PropertyRelationManager;
 use App\Filament\Resources\LeaseAgreementResource\RelationManagers\TenantRelationManager;
 use App\Filament\ReusableResources\ReusableLeaseAgreementResource;
@@ -46,6 +47,7 @@ class LeaseAgreementResource extends Resource
         return [
             TenantRelationManager::class,
             PropertyRelationManager::class,
+            PaymentsRelationManager::class,
         ];
     }
 
