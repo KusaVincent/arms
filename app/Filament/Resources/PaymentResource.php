@@ -2,16 +2,11 @@
 
 namespace App\Filament\Resources;
 
-use App\Actions\AssignColor;
 use App\Filament\Resources\PaymentResource\Pages;
 use App\Filament\Resources\PaymentResource\RelationManagers\LeaseAgreementsRelationManager;
 use App\Filament\ReusableResources\ReusablePaymentResource;
 use App\Models\Payment;
-use App\Utils\SanitizationHelper;
-use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Pages\EditRecord;
-use Filament\Resources\Pages\ViewRecord;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;

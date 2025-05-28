@@ -6,7 +6,6 @@ use App\Filament\Resources\PropertyTypeResource\Pages;
 use App\Filament\Resources\PropertyTypeResource\RelationManagers\PropertiesRelationManager;
 use App\Filament\ReusableResources\ReusablePropertyTypeResource;
 use App\Models\PropertyType;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;

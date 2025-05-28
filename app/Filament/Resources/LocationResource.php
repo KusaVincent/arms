@@ -6,7 +6,6 @@ use App\Filament\Resources\LocationResource\Pages;
 use App\Filament\Resources\LocationResource\RelationManagers\PropertiesRelationManager;
 use App\Filament\ReusableResources\ReusableLocationResource;
 use App\Models\Location;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
