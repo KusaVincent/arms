@@ -11,6 +11,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
+/**
+ * @method static create()
+ */
 final class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */

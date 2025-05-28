@@ -22,4 +22,9 @@ final class Payment extends Model
     {
         return $this->belongsTo(LeaseAgreement::class);
     }
+
+    public function paymentMethod(): BelongsTo
+    {
+        return $this->belongsTo(PaymentMethod::class);
+    }
 }

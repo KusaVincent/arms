@@ -6,6 +6,7 @@ namespace Database\Factories;
 
 use App\Models\LeaseAgreement;
 use App\Models\Payment;
+use App\Models\PaymentMethod;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +24,7 @@ final class PaymentFactory extends Factory
         return [
             'payment_date' => $this->faker->dateTimeBetween('-1 year'),
             'payment_amount' => $this->faker->numberBetween(500, 5000),
-            'payment_method' => $this->faker->randomElement(['Cash', 'Card', 'Bank Transfer', 'M-Pesa']),
+            'payment_method_id' => PaymentMethod::inRandomOrder()->first()->id ?? PaymentMethod::factory(),
             'lease_agreement_id' => LeaseAgreement::inRandomOrder()->first()->id ?? LeaseAgreement::factory(),
         ];
     }

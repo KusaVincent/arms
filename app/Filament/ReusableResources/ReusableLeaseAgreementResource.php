@@ -76,7 +76,8 @@ class ReusableLeaseAgreementResource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('lease_end_date')
                     ->dateTime()
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('rent_amount')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('deposit_amount')

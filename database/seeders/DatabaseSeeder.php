@@ -18,10 +18,12 @@ final class DatabaseSeeder extends Seeder
             FounderSeeder::class,
             ContactSeeder::class,
             AmenitySeeder::class,
+            PaymentMethodSeeder::class,
         ]);
 
         if (! app()->isProduction()) {
             $this->call([
+                UserSeeder::class,
                 PropertyTypeSeeder::class,
                 LocationSeeder::class,
                 PropertySeeder::class,

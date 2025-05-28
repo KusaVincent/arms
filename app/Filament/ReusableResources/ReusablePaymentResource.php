@@ -24,9 +24,10 @@ class ReusablePaymentResource
                             ->searchable()
                             ->label('Lease Agreement')
                             ->relationship('leaseAgreement.tenant', 'last_name'),
-                        Forms\Components\TextInput::make('payment_method')
+                        Forms\Components\Select::make('payment_method')
                             ->required()
-                            ->label('Payment Method'),
+                            ->label('Payment Method')
+                            ->relationship('paymentMethod', 'name'),
                         Forms\Components\TextInput::make('payment_amount')
                             ->required()
                             ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
@@ -55,7 +56,7 @@ class ReusablePaymentResource
                 Tables\Columns\TextColumn::make('leaseAgreement.property.name')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('payment_method')
+                Tables\Columns\TextColumn::make('paymentMethod.name')
                     ->badge()
                     ->sortable()
                     ->searchable()
