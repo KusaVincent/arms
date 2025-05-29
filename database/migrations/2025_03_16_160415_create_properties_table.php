@@ -17,6 +17,10 @@ return new class extends Migration
     {
         Schema::create('properties', function (Blueprint $table): void {
             $table->id();
+            $table->string('slug')
+                ->unique()
+                ->index()
+                ->nullable();
             $table->foreignIdFor(PropertyType::class)
                 ->constrained()
                 ->cascadeOnDelete();
@@ -28,7 +32,8 @@ return new class extends Migration
             $table->text('property_image');
             $table->integer('rent');
             $table->integer('deposit');
-            $table->boolean('available');
+            $table->boolean('available')
+                ->index();
             $table->boolean('negotiable');
             $table->timestamps();
         });

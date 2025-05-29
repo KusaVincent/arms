@@ -7,6 +7,8 @@ namespace App\Models;
 use App\Casts\PaymentCast;
 use App\Enums\PropertyAvailable;
 use App\Enums\PropertyNegotiable;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableObserver;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,6 +29,7 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  * @property mixed $location
  * @property mixed $created_at
  * @property mixed $rent
+ * @property mixed $name
  *
  * @method static findOrFail($id)
  * @method static where(string $string, $propertyType)
@@ -36,7 +39,7 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  */
 final class Property extends Model
 {
-    use HasFactory, KeepsDeletedModels, Searchable;
+    use HasFactory, KeepsDeletedModels, Searchable, Sluggable;
 
     protected $casts = [
         'rent' => PaymentCast::class,
@@ -54,6 +57,15 @@ final class Property extends Model
     private function isAvailable(Builder $query): void
     {
         $query->where('available', true);
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => ['slug_name']
+            ]
+        ];
     }
 
     /**
@@ -126,6 +138,11 @@ final class Property extends Model
     public function getNameAttribute($value): string
     {
         return ucwords((string) $value);
+    }
+
+    public function getSlugNameAttribute(): string
+    {
+        return $this->propertyType->type_name . ' ' . $this->name . ' ' . $this->location->area;
     }
 
     public function setNameAttribute($value): void
