@@ -90,7 +90,6 @@ class ReusablePropertyResource
                                             ->image()
                                             ->required()
                                             ->maxSize(5120)
-                                            ->disk('sftp')
                                             ->directory('images')
                                             ->visibility('public')
                                             ->imagePreviewHeight('240'),

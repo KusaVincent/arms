@@ -53,8 +53,7 @@ final class Property extends Model
         'negotiable' => PropertyNegotiable::NO,
     ];
 
-    #[Scope]
-    private function isAvailable(Builder $query): void
+    public function scopeIsAvailable(Builder $query): void
     {
         $query->where('available', true);
     }
