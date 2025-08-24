@@ -8,8 +8,6 @@ use App\Casts\PaymentCast;
 use App\Enums\PropertyAvailable;
 use App\Enums\PropertyNegotiable;
 use Cviebrock\EloquentSluggable\Sluggable;
-use Cviebrock\EloquentSluggable\SluggableObserver;
-use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -52,11 +50,6 @@ final class Property extends Model
         'available' => PropertyAvailable::YES,
         'negotiable' => PropertyNegotiable::NO,
     ];
-
-    public function scopeIsAvailable(Builder $query): void
-    {
-        $query->where('available', true);
-    }
 
     public function sluggable(): array
     {
@@ -148,4 +141,10 @@ final class Property extends Model
     {
         $this->attributes['name'] = ucwords((string) $value);
     }
+
+    public function scopeIsAvailable(Builder $query): void
+    {
+        $query->where('available', true);
+    }
+
 }
