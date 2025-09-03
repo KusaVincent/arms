@@ -24,7 +24,7 @@ final class ContactFactory extends Factory
             'link' => $this->faker->sentence,
             'label' => $this->faker->sentence,
             'link_text' => $this->faker->sentence,
-            'section' => $this->faker->randomElement(['footer', 'contact', 'all']),
+            'section' => $this->faker->randomElement([0, 1, 2]),
         ];
     }
 }

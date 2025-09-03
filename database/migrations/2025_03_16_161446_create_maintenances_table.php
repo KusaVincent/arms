@@ -24,10 +24,11 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
             $table->text('description');
-            $table->enum('status',
-                ['Pending', 'In Progress', 'Completed']);
-            $table->dateTime('request_date');
-            $table->dateTime('completion_date')->nullable();
+            $table->smallInteger('status')
+                ->default(0);
+            $table->date('request_date');
+            $table->date('completion_date')
+                ->nullable();
             $table->timestamps();
         });
     }

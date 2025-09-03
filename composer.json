@@ -8,9 +8,9 @@
     "require": {
         "php": "^8.2",
         "cviebrock/eloquent-sluggable": "^12.0",
-        "filament/filament": "3.3",
+        "filament/filament": "~4.0",
         "laravel/framework": "^12.0",
-        "laravel/scout": "^10.14",
+        "laravel/scout": "^10.18",
         "laravel/tinker": "^2.10.1",
         "league/flysystem-sftp-v3": "3.0",
         "livewire/livewire": "^3.6",
@@ -50,7 +50,9 @@
             "@php artisan filament:upgrade"
         ],
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "@clear-caches",
+            "@run-tools"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
@@ -63,6 +65,11 @@
         "dev": [
             "Composer\\Config::disableProcessTimeout",
             "npx concurrently -c \"#93c5fd,#c4b5fd,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"npm run dev\" --names='server,queue,vite'"
+        ],
+        "clear-caches": "php artisan view:clear && php artisan config:clear && php artisan cache:clear && php artisan config:cache",
+        "run-tools": [
+            "./vendor/bin/pint",
+            "./vendor/bin/rector"
         ],
         "test": [
             "@php artisan config:clear --ansi",

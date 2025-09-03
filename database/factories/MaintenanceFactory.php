@@ -23,9 +23,9 @@ final class MaintenanceFactory extends Factory
     {
         return [
             'description' => $this->faker->sentence(),
+            'status' => $this->faker->randomElement([0, 1, 2]),
             'tenant_id' => Tenant::inRandomOrder()->first()->id ?? Tenant::factory(),
             'property_id' => Property::inRandomOrder()->first()->id ?? Property::factory(),
-            'status' => $this->faker->randomElement(['Pending', 'In Progress', 'Completed']),
         ];
     }
 }

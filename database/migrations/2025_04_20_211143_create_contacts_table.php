@@ -19,9 +19,7 @@ return new class extends Migration
             $table->string('icon');
             $table->string('link');
             $table->string('link_text');
-            $table->enum('section', [
-                'all', 'contact', 'footer',
-            ])->default('all');
+            $table->smallInteger('section')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

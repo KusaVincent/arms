@@ -55,8 +55,8 @@ final class Property extends Model
     {
         return [
             'slug' => [
-                'source' => ['slug_name']
-            ]
+                'source' => ['slug_name'],
+            ],
         ];
     }
 
@@ -134,7 +134,7 @@ final class Property extends Model
 
     public function getSlugNameAttribute(): string
     {
-        return $this->propertyType->type_name . ' ' . $this->name . ' ' . $this->location->area;
+        return $this->propertyType->type_name.' '.$this->name.' '.$this->location->area;
     }
 
     public function setNameAttribute($value): void
@@ -146,5 +146,4 @@ final class Property extends Model
     {
         $query->where('available', true);
     }
-
 }

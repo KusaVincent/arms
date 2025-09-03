@@ -32,9 +32,8 @@ return new class extends Migration
             $table->text('property_image');
             $table->integer('rent');
             $table->integer('deposit');
-            $table->boolean('available')
-                ->index();
-            $table->boolean('negotiable');
+            $table->smallInteger('available')->default(1);
+            $table->smallInteger('negotiable')->default(0);
             $table->timestamps();
         });
     }

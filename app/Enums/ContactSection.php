@@ -5,11 +5,11 @@ namespace App\Enums;
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
 
-enum ContactSection: string implements HasColor, HasLabel
+enum ContactSection: int implements HasColor, HasLabel
 {
-    case ALL = 'all';
-    case CONTACT = 'contact';
-    case FOOTER = 'footer';
+    case ALL = 0;
+    case CONTACT = 1;
+    case FOOTER = 2;
 
     public function getColor(): string
     {

@@ -5,11 +5,11 @@ namespace App\Enums;
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
 
-enum MaintenanceStatus: string implements HasColor, HasLabel
+enum MaintenanceStatus: int implements HasColor, HasLabel
 {
-    case PENDING = 'Pending';
-    case COMPLETED = 'Completed';
-    case IN_PROGRESS = 'In Progress';
+    case PENDING = 0;
+    case COMPLETED = 1;
+    case IN_PROGRESS = 2;
 
     public function getColor(): string
     {

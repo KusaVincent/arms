@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('phone_number');
             $table->text('reply')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 };

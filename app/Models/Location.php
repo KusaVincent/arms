@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\HigherOrderCollectionProxy;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
 /**
@@ -17,6 +18,7 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  * @property mixed $town_city
  * @property mixed $area
  * @property mixed $address
+ * @property HigherOrderCollectionProxy|mixed|null $full_details
  */
 final class Location extends Model
 {
@@ -27,8 +29,17 @@ final class Location extends Model
         return $this->hasMany(Property::class);
     }
 
-    public function getLocationSummaryAttribute(): string
+    protected static function booted(): void
     {
-        return $this->town_city.', '.$this->area.', '.$this->address;
+        Location::saving(function ($location): void {
+            $parts = array_filter([
+                trim((string) $location->town_city),
+                trim((string) $location->area),
+                trim((string) $location->address),
+            ]);
+
+            // take care of unique failure
+            $location->full_address = implode(', ', $parts);
+        });
     }
 }
