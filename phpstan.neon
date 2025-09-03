@@ -5,4 +5,4 @@ parameters:
     excludePaths:
         - vendor
         - storage
-    level: 1
+    level: 2
