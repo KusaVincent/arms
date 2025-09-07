@@ -3,10 +3,11 @@
 namespace App\Filament\Resources\LeaseAgreements\Pages;
 
 use App\Filament\Resources\LeaseAgreements\LeaseAgreementResource;
+use App\Filament\ReusableResources\EditRecordWithSanitization;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
-class EditLeaseAgreement extends EditRecord
+class EditLeaseAgreement extends EditRecordWithSanitization
 {
     protected static string $resource = LeaseAgreementResource::class;
 

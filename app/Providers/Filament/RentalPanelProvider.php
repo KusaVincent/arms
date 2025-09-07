@@ -18,45 +18,47 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Tapp\FilamentAuthenticationLog\FilamentAuthenticationLogPlugin;
 
 class RentalPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->login()
             ->default()
+            ->registration()
             ->id('rental')
             ->path('rental')
-            ->registration()
-            ->login()
-            ->colors([
-                'primary' => Color::Blue,
-            ])
             ->font('Poppins')
+            ->pages([Dashboard::class])
+            ->brandLogoHeight('3.5rem')
             ->favicon('storage/favicon.png')
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
+            ->colors(['primary' => Color::Blue])
+            ->brandLogo(asset('storage/logo/logo.png'))
+            ->darkModeBrandLogo(asset('storage/logo/logo.png'))
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
-            ->pages([
-                Dashboard::class,
-            ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->widgets([
                 AccountWidget::class,
                 FilamentInfoWidget::class,
             ])
             ->middleware([
-                EncryptCookies::class,
-                AddQueuedCookiesToResponse::class,
                 StartSession::class,
-                AuthenticateSession::class,
-                ShareErrorsFromSession::class,
+                EncryptCookies::class,
                 VerifyCsrfToken::class,
                 SubstituteBindings::class,
+                AuthenticateSession::class,
+                ShareErrorsFromSession::class,
+                AddQueuedCookiesToResponse::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])->plugins([
+                FilamentAuthenticationLogPlugin::make(),
             ]);
     }
 }

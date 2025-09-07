@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Scout\Searchable;
+use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
 /**
@@ -35,9 +36,10 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  * @method static count()
  * @method static inRandomOrder()
  */
-final class Property extends Model
+final class Property extends Model implements Auditable
 {
     use HasFactory, KeepsDeletedModels, Searchable, Sluggable;
+    use \OwenIt\Auditing\Auditable;
 
     protected $casts = [
         'rent' => PaymentCast::class,

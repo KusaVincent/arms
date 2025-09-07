@@ -8,10 +8,12 @@ use App\Casts\PaymentCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
-final class Payment extends Model
+final class Payment extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory, KeepsDeletedModels;
 
     protected $casts = [

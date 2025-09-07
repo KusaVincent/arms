@@ -8,13 +8,15 @@ use App\Enums\ActiveServiceAvailability;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * @method static where(string $string, $serviceKey)
  * @method static create(array $serviceAvailability)
  */
-final class ServiceAvailability extends Model
+final class ServiceAvailability extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory, SoftDeletes;
 
     protected $casts = [

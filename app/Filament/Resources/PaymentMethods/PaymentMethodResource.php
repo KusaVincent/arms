@@ -18,6 +18,7 @@ use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class PaymentMethodResource extends Resource
 {
@@ -56,6 +57,7 @@ class PaymentMethodResource extends Resource
     public static function getRelations(): array
     {
         return [
+            AuditsRelationManager::class,
             PaymentsRelationManager::class,
         ];
     }

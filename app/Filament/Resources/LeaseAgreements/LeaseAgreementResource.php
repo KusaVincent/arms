@@ -21,6 +21,7 @@ use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class LeaseAgreementResource extends Resource
 {
@@ -60,6 +61,7 @@ class LeaseAgreementResource extends Resource
     public static function getRelations(): array
     {
         return [
+            AuditsRelationManager::class,
             TenantRelationManager::class,
             PropertyRelationManager::class,
             PaymentsRelationManager::class,

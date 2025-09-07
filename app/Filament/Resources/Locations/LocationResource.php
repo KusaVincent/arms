@@ -19,6 +19,7 @@ use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class LocationResource extends Resource
 {
@@ -58,6 +59,7 @@ class LocationResource extends Resource
     public static function getRelations(): array
     {
         return [
+            AuditsRelationManager::class,
             PropertiesRelationManager::class,
         ];
     }

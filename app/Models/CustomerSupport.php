@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
 /**
  * @method static create(array $all)
  */
-final class CustomerSupport extends Model
+final class CustomerSupport extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use KeepsDeletedModels;
 
     public function getEmailAttribute($value): string

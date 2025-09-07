@@ -16,6 +16,9 @@
         "livewire/livewire": "^3.6",
         "opcodesio/log-viewer": "^3.17",
         "spatie/laravel-deleted-models": "^1.1",
+        "tapp/filament-auditing": "4.0",
+        "tapp/filament-authentication-log": "5.0",
+        "torann/geoip": "^3.0",
         "typesense/typesense-php": "^5.1"
     },
     "require-dev": {
