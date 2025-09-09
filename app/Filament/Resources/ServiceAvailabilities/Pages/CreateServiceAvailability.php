@@ -4,7 +4,6 @@ namespace App\Filament\Resources\ServiceAvailabilities\Pages;
 
 use App\Filament\Resources\ServiceAvailabilities\ServiceAvailabilityResource;
 use App\Filament\ReusableResources\CreateRecordWithSanitization;
-use Filament\Resources\Pages\CreateRecord;
 
 class CreateServiceAvailability extends CreateRecordWithSanitization
 {

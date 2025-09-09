@@ -13,8 +13,8 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
 final class Payment extends Model implements Auditable
 {
-    use \OwenIt\Auditing\Auditable;
     use HasFactory, KeepsDeletedModels;
+    use \OwenIt\Auditing\Auditable;
 
     protected $casts = [
         'payment_amount' => PaymentCast::class,

@@ -16,8 +16,8 @@ use OwenIt\Auditing\Contracts\Auditable;
  */
 final class ServiceAvailability extends Model implements Auditable
 {
-    use \OwenIt\Auditing\Auditable;
     use HasFactory, SoftDeletes;
+    use \OwenIt\Auditing\Auditable;
 
     protected $casts = [
         'is_active' => ActiveServiceAvailability::class,

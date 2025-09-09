@@ -2,6 +2,7 @@
 
 namespace App\Filament\ReusableResources;
 
+use App\Helpers\LogHelper;
 use App\Traits\HasSanitizedFormData;
 use Filament\Resources\Pages\CreateRecord;
 
@@ -10,7 +11,9 @@ class CreateRecordWithSanitization extends CreateRecord
     use HasSanitizedFormData;
 
     protected function mutateFormDataBeforeCreate(array $data): array
-    {\Log::info('MutateBeforeCreate triggered', compact('data'));
+    {
+        LogHelper::info('MutateBeforeCreate triggered', additionalData: ['data' => $data]);
+
         return $this->sanitizeInput($data);
     }
 }

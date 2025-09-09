@@ -14,8 +14,8 @@ use OwenIt\Auditing\Contracts\Auditable;
  */
 class PaymentMethod extends Model implements Auditable
 {
-    use \OwenIt\Auditing\Auditable;
     use HasFactory;
+    use \OwenIt\Auditing\Auditable;
 
     public function payments(): HasMany
     {

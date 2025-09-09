@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\ElasticSearchService;
 use Filament\Schemas\Components\Section;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->configureUrl();
+        $this->app->singleton('elasticsearchservice', fn ($app): ElasticSearchService => new ElasticSearchService);
     }
 
     /**
@@ -26,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
         $this->configureModels();
         $this->configureCommands();
 
-        Section::configureUsing(fn (Section $section): \Filament\Schemas\Components\Section => $section->columnSpanFull());
+        Section::configureUsing(fn (Section $section): Section => $section->columnSpanFull());
     }
 
     private function configureUrl(): void

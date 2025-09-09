@@ -24,8 +24,8 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  */
 final class Tenant extends Model implements Auditable
 {
-    use \OwenIt\Auditing\Auditable;
     use HasFactory, KeepsDeletedModels;
+    use \OwenIt\Auditing\Auditable;
 
     /**
      * @return HasMany<LeaseAgreement, Tenant>

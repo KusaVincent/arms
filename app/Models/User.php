@@ -17,8 +17,8 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  */
 final class User extends Authenticatable implements Auditable
 {
-    use \OwenIt\Auditing\Auditable;
     use AuthenticationLoggable, HasFactory, KeepsDeletedModels, Notifiable;
+    use \OwenIt\Auditing\Auditable;
 
     /**
      * The attributes that should be hidden for serialization.
@@ -42,8 +42,8 @@ final class User extends Authenticatable implements Auditable
             'password' => 'hashed',
         ];
     }
-//    public function getNameAttribute(): string
-//    {
-//        return trim((string) ($this->attributes['name'] ?? ''));
-//    }
+    //    public function getNameAttribute(): string
+    //    {
+    //        return trim((string) ($this->attributes['name'] ?? ''));
+    //    }
 }

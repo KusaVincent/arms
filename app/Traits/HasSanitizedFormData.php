@@ -2,8 +2,7 @@
 
 namespace App\Traits;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Log;
+use App\Helpers\LogHelper;
 
 trait HasSanitizedFormData
 {
@@ -41,7 +40,7 @@ trait HasSanitizedFormData
                     $value = strtolower($value);
                 }
 
-                if (!in_array($key, $excluded)) {
+                if (! in_array($key, $excluded)) {
                     $value = strip_tags($value, $this->getAllowedHtmlTags());
 
                     if ($value !== $original) {
@@ -59,12 +58,16 @@ trait HasSanitizedFormData
             return $value;
         })->toArray();
 
-        if (!empty($sanitizedFields)) {
-            Log::info('Sanitized fields: ', [
-                'fields' => $sanitizedFields,
-                'user_id' => auth()->id(),
-                'class' => static::class,
-            ]);
+        if ($sanitizedFields !== []) {
+            LogHelper::info(
+                message: 'Fields sanitized successfully.',
+                request: request(),
+                additionalData: [
+                    'fields' => $sanitizedFields,
+                    'user_id' => auth()->id(),
+                    'class' => static::class,
+                ]
+            );
         }
 
         return $cleaned;

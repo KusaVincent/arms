@@ -5,7 +5,6 @@ namespace App\Filament\Resources\PropertyMedia\Pages;
 use App\Filament\Resources\PropertyMedia\PropertyMediaResource;
 use App\Filament\ReusableResources\EditRecordWithSanitization;
 use Filament\Actions\DeleteAction;
-use Filament\Resources\Pages\EditRecord;
 
 class EditPropertyMedia extends EditRecordWithSanitization
 {

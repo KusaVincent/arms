@@ -5,7 +5,6 @@ namespace App\Filament\Resources\ServiceAvailabilities\Pages;
 use App\Filament\Resources\ServiceAvailabilities\ServiceAvailabilityResource;
 use App\Filament\ReusableResources\EditRecordWithSanitization;
 use Filament\Actions\DeleteAction;
-use Filament\Resources\Pages\EditRecord;
 
 class EditServiceAvailability extends EditRecordWithSanitization
 {

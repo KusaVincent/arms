@@ -14,6 +14,6 @@ use OwenIt\Auditing\Contracts\Auditable;
  */
 final class About extends Model implements Auditable
 {
-    use \OwenIt\Auditing\Auditable;
     use HasFactory, softDeletes;
+    use \OwenIt\Auditing\Auditable;
 }

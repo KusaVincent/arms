@@ -6,7 +6,6 @@ use App\Filament\Resources\Abouts\AboutResource;
 use App\Filament\ReusableResources\EditRecordWithSanitization;
 use App\Traits\HasSanitizedFormData;
 use Filament\Actions\DeleteAction;
-use Filament\Resources\Pages\EditRecord;
 
 class EditAbout extends EditRecordWithSanitization
 {

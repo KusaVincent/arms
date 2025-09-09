@@ -13,8 +13,8 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  */
 final class CustomerSupport extends Model implements Auditable
 {
-    use \OwenIt\Auditing\Auditable;
     use KeepsDeletedModels;
+    use \OwenIt\Auditing\Auditable;
 
     public function getEmailAttribute($value): string
     {

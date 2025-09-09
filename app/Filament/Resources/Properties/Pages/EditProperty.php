@@ -5,7 +5,6 @@ namespace App\Filament\Resources\Properties\Pages;
 use App\Filament\Resources\Properties\PropertyResource;
 use App\Filament\ReusableResources\EditRecordWithSanitization;
 use Filament\Actions\DeleteAction;
-use Filament\Resources\Pages\EditRecord;
 
 class EditProperty extends EditRecordWithSanitization
 {

@@ -17,8 +17,8 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  */
 final class LeaseAgreement extends Model implements Auditable
 {
-    use \OwenIt\Auditing\Auditable;
     use HasFactory, KeepsDeletedModels;
+    use \OwenIt\Auditing\Auditable;
 
     protected $casts = [
         'rent_amount' => PaymentCast::class,

@@ -23,8 +23,8 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  */
 final class Location extends Model implements Auditable
 {
-    use \OwenIt\Auditing\Auditable;
     use HasFactory, KeepsDeletedModels;
+    use \OwenIt\Auditing\Auditable;
 
     public function properties(): HasMany
     {

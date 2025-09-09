@@ -16,8 +16,8 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  */
 final class Amenity extends Model implements Auditable
 {
-    use \OwenIt\Auditing\Auditable;
     use HasFactory, KeepsDeletedModels;
+    use \OwenIt\Auditing\Auditable;
 
     protected $attributes = [
         'amenity_icon' => 'house',

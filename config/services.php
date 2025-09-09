@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'elk' => [
+        'username' => env('ELK_USERNAME'),
+        'password' => env('ELK_PASSWORD'),
+        'host_ip' => env('ELK_HOST_IP'),
+        'host' => env('ELK_HOST'),
+    ],
 ];

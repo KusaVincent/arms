@@ -16,8 +16,8 @@ use OwenIt\Auditing\Contracts\Auditable;
  */
 final class Contact extends Model implements Auditable
 {
-    use \OwenIt\Auditing\Auditable;
     use HasFactory, SoftDeletes;
+    use \OwenIt\Auditing\Auditable;
 
     protected $casts = [
         'section' => ContactSection::class,

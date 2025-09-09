@@ -14,8 +14,8 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
 final class Maintenance extends Model implements Auditable
 {
-    use \OwenIt\Auditing\Auditable;
     use HasFactory, KeepsDeletedModels;
+    use \OwenIt\Auditing\Auditable;
 
     protected $casts = [
         'status' => MaintenanceStatus::class,

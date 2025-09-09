@@ -14,8 +14,8 @@ use OwenIt\Auditing\Contracts\Auditable;
  */
 final class Founder extends Model implements Auditable
 {
-    use \OwenIt\Auditing\Auditable;
     use HasFactory, softDeletes;
+    use \OwenIt\Auditing\Auditable;
 
     protected $casts = [
         'social_media' => 'json:unicode',
