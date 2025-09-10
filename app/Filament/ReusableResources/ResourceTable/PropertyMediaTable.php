@@ -19,11 +19,16 @@ class PropertyMediaTable
                 TextColumn::make('property.name')
                     ->sortable()
                     ->searchable(),
-                ImageColumn::make('image_one'),
-                ImageColumn::make('image_two'),
-                ImageColumn::make('image_three'),
-                ImageColumn::make('image_four'),
-                ImageColumn::make('image_five'),
+                ImageColumn::make('image_one')
+                    ->disk('public'),
+                ImageColumn::make('image_two')
+                    ->disk('public'),
+                ImageColumn::make('image_three')
+                    ->disk('public'),
+                ImageColumn::make('image_four')
+                    ->disk('public'),
+                ImageColumn::make('image_five')
+                    ->disk('public'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->label('Added On')

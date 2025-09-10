@@ -3,6 +3,7 @@
 namespace App\Filament\ReusableResources\ResourceForm;
 
 use Exception;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Schemas\Components\Section;
@@ -25,6 +26,11 @@ class UserForm
                             ->email()
                             ->required()
                             ->unique(ignoreRecord: true),
+                        Select::make('roles')
+                            ->relationship('roles', 'name')
+                            ->multiple()
+                            ->preload()
+                            ->searchable(),
                         TextInput::make('password')
                             ->password()
                             ->required()

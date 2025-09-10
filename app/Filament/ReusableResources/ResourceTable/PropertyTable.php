@@ -20,6 +20,7 @@ class PropertyTable
                     ->sortable()
                     ->searchable(),
                 ImageColumn::make('property_image')
+                    ->disk('public')
                     ->label('Image')
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('propertyType.type_name')

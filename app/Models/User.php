@@ -5,20 +5,23 @@ declare(strict_types=1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 use Rappasoft\LaravelAuthenticationLog\Traits\AuthenticationLoggable;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
+use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @method static create()
  */
-final class User extends Authenticatable implements Auditable
+final class User extends Authenticatable implements Auditable, FilamentUser
 {
-    use AuthenticationLoggable, HasFactory, KeepsDeletedModels, Notifiable;
-    use \OwenIt\Auditing\Auditable;
+    use AuthenticationLoggable, HasFactory, KeepsDeletedModels, Notifiable, AuditableTrait, HasRoles, HasPanelShield;
 
     /**
      * The attributes that should be hidden for serialization.

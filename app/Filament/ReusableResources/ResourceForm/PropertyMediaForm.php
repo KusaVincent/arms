@@ -14,7 +14,7 @@ class PropertyMediaForm
 
     protected static string $imagePreviewHeight = '250';
 
-    protected static string $directoryPath = 'property/images/';
+    protected static string $directoryPath = 'property/images';
 
     /**
      * @throws Exception
@@ -38,11 +38,13 @@ class PropertyMediaForm
                                 FileUpload::make('image_one')
                                     ->image()
                                     ->required()
+                                    ->disk('public')
                                     ->maxSize(self::$imageMaxSize)
                                     ->directory(self::$directoryPath)
                                     ->imagePreviewHeight(self::$imagePreviewHeight),
                                 FileUpload::make('image_two')
                                     ->image()
+                                    ->disk('public')
                                     ->maxSize(self::$imageMaxSize)
                                     ->directory(self::$directoryPath)
                                     ->imagePreviewHeight(self::$imagePreviewHeight),
@@ -51,11 +53,13 @@ class PropertyMediaForm
                             ->schema([
                                 FileUpload::make('image_three')
                                     ->image()
+                                    ->disk('public')
                                     ->maxSize(self::$imageMaxSize)
                                     ->directory(self::$directoryPath)
                                     ->imagePreviewHeight(self::$imagePreviewHeight),
                                 FileUpload::make('image_four')
                                     ->image()
+                                    ->disk('public')
                                     ->maxSize(self::$imageMaxSize)
                                     ->directory(self::$directoryPath)
                                     ->imagePreviewHeight(self::$imagePreviewHeight),
@@ -64,12 +68,14 @@ class PropertyMediaForm
                             ->schema([
                                 FileUpload::make('image_five')
                                     ->image()
+                                    ->disk('public')
                                     ->maxSize(self::$imageMaxSize)
                                     ->directory(self::$directoryPath)
                                     ->imagePreviewHeight(self::$imagePreviewHeight),
                                 FileUpload::make('video')
                                     ->reactive()
                                     ->maxSize(51200)
+                                    ->disk('public')
                                     ->directory(self::$directoryPath)
                                     ->acceptedFileTypes(['video/mp4', 'video/avi', 'video/mkv'])
                                     ->helperText(fn ($state) => $state

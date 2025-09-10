@@ -19,6 +19,12 @@ use Filament\Schemas\Schema;
 
 class PropertyForm
 {
+    protected static int $imageMaxSize = 5120;
+
+    protected static string $imagePreviewHeight = '250';
+
+    protected static string $directoryPath = 'property/images';
+
     /**
      * @throws Exception
      */
@@ -93,11 +99,10 @@ class PropertyForm
                                             ->required(),
                                         FileUpload::make('property_image')
                                             ->image()
-                                            ->required()
-                                            ->maxSize(5120)
-                                            ->directory('images')
-                                            ->visibility('public')
-                                            ->imagePreviewHeight('240'),
+                                            ->disk('public')
+                                            ->maxSize(self::$imageMaxSize)
+                                            ->directory(self::$directoryPath)
+                                            ->imagePreviewHeight(self::$imagePreviewHeight),
                                     ]),
                             ])->columnSpan(1),
                     ]),

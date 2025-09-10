@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+use BezhanSalleh\FilamentShield\Commands\{
+    GenerateCommand, InstallCommand, PublishCommand, SetupCommand
+};
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -49,7 +52,17 @@ class AppServiceProvider extends ServiceProvider
     private function configureCommands(): void
     {
         DB::prohibitDestructiveCommands(
-            $this->app->isProduction(),
+            $this->app->isProduction()
         );
+
+        $this->filamentShieldProhibitDestructiveCommands();
+    }
+
+    private function filamentShieldProhibitDestructiveCommands(): void
+    {
+        SetupCommand::prohibit($this->app->isProduction());
+        InstallCommand::prohibit($this->app->isProduction());
+        GenerateCommand::prohibit($this->app->isProduction());
+        PublishCommand::prohibit($this->app->isProduction());
     }
 }

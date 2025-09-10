@@ -13,9 +13,10 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 final class PropertyMediaFactory extends Factory
 {
-    private array $videos = ['test-videos.mp4'];
 
-    private array $images = ['prop.jpg', 'property.jpg'];
+    private array $videos = ['property/video/test-videos.mp4'];
+
+    private array $images = ['property/images/prop.jpg', 'property/images/property.jpg'];
 
     /**
      * Define the model's default state.
