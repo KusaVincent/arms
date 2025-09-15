@@ -33,6 +33,7 @@ class RentalPanelProvider extends PanelProvider
             ->path('rental')
             ->font('Poppins')
             ->pages([Dashboard::class])
+            ->sidebarCollapsibleOnDesktop()
             ->brandLogoHeight('3.5rem')
             ->colors(['primary' => Color::Blue])
             ->favicon(asset('storage/favicon.png'))
@@ -64,7 +65,7 @@ class RentalPanelProvider extends PanelProvider
                     ->gridColumns([
                         'default' => 1,
                         'sm' => 2,
-                        'lg' => 3
+                        'lg' => 3,
                     ])
                     ->sectionColumnSpan(1)
                     ->checkboxListColumns([

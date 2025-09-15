@@ -1,9 +1,7 @@
 <?php
 
-use App\Providers\AppServiceProvider;
-use App\Providers\Filament\RentalPanelProvider;
-
 return [
-    AppServiceProvider::class,
-    RentalPanelProvider::class,
+    App\Providers\AppServiceProvider::class,
+    App\Providers\AuthServiceProvider::class,
+    App\Providers\Filament\RentalPanelProvider::class,
 ];

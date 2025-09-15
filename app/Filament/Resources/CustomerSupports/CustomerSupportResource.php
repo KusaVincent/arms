@@ -44,7 +44,6 @@ class CustomerSupportResource extends Resource
                 //
             ])
             ->recordActions([
-                ViewAction::make(),
                 EditAction::make(),
                 DeleteAction::make(),
             ])

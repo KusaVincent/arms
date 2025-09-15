@@ -20,13 +20,16 @@ class CustomerSupportTable
                     ->searchable(),
                 TextColumn::make('email')
                     ->searchable(),
-                TextColumn::make('subject')
-                    ->searchable(),
                 TextColumn::make('phone_number')
                     ->searchable(),
+                TextColumn::make('subject')
+                    ->words(10)
+                    ->searchable(),
                 TextColumn::make('message')
+                    ->words(10)
                     ->searchable(),
                 TextColumn::make('reply')
+                    ->words(10)
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()

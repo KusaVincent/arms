@@ -2,15 +2,19 @@
 
 namespace App\Providers;
 
+use App\Policies\AuthenticationLogPolicy;
 use App\Services\ElasticSearchService;
+use BezhanSalleh\FilamentShield\Commands\GenerateCommand;
+use BezhanSalleh\FilamentShield\Commands\InstallCommand;
+use BezhanSalleh\FilamentShield\Commands\PublishCommand;
+use BezhanSalleh\FilamentShield\Commands\SetupCommand;
 use Filament\Schemas\Components\Section;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
-use BezhanSalleh\FilamentShield\Commands\{
-    GenerateCommand, InstallCommand, PublishCommand, SetupCommand
-};
+use Rappasoft\LaravelAuthenticationLog\Models\AuthenticationLog;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
         $this->configureCommands();
 
         Section::configureUsing(fn (Section $section): Section => $section->columnSpanFull());
+
+        Gate::policy(AuthenticationLog::class, AuthenticationLogPolicy::class);
     }
 
     private function configureUrl(): void

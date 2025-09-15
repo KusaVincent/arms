@@ -10,8 +10,8 @@ use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
+use OwenIt\Auditing\Contracts\Auditable;
 use Rappasoft\LaravelAuthenticationLog\Traits\AuthenticationLoggable;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 use Spatie\Permission\Traits\HasRoles;
@@ -21,7 +21,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 final class User extends Authenticatable implements Auditable, FilamentUser
 {
-    use AuthenticationLoggable, HasFactory, KeepsDeletedModels, Notifiable, AuditableTrait, HasRoles, HasPanelShield;
+    use AuditableTrait, AuthenticationLoggable, HasFactory, HasPanelShield, HasRoles, KeepsDeletedModels, Notifiable;
 
     /**
      * The attributes that should be hidden for serialization.

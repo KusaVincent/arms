@@ -5,6 +5,7 @@ namespace App\Filament\ReusableResources\ResourceForm;
 use Exception;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\TextInput;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
@@ -22,26 +23,27 @@ class CustomerSupportForm
                         Section::make()
                             ->schema([
                                 TextInput::make('name')
-                                    ->required()
-                                    ->minLength(3),
+                                    ->readOnly()
+                                    ->copyable(),
                                 TextInput::make('email')
-                                    ->email()
-                                    ->required(),
-                                MarkdownEditor::make('message')
-                                    ->required(),
-                            ])->columnSpan(1),
+                                    ->readOnly()
+                                    ->copyable(),
+                                TextInput::make('phone_number')
+                                    ->readOnly()
+                                    ->copyable(),
+                            ])->columns(3),
                         Section::make()
                             ->schema([
-                                TextInput::make('subject')
+                                TextEntry::make('subject')
+                                    ->copyable(),
+                                TextEntry::make('message')
+                                    ->copyable(),
+                            ])->columns(1),
+                        Section::make()
+                            ->schema([
+                                MarkdownEditor::make('reply')
                                     ->required(),
-                                TextInput::make('phone_number')
-                                    ->tel()
-                                    ->required()
-                                    ->minLength(10)
-                                    ->maxLength(12)
-                                    ->label('Phone Number'),
-                                MarkdownEditor::make('reply'),
-                            ])->columnSpan(1),
+                            ])->columns(1),
                     ])->columns(),
             ]);
     }
