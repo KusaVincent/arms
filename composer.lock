@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a143d62040eb45770f7ab29a09e4d964",
+    "content-hash": "a9cfe5c79e972b60a71155523e23c37f",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1306,6 +1306,82 @@
                 }
             ],
             "time": "2024-10-09T13:47:03+00:00"
+        },
+        {
+            "name": "eg-mohamed/referenceable",
+            "version": "v2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EG-Mohamed/Referenceable.git",
+                "reference": "7fc8a524cc5b77cdec932815edfdf6eacc52edf3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EG-Mohamed/Referenceable/zipball/7fc8a524cc5b77cdec932815edfdf6eacc52edf3",
+                "reference": "7fc8a524cc5b77cdec932815edfdf6eacc52edf3",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^10.0||^11.0||^12.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.92.7"
+            },
+            "require-dev": {
+                "larastan/larastan": "^2.9||^3.6.0",
+                "laravel/pint": "^1.24",
+                "nunomaduro/collision": "^8.8.2||^7.10.0",
+                "orchestra/testbench": "^10.6.0||^9.0.0||^8.22.0",
+                "pestphp/pest": "^3.8.4",
+                "pestphp/pest-plugin-arch": "^3.1.1",
+                "pestphp/pest-plugin-laravel": "^3.2",
+                "phpstan/extension-installer": "^1.4.3||^2.0",
+                "phpstan/phpstan-deprecation-rules": "^1.1||^2.0.3",
+                "phpstan/phpstan-phpunit": "^1.3||^2.0.7"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "ModelReference": "MohamedSaid\\Referenceable\\Facades\\ModelReference"
+                    },
+                    "providers": [
+                        "MohamedSaid\\Referenceable\\ModelReferenceServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MohamedSaid\\Referenceable\\": "src/",
+                    "MohamedSaid\\Referenceable\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mohamed Said",
+                    "email": "me@msaied.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Advanced Laravel package for generating customizable model reference numbers with flexible formats, sequential numbering, and comprehensive configuration options",
+            "homepage": "https://github.com/eg-mohamed/referenceable",
+            "keywords": [
+                "MoSaid",
+                "Referenceable",
+                "laravel",
+                "model-traits",
+                "reference-generator",
+                "sequential-numbering",
+                "unique-identifiers"
+            ],
+            "support": {
+                "issues": "https://github.com/EG-Mohamed/Referenceable/issues",
+                "source": "https://github.com/EG-Mohamed/Referenceable/tree/v2.0.3"
+            },
+            "time": "2025-09-10T03:06:18+00:00"
         },
         {
             "name": "egulias/email-validator",

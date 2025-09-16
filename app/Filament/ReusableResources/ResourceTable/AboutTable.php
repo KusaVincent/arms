@@ -15,6 +15,9 @@ class AboutTable
     {
         return $table
             ->columns([
+                TextColumn::make('mnemonic')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('title')
                     ->sortable()
                     ->searchable(),

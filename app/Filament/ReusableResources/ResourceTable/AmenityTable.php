@@ -15,6 +15,9 @@ class AmenityTable
     {
         return $table
             ->columns([
+                TextColumn::make('mnemonic')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('amenity_name')
                     ->sortable()
                     ->searchable(),

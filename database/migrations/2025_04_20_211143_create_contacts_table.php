@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('label');
             $table->string('icon');
             $table->string('link');
+            $table->string('mnemonic')
+                ->unique()
+                ->index();
             $table->string('link_text');
             $table->smallInteger('section')->default(0);
             $table->timestamps();

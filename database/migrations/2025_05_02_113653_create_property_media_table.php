@@ -16,6 +16,9 @@ return new class extends Migration
     {
         Schema::create('property_media', function (Blueprint $table): void {
             $table->id();
+            $table->string('mnemonic')
+                ->unique()
+                ->index();
             $table->foreignIdFor(Property::class)
                 ->constrained()
                 ->cascadeOnDelete();

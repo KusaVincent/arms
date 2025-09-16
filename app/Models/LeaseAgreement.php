@@ -5,20 +5,23 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Casts\PaymentCast;
+use App\Traits\Referenceable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
+use \OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @method static inRandomOrder()
  */
 final class LeaseAgreement extends Model implements Auditable
 {
-    use HasFactory, KeepsDeletedModels;
-    use \OwenIt\Auditing\Auditable;
+    use HasFactory, KeepsDeletedModels, AuditableTrait, Referenceable;
+
+    protected string $referencePrefix = 'LAG';
 
     protected $casts = [
         'rent_amount' => PaymentCast::class,

@@ -16,6 +16,9 @@ class UserTable
     {
         return $table
             ->columns([
+                TextColumn::make('mnemonic')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('name'),
                 TextColumn::make('email'),
                 TextColumn::make('roles.name')

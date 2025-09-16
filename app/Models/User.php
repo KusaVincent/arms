@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\Referenceable;
 use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,7 +22,9 @@ use Spatie\Permission\Traits\HasRoles;
  */
 final class User extends Authenticatable implements Auditable, FilamentUser
 {
-    use AuditableTrait, AuthenticationLoggable, HasFactory, HasPanelShield, HasRoles, KeepsDeletedModels, Notifiable;
+    use AuditableTrait, AuthenticationLoggable, HasFactory, HasPanelShield, HasRoles, KeepsDeletedModels, Notifiable, Referenceable;
+
+    protected string $referencePrefix = 'USR';
 
     /**
      * The attributes that should be hidden for serialization.

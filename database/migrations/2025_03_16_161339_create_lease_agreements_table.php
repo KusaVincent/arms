@@ -17,6 +17,9 @@ return new class extends Migration
     {
         Schema::create('lease_agreements', function (Blueprint $table): void {
             $table->id();
+            $table->string('mnemonic')
+                ->unique()
+                ->index();
             $table->foreignIdFor(Tenant::class)
                 ->constrained()
                 ->cascadeOnDelete();

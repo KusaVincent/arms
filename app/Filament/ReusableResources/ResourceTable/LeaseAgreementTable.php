@@ -14,6 +14,9 @@ class LeaseAgreementTable
     {
         return $table
             ->columns([
+                TextColumn::make('mnemonic')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('tenant.fullname')
                     ->sortable()
                     ->searchable(),

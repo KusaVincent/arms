@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Traits\Referenceable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
+use \OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @property mixed $middle_name
@@ -24,8 +26,9 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  */
 final class Tenant extends Model implements Auditable
 {
-    use HasFactory, KeepsDeletedModels;
-    use \OwenIt\Auditing\Auditable;
+    use HasFactory, KeepsDeletedModels, AuditableTrait, Referenceable;
+
+    protected string $referencePrefix = 'TNT';
 
     /**
      * @return HasMany<LeaseAgreement, Tenant>

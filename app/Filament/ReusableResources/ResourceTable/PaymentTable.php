@@ -16,6 +16,9 @@ class PaymentTable
     {
         return $table
             ->columns([
+                TextColumn::make('mnemonic')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('leaseAgreement.tenant.fullname')
                     ->sortable()
                     ->searchable()

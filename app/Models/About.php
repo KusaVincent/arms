@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Traits\Referenceable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 
 /**
@@ -14,6 +16,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  */
 final class About extends Model implements Auditable
 {
-    use HasFactory, softDeletes;
-    use \OwenIt\Auditing\Auditable;
+    use AuditableTrait, HasFactory, softDeletes, Referenceable;
+
+    protected string $referencePrefix = 'ABT';
 }

@@ -5,17 +5,20 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\MaintenanceStatus;
+use App\Traits\Referenceable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
+use \OwenIt\Auditing\Auditable as AuditableTrait;
 
 final class Maintenance extends Model implements Auditable
 {
-    use HasFactory, KeepsDeletedModels;
-    use \OwenIt\Auditing\Auditable;
+    use HasFactory, KeepsDeletedModels, AuditableTrait, Referenceable;
+
+    protected string $referencePrefix = 'MNT';
 
     protected $casts = [
         'status' => MaintenanceStatus::class,

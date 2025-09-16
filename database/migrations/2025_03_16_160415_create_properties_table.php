@@ -21,6 +21,9 @@ return new class extends Migration
                 ->unique()
                 ->index()
                 ->nullable();
+            $table->string('mnemonic')
+                ->unique()
+                ->index();
             $table->foreignIdFor(PropertyType::class)
                 ->constrained()
                 ->cascadeOnDelete();

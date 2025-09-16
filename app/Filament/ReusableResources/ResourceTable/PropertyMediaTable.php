@@ -16,6 +16,9 @@ class PropertyMediaTable
     {
         return $table
             ->columns([
+                TextColumn::make('mnemonic')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('property.name')
                     ->sortable()
                     ->searchable(),

@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table): void {
             $table->id();
+            $table->string('mnemonic')
+                ->unique()
+                ->index();
             $table->string('address');
             $table->string('town_city');
             $table->string('area')->nullable();

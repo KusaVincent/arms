@@ -16,6 +16,9 @@ class PropertyTable
     {
         return $table
             ->columns([
+                TextColumn::make('mnemonic')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('name')
                     ->sortable()
                     ->searchable(),

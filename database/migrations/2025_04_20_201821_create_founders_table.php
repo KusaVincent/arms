@@ -16,6 +16,9 @@ return new class extends Migration
         Schema::create('founders', function (Blueprint $table): void {
             $table->id();
             $table->string('name');
+            $table->string('mnemonic')
+                ->unique()
+                ->index();
             $table->string('image')->nullable();
             $table->json('social_media')->nullable();
             $table->timestamps();

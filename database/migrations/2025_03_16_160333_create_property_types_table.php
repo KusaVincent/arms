@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('property_types', function (Blueprint $table): void {
             $table->id();
+            $table->string('mnemonic')
+                ->unique()
+                ->index();
             $table->string('type_name')->unique();
             $table->timestamps();
         });

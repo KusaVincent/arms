@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('email');
             $table->text('message');
             $table->string('subject');
+            $table->string('mnemonic')
+                ->unique()
+                ->index();
             $table->string('phone_number');
             $table->text('reply')->nullable();
             $table->timestamps();

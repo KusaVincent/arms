@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Casts\PaymentCast;
 use App\Enums\PropertyAvailable;
 use App\Enums\PropertyNegotiable;
+use App\Traits\Referenceable;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Scout\Searchable;
 use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
+use \OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @mixin Model
@@ -38,8 +40,9 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  */
 final class Property extends Model implements Auditable
 {
-    use HasFactory, KeepsDeletedModels, Searchable, Sluggable;
-    use \OwenIt\Auditing\Auditable;
+    use HasFactory, KeepsDeletedModels, Searchable, Sluggable, AuditableTrait, Referenceable;
+
+    protected string $referencePrefix = 'PPT';
 
     protected $casts = [
         'rent' => PaymentCast::class,

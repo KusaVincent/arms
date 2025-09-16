@@ -15,6 +15,9 @@ class LocationTable
     {
         return $table
             ->columns([
+                TextColumn::make('mnemonic')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('town_city')
                     ->searchable()
                     ->label('Town City'),

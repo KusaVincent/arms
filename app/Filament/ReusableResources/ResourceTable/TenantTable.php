@@ -15,6 +15,9 @@ class TenantTable
     {
         return $table
             ->columns([
+                TextColumn::make('mnemonic')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('fullname')
                     ->sortable()
                     ->searchable(),

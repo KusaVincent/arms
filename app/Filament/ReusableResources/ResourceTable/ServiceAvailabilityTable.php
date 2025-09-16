@@ -15,6 +15,9 @@ class ServiceAvailabilityTable
     {
         return $table
             ->columns([
+                TextColumn::make('mnemonic')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('service_name')
                     ->label('Service'),
                 TextColumn::make('service_key')

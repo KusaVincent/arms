@@ -15,6 +15,9 @@ class ContactTable
     {
         return $table
             ->columns([
+                TextColumn::make('mnemonic')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('label')
                     ->sortable()
                     ->searchable(),
