@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
+use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as AuthUser;
 use Rappasoft\LaravelAuthenticationLog\Models\AuthenticationLog;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AuthenticationLogPolicy
 {
     use HandlesAuthorization;
-    
+
     public function viewAny(AuthUser $authUser): bool
     {
         return $authUser->can('ViewAny:AuthenticationLog');
@@ -66,5 +66,4 @@ class AuthenticationLogPolicy
     {
         return $authUser->can('Reorder:AuthenticationLog');
     }
-
 }

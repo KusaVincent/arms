@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
-use \OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @property mixed $middle_name
@@ -26,7 +26,7 @@ use \OwenIt\Auditing\Auditable as AuditableTrait;
  */
 final class Tenant extends Model implements Auditable
 {
-    use HasFactory, KeepsDeletedModels, AuditableTrait, Referenceable;
+    use AuditableTrait, HasFactory, KeepsDeletedModels, Referenceable;
 
     protected string $referencePrefix = 'TNT';
 

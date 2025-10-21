@@ -23,11 +23,14 @@ class ServiceAvailabilityResource extends Resource
 {
     protected static ?string $model = ServiceAvailability::class;
 
+    public static ?string $tenantOwnershipRelationshipName = 'relationships';
+
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function form(Schema $schema): Schema
     {
         return ServiceAvailabilityForm::form($schema);
@@ -36,6 +39,7 @@ class ServiceAvailabilityResource extends Resource
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function table(Table $table): Table
     {
         return ServiceAvailabilityTable::columns($table)
@@ -54,6 +58,7 @@ class ServiceAvailabilityResource extends Resource
             ]);
     }
 
+    #[\Override]
     public static function getRelations(): array
     {
         return [

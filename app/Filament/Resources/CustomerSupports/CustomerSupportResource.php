@@ -23,11 +23,14 @@ class CustomerSupportResource extends Resource
 {
     protected static ?string $model = CustomerSupport::class;
 
+    public static ?string $tenantOwnershipRelationshipName = 'relationships';
+
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function form(Schema $schema): Schema
     {
         return CustomerSupportForm::form($schema);
@@ -36,6 +39,7 @@ class CustomerSupportResource extends Resource
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function table(Table $table): Table
     {
         return CustomerSupportTable::columns($table)
@@ -53,6 +57,7 @@ class CustomerSupportResource extends Resource
             ]);
     }
 
+    #[\Override]
     public static function getRelations(): array
     {
         return [

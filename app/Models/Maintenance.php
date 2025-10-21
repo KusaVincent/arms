@@ -10,13 +10,13 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
-use \OwenIt\Auditing\Auditable as AuditableTrait;
 
 final class Maintenance extends Model implements Auditable
 {
-    use HasFactory, KeepsDeletedModels, AuditableTrait, Referenceable;
+    use AuditableTrait, HasFactory, KeepsDeletedModels, Referenceable;
 
     protected string $referencePrefix = 'MNT';
 
@@ -38,6 +38,7 @@ final class Maintenance extends Model implements Auditable
         return $this->belongsTo(Tenant::class);
     }
 
+    #[\Override]
     protected static function boot(): void
     {
         parent::boot();

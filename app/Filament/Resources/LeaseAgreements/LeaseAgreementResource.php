@@ -27,11 +27,14 @@ class LeaseAgreementResource extends Resource
 {
     protected static ?string $model = LeaseAgreement::class;
 
+    public static ?string $tenantOwnershipRelationshipName = 'relationships';
+
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function form(Schema $schema): Schema
     {
         return LeaseAgreementForm::form($schema);
@@ -40,6 +43,7 @@ class LeaseAgreementResource extends Resource
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function table(Table $table): Table
     {
         return LeaseAgreementTable::columns($table)
@@ -58,6 +62,7 @@ class LeaseAgreementResource extends Resource
             ]);
     }
 
+    #[\Override]
     public static function getRelations(): array
     {
         return [

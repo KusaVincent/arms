@@ -24,11 +24,14 @@ class AboutResource extends Resource
 {
     protected static ?string $model = About::class;
 
+    public static ?string $tenantOwnershipRelationshipName = 'relationships';
+
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function form(Schema $schema): Schema
     {
         return AboutForm::form($schema);
@@ -37,6 +40,7 @@ class AboutResource extends Resource
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function table(Table $table): Table
     {
         return AboutTable::columns($table)
@@ -55,6 +59,7 @@ class AboutResource extends Resource
             ]);
     }
 
+    #[\Override]
     public static function getRelations(): array
     {
         return [

@@ -10,6 +10,7 @@ class EditRecordWithSanitization extends EditRecord
 {
     use HasSanitizedFormData;
 
+    #[\Override]
     protected function mutateFormDataBeforeSave(array $data): array
     {
         LogHelper::info('MutateBeforeUpdate triggered', additionalData: ['data' => $data]);

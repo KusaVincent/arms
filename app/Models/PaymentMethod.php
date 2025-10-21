@@ -6,8 +6,8 @@ use App\Traits\Referenceable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
-use \OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @method static inRandomOrder()
@@ -16,7 +16,7 @@ use \OwenIt\Auditing\Auditable as AuditableTrait;
  */
 class PaymentMethod extends Model implements Auditable
 {
-    use HasFactory, AuditableTrait, Referenceable;
+    use AuditableTrait, HasFactory, Referenceable;
 
     protected string $referencePrefix = 'PMT';
 

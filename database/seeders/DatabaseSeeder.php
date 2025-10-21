@@ -15,6 +15,7 @@ final class DatabaseSeeder extends Seeder
     {
         $this->call([
             AboutSeeder::class,
+            ClientSeeder::class,
             FounderSeeder::class,
             ContactSeeder::class,
             AmenitySeeder::class,

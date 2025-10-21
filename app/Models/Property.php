@@ -17,9 +17,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Scout\Searchable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
-use \OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @mixin Model
@@ -40,7 +40,7 @@ use \OwenIt\Auditing\Auditable as AuditableTrait;
  */
 final class Property extends Model implements Auditable
 {
-    use HasFactory, KeepsDeletedModels, Searchable, Sluggable, AuditableTrait, Referenceable;
+    use AuditableTrait, HasFactory, KeepsDeletedModels, Referenceable, Searchable, Sluggable;
 
     protected string $referencePrefix = 'PPT';
 

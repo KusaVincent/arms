@@ -6,16 +6,16 @@ namespace App\Models;
 
 use App\Traits\Referenceable;
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
-use \OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @method static create(array $all)
  */
 final class CustomerSupport extends Model implements Auditable
 {
-    use KeepsDeletedModels, AuditableTrait, Referenceable;
+    use AuditableTrait, KeepsDeletedModels, Referenceable;
 
     protected string $referencePrefix = 'CUS';
 

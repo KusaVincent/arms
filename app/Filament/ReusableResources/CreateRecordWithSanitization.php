@@ -10,6 +10,7 @@ class CreateRecordWithSanitization extends CreateRecord
 {
     use HasSanitizedFormData;
 
+    #[\Override]
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         LogHelper::info('MutateBeforeCreate triggered', additionalData: ['data' => $data]);

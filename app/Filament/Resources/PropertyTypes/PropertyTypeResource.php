@@ -25,11 +25,14 @@ class PropertyTypeResource extends Resource
 {
     protected static ?string $model = PropertyType::class;
 
+    public static ?string $tenantOwnershipRelationshipName = 'relationships';
+
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function form(Schema $schema): Schema
     {
         return PropertyTypeForm::form($schema);
@@ -38,6 +41,7 @@ class PropertyTypeResource extends Resource
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function table(Table $table): Table
     {
         return PropertyTypeTable::columns($table)
@@ -56,6 +60,7 @@ class PropertyTypeResource extends Resource
             ]);
     }
 
+    #[\Override]
     public static function getRelations(): array
     {
         return [

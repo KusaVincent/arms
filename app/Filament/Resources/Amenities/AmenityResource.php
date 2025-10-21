@@ -25,11 +25,14 @@ class AmenityResource extends Resource
 {
     protected static ?string $model = Amenity::class;
 
+    public static ?string $tenantOwnershipRelationshipName = 'relationships';
+
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function form(Schema $schema): Schema
     {
         return AmenityForm::form($schema);
@@ -38,6 +41,7 @@ class AmenityResource extends Resource
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function table(Table $table): Table
     {
         return AmenityTable::columns($table)
@@ -56,6 +60,7 @@ class AmenityResource extends Resource
             ]);
     }
 
+    #[\Override]
     public static function getRelations(): array
     {
         return [

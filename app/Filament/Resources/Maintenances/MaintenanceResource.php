@@ -26,11 +26,14 @@ class MaintenanceResource extends Resource
 {
     protected static ?string $model = Maintenance::class;
 
+    public static ?string $tenantOwnershipRelationshipName = 'relationships';
+
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function form(Schema $schema): Schema
     {
         return MaintenanceForm::form($schema);
@@ -39,6 +42,7 @@ class MaintenanceResource extends Resource
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function table(Table $table): Table
     {
         return MaintenanceTable::columns($table)
@@ -57,6 +61,7 @@ class MaintenanceResource extends Resource
             ]);
     }
 
+    #[\Override]
     public static function getRelations(): array
     {
         return [

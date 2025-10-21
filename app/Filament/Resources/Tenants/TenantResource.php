@@ -26,11 +26,14 @@ class TenantResource extends Resource
 {
     protected static ?string $model = Tenant::class;
 
+    public static ?string $tenantOwnershipRelationshipName = 'relationships';
+
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function form(Schema $schema): Schema
     {
         return TenantForm::form($schema);
@@ -39,6 +42,7 @@ class TenantResource extends Resource
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function table(Table $table): Table
     {
         return TenantTable::columns($table)
@@ -57,6 +61,7 @@ class TenantResource extends Resource
             ]);
     }
 
+    #[\Override]
     public static function getRelations(): array
     {
         return [

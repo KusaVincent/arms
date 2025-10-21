@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
-use Illuminate\Foundation\Auth\User as AuthUser;
 use App\Models\LeaseAgreement;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Foundation\Auth\User as AuthUser;
 
 class LeaseAgreementPolicy
 {
     use HandlesAuthorization;
-    
+
     public function viewAny(AuthUser $authUser): bool
     {
         return $authUser->can('ViewAny:LeaseAgreement');
@@ -66,5 +66,4 @@ class LeaseAgreementPolicy
     {
         return $authUser->can('Reorder:LeaseAgreement');
     }
-
 }

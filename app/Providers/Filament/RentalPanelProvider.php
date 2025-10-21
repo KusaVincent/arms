@@ -2,7 +2,12 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Auth\CustomRegister;
+use App\Filament\Pages\Tenancy\EditRelationship;
+use App\Filament\Pages\Tenancy\RegisterRelationship;
+use App\Models\Client;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
+use BezhanSalleh\FilamentShield\Middleware\SyncShieldTenant;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -28,7 +33,6 @@ class RentalPanelProvider extends PanelProvider
         return $panel
             ->login()
             ->default()
-            ->registration()
             ->id('rental')
             ->path('rental')
             ->font('Poppins')
@@ -36,9 +40,13 @@ class RentalPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop()
             ->brandLogoHeight('3.5rem')
             ->colors(['primary' => Color::Blue])
+            ->registration(CustomRegister::class)
             ->favicon(asset('storage/favicon.png'))
+            ->tenantProfile(EditRelationship::class)
             ->brandLogo(asset('storage/logo/logo.png'))
+            ->tenantRegistration(RegisterRelationship::class)
             ->darkModeBrandLogo(asset('storage/logo/logo.png'))
+            ->tenant(Client::class, 'slug', 'client')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
@@ -77,6 +85,9 @@ class RentalPanelProvider extends PanelProvider
                         'default' => 1,
                         'sm' => 2,
                     ]),
-            ]);
+            ])
+            ->tenantMiddleware([
+                SyncShieldTenant::class,
+            ], isPersistent: true);
     }
 }

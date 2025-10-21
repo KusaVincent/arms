@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Permission;
+use App\Models\Role;
 use App\Policies\AuthenticationLogPolicy;
 use App\Services\ElasticSearchService;
 use BezhanSalleh\FilamentShield\Commands\GenerateCommand;
@@ -15,12 +17,14 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Rappasoft\LaravelAuthenticationLog\Models\AuthenticationLog;
+use Spatie\Permission\PermissionRegistrar;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      */
+    #[\Override]
     public function register(): void
     {
         $this->configureUrl();
@@ -32,6 +36,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        app(PermissionRegistrar::class)
+            ->setPermissionClass(Permission::class)
+            ->setRoleClass(Role::class);
+
         $this->configureModels();
         $this->configureCommands();
 
@@ -52,7 +60,6 @@ class AppServiceProvider extends ServiceProvider
         Model::unguard();
         Model::shouldBeStrict();
         Model::automaticallyEagerLoadRelationships();
-
     }
 
     private function configureCommands(): void

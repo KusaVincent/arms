@@ -30,6 +30,7 @@ class UserResource extends Resource
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function form(Schema $schema): Schema
     {
         return UserForm::form($schema);
@@ -38,6 +39,7 @@ class UserResource extends Resource
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function table(Table $table): Table
     {
         return UserTable::columns($table)
@@ -56,6 +58,7 @@ class UserResource extends Resource
             ]);
     }
 
+    #[\Override]
     public static function getRelations(): array
     {
         return [

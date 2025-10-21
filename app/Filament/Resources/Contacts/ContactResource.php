@@ -24,11 +24,14 @@ class ContactResource extends Resource
 {
     protected static ?string $model = Contact::class;
 
+    public static ?string $tenantOwnershipRelationshipName = 'relationships';
+
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function form(Schema $schema): Schema
     {
         return ContactForm::form($schema);
@@ -37,6 +40,7 @@ class ContactResource extends Resource
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function table(Table $table): Table
     {
         return ContactTable::columns($table)
@@ -55,6 +59,7 @@ class ContactResource extends Resource
             ]);
     }
 
+    #[\Override]
     public static function getRelations(): array
     {
         return [

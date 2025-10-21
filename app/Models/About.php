@@ -16,7 +16,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  */
 final class About extends Model implements Auditable
 {
-    use AuditableTrait, HasFactory, softDeletes, Referenceable;
+    use AuditableTrait, HasFactory, Referenceable, softDeletes;
 
     protected string $referencePrefix = 'ABT';
 }

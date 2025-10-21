@@ -36,7 +36,8 @@ return [
     |
     */
 
-    'tenant_model' => null,
+    'tenant_model' => \App\Models\Client::class,
+    'team_foreign_key' => 'client_id',
 
     /*
     |--------------------------------------------------------------------------
@@ -139,8 +140,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | Shield supports multiple languages out of the box. When enabled, you
-    | can provide translated labels for permissions and roles to create a
-    | more localized experience for your international users.
+    | can provide translated labels for permissions to create a more
+    | localized experience for your international users.
     |
     */
 
@@ -162,6 +163,10 @@ return [
 
     'resources' => [
         'subject' => 'model',
+        'role' => [
+            'model' => App\Models\Role::class,
+            'ownershipRelationship' => 'clients',
+        ],
         'manage' => [
             \BezhanSalleh\FilamentShield\Resources\Roles\RoleResource::class => [
                 'viewAny',
@@ -257,5 +262,4 @@ return [
     */
 
     'register_role_policy' => true,
-
 ];

@@ -9,8 +9,8 @@ use App\Traits\Referenceable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
-use \OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @method static whereNot(string $string, string $string1)
@@ -18,7 +18,7 @@ use \OwenIt\Auditing\Auditable as AuditableTrait;
  */
 final class Contact extends Model implements Auditable
 {
-    use HasFactory, SoftDeletes, AuditableTrait, Referenceable;
+    use AuditableTrait, HasFactory, Referenceable, SoftDeletes;
 
     protected string $referencePrefix = 'CON';
 

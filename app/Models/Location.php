@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\HigherOrderCollectionProxy;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
-use \OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @method static select(string $string, string $string1)
@@ -25,7 +25,7 @@ use \OwenIt\Auditing\Auditable as AuditableTrait;
  */
 final class Location extends Model implements Auditable
 {
-    use HasFactory, KeepsDeletedModels, AuditableTrait, Referenceable;
+    use AuditableTrait, HasFactory, KeepsDeletedModels, Referenceable;
 
     protected string $referencePrefix = 'LOC';
 
@@ -34,6 +34,7 @@ final class Location extends Model implements Auditable
         return $this->hasMany(Property::class);
     }
 
+    #[\Override]
     protected static function booted(): void
     {
         Location::saving(function ($location): void {

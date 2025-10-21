@@ -26,11 +26,14 @@ class PaymentResource extends Resource
 {
     protected static ?string $model = Payment::class;
 
+    public static ?string $tenantOwnershipRelationshipName = 'relationships';
+
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function form(Schema $schema): Schema
     {
         return PaymentForm::form($schema);
@@ -39,6 +42,7 @@ class PaymentResource extends Resource
     /**
      * @throws Exception
      */
+    #[\Override]
     public static function table(Table $table): Table
     {
         return PaymentTable::columns($table)
@@ -57,6 +61,7 @@ class PaymentResource extends Resource
             ]);
     }
 
+    #[\Override]
     public static function getRelations(): array
     {
         return [
