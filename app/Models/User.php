@@ -89,7 +89,7 @@ final class User extends Authenticatable implements Auditable, FilamentUser, Has
     {
         app(PermissionRegistrar::class)->setPermissionsTeamId($clientId);
         $this->assignRole($role);
-        app(PermissionRegistrar::class)->setPermissionsTeamId(null); // Reset context
+        app(PermissionRegistrar::class)->setPermissionsTeamId(null);
     }
 
     public function assignDefaultTeamRole(): void
