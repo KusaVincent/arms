@@ -2,28 +2,36 @@
 
 namespace Database\Seeders;
 
-use App\Models\Client;
-use App\Models\Role;
+use App\Actions\GetClientId;
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\PermissionRegistrar;
 
 class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     *
+     * @throws \Throwable
      */
     public function run(): void
     {
-        $defaultClientId = Client::firstOrCreate(['name' => 'Default'])->id;
+        $userService = app(UserService::class);
 
-        Role::firstOrCreate([
-            'name' => 'panel_user',
-            'guard_name' => 'web',
-            ...(config('permission.teams') ? ['client_id' => $defaultClientId] : []),
+        $userData = [
+            'name' => 'Super Admin',
+            'email' => 'superadmin@example.com',
+            'password' => 'password',
+        ];
+
+        $superAdmin = User::create($userData);
+
+        User::factory(2)->create()->each(function (User $user) use ($userService): void {
+            $userService->assignDefaultRoleToUser($user);
+        });
+
+        $superAdmin->clients()->sync([
+            GetClientId::query('Administrator'),
         ]);
-
-        // Now you can create users freely (booted() will handle roles)
-        User::factory(2)->create();
     }
 }

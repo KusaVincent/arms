@@ -2,20 +2,16 @@
 
 namespace App\Filament\Pages\Auth;
 
-use App\Models\Client;
-use App\Models\User;
+use App\Services\UserService;
 use Filament\Auth\Pages\Register;
-use Filament\Forms\Components\Select;
-use App\Models\Role;
 use Filament\Schemas\Schema;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class CustomRegister extends Register
 {
     public static string $layout = 'filament-panels::components.layout.simple';
 
+    #[\Override]
     public function form(Schema $schema): Schema
     {
         return $schema
@@ -30,29 +26,11 @@ class CustomRegister extends Register
     /**
      * @throws \Throwable
      */
-
+    #[\Override]
     protected function handleRegistration(array $data): Model
     {
-        return DB::transaction(function () use ($data) {
+        $userService = app(UserService::class);
 
-            $defaultClient = Client::find(1);
-            if ($defaultClient) {
-                setPermissionsTeamId($defaultClient->id);
-            }
-
-            $user = new User();
-            $user->name = $data['name'];
-            $user->email = $data['email'];
-            $user->password = Hash::make($data['password']);
-            $user->save();
-
-            if ($defaultClient) {
-                $user->clients()->attach($defaultClient);
-            }
-
-            setPermissionsTeamId(null);
-
-            return $user;
-        });
+        return $userService->createWithDefaultRole($data);
     }
 }
