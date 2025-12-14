@@ -9,7 +9,6 @@ use App\Services\UserService;
 use App\Traits\Referenceable;
 use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
 use Filament\Models\Contracts\FilamentUser;
-use Filament\Models\Contracts\HasTenants;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,12 +24,10 @@ use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @method static create()
- *
- * @property int|mixed $client_id
  */
-final class User extends Authenticatable implements Auditable, FilamentUser, HasTenants
+final class User extends Authenticatable implements Auditable, FilamentUser
 {
-    use AuditableTrait, AuthenticationLoggable, HasFactory,HasPanelShield,HasRoles,KeepsDeletedModels, Notifiable, Referenceable;
+    use AuditableTrait, AuthenticationLoggable, HasFactory,HasPanelShield,HasRoles,KeepsDeletedModels,Notifiable, Referenceable;
 
     protected string $referencePrefix = 'USR';
 
@@ -57,34 +54,34 @@ final class User extends Authenticatable implements Auditable, FilamentUser, Has
         ];
     }
 
-    public function clients(): BelongsToMany
-    {
-        return $this->belongsToMany(Client::class);
-    }
+    //    public function clients(): BelongsToMany
+    //    {
+    //        return $this->belongsToMany(Client::class);
+    //    }
 
-    public function getTenants(Panel $panel): Collection
-    {
-        return $this->clients;
-    }
+    //    public function getTenants(Panel $panel): Collection
+    //    {
+    //        return $this->clients;
+    //    }
 
-    public function canAccessTenant(Model $tenant): bool
-    {
-        return $this->clients()->whereKey($tenant)->exists();
-    }
+    //    public function canAccessTenant(Model $tenant): bool
+    //    {
+    //        return $this->clients()->whereKey($tenant)->exists();
+    //    }
 
     public function canAccessPanel(Panel $panel): bool
     {
         return true;
     }
 
-    #[\Override]
-    protected static function booted(): void
-    {
-        self::created(function (User $user): void {
-            if (app()->runningInConsole() && ! $user->roles()->exists()) {
-                $userService = app(UserService::class);
-                $userService->assignDefaultRoleToUser($user);
-            }
-        });
-    }
+    //    #[\Override]
+    //    protected static function booted(): void
+    //    {
+    //        self::created(function (User $user): void {
+    //            if (app()->runningInConsole() && ! $user->roles()->exists()) {
+    //                $userService = app(UserService::class);
+    //                $userService->assignDefaultRoleToUser($user);
+    //            }
+    //        });
+    //    }
 }

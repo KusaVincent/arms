@@ -9,7 +9,6 @@ use App\Filament\ReusableResources\ResourceForm\UserForm;
 use App\Filament\ReusableResources\ResourceTable\UserTable;
 use App\Models\User;
 use BackedEnum;
-use Exception;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -28,7 +27,7 @@ class UserResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     #[\Override]
     public static function form(Schema $schema): Schema
@@ -37,7 +36,7 @@ class UserResource extends Resource
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     #[\Override]
     public static function table(Table $table): Table

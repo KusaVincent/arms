@@ -59,7 +59,7 @@ class UserService
                 'password' => $user['password'],
             ];
 
-            $user = User::create($userData);
+            $user = User::create();
         }
 
         $user->assignRole($roleName);

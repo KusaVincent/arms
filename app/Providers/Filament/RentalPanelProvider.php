@@ -35,18 +35,19 @@ class RentalPanelProvider extends PanelProvider
             ->default()
             ->id('rental')
             ->path('rental')
+//            ->domain(config('app.filamentAdminUrl'))
             ->font('Poppins')
             ->pages([Dashboard::class])
             ->sidebarCollapsibleOnDesktop()
             ->brandLogoHeight('3.5rem')
             ->colors(['primary' => Color::Blue])
-            ->registration(CustomRegister::class)
+//            ->registration(CustomRegister::class)
             ->favicon(asset('storage/favicon.png'))
-            ->tenantProfile(EditRelationship::class)
+//            ->tenantProfile(EditRelationship::class)
             ->brandLogo(asset('storage/logo/logo.png'))
-            ->tenantRegistration(RegisterRelationship::class)
+//            ->tenantRegistration(RegisterRelationship::class)
             ->darkModeBrandLogo(asset('storage/logo/logo.png'))
-            ->tenant(Client::class, 'slug', 'client')
+//            ->tenant(Client::class, 'slug', 'client')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
@@ -69,25 +70,25 @@ class RentalPanelProvider extends PanelProvider
                 Authenticate::class,
             ])->plugins([
                 FilamentAuthenticationLogPlugin::make(),
-                FilamentShieldPlugin::make()
-                    ->gridColumns([
-                        'default' => 1,
-                        'sm' => 2,
-                        'lg' => 3,
-                    ])
-                    ->sectionColumnSpan(1)
-                    ->checkboxListColumns([
-                        'default' => 1,
-                        'sm' => 2,
-                        'lg' => 4,
-                    ])
-                    ->resourceCheckboxListColumns([
-                        'default' => 1,
-                        'sm' => 2,
-                    ]),
-            ])
-            ->tenantMiddleware([
-                SyncShieldTenant::class,
-            ], isPersistent: true);
+                //                FilamentShieldPlugin::make()
+                //                    ->gridColumns([
+                //                        'default' => 1,
+                //                        'sm' => 2,
+                //                        'lg' => 3,
+                //                    ])
+                //                    ->sectionColumnSpan(1)
+                //                    ->checkboxListColumns([
+                //                        'default' => 1,
+                //                        'sm' => 2,
+                //                        'lg' => 4,
+                //                    ])
+                //                    ->resourceCheckboxListColumns([
+                //                        'default' => 1,
+                //                        'sm' => 2,
+                //                    ]),
+            ]);
+        //            ->tenantMiddleware([
+        //                SyncShieldTenant::class,
+        //            ], isPersistent: true);
     }
 }

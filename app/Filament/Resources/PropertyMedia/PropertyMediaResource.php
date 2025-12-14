@@ -25,8 +25,6 @@ class PropertyMediaResource extends Resource
 {
     protected static ?string $model = PropertyMedia::class;
 
-    public static ?string $tenantOwnershipRelationshipName = 'relationships';
-
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     /**

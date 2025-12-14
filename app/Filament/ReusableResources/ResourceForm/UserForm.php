@@ -3,12 +3,12 @@
 namespace App\Filament\ReusableResources\ResourceForm;
 
 use Exception;
+use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
-use Illuminate\Database\Eloquent\Model;
 
 class UserForm
 {
@@ -29,12 +29,12 @@ class UserForm
                             ->unique(ignoreRecord: true),
                         Select::make('roles')
                             ->relationship('roles', 'name')
-                            ->saveRelationshipsUsing(function (Model $record, $state): void {
-                                $record->roles()->syncWithPivotValues($state, [config('permission.column_names.team_foreign_key') => getPermissionsTeamId()]);
-                            })
                             ->multiple()
                             ->preload()
                             ->searchable(),
+                        //                        CheckboxList::make('roles')
+                        //                            ->relationship('roles', 'name')
+                        //                            ->searchable(),
                         TextInput::make('password')
                             ->password()
                             ->required()

@@ -2,14 +2,14 @@
 
 namespace App\Providers;
 
-use App\Models\Permission;
-use App\Models\Role;
 use App\Policies\AuthenticationLogPolicy;
 use App\Services\ElasticSearchService;
 use BezhanSalleh\FilamentShield\Commands\GenerateCommand;
 use BezhanSalleh\FilamentShield\Commands\InstallCommand;
 use BezhanSalleh\FilamentShield\Commands\PublishCommand;
+use BezhanSalleh\FilamentShield\Commands\SeederCommand;
 use BezhanSalleh\FilamentShield\Commands\SetupCommand;
+use BezhanSalleh\FilamentShield\Commands\SuperAdminCommand;
 use Filament\Schemas\Components\Section;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Rappasoft\LaravelAuthenticationLog\Models\AuthenticationLog;
-use Spatie\Permission\PermissionRegistrar;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,16 +35,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        app(PermissionRegistrar::class)
-            ->setPermissionClass(Permission::class)
-            ->setRoleClass(Role::class);
-
         $this->configureModels();
         $this->configureCommands();
 
-        Section::configureUsing(fn (Section $section): Section => $section->columnSpanFull());
-
         Gate::policy(AuthenticationLog::class, AuthenticationLogPolicy::class);
+        Section::configureUsing(fn (Section $section): Section => $section->columnSpanFull());
     }
 
     private function configureUrl(): void
@@ -64,18 +58,17 @@ class AppServiceProvider extends ServiceProvider
 
     private function configureCommands(): void
     {
-        DB::prohibitDestructiveCommands(
-            $this->app->isProduction()
-        );
-
         $this->filamentShieldProhibitDestructiveCommands();
+        DB::prohibitDestructiveCommands($this->app->isProduction());
     }
 
     private function filamentShieldProhibitDestructiveCommands(): void
     {
         SetupCommand::prohibit($this->app->isProduction());
+        SeederCommand::prohibit($this->app->isProduction());
         InstallCommand::prohibit($this->app->isProduction());
-        GenerateCommand::prohibit($this->app->isProduction());
         PublishCommand::prohibit($this->app->isProduction());
+        GenerateCommand::prohibit($this->app->isProduction());
+        SuperAdminCommand::prohibit($this->app->isProduction());
     }
 }

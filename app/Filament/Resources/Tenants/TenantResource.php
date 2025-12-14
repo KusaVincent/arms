@@ -26,7 +26,7 @@ class TenantResource extends Resource
 {
     protected static ?string $model = Tenant::class;
 
-    public static ?string $tenantOwnershipRelationshipName = 'relationships';
+    protected static ?string $tenantOwnershipRelationshipName = 'user';
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 

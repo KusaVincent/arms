@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-trait GuardControl
+trait HasGuardControl
 {
     protected function isGuardEnabled(): bool
     {
