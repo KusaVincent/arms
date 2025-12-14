@@ -135,7 +135,7 @@ abstract class BaseSystemExceptionHandler
     {
         $trace = array_slice($e->getTrace(), 0, 10);
 
-        return json_encode(array_map($this->sanitizeTraceFrame(...), $trace), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        return json_encode(array_map(fn (array $frame): array => $this->sanitizeTraceFrame($frame), $trace), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -179,7 +179,7 @@ abstract class BaseSystemExceptionHandler
         ];
 
         $input = $request->except($sensitiveFields);
-        array_walk_recursive($input, fn (&$value, string $key) => $this->sanitizeSensitiveData($key, $value, $sensitiveFields));
+        array_walk_recursive($input, fn (&$value, $key) => $this->sanitizeSensitiveData($key, $value, $sensitiveFields));
 
         return [
             'input' => $input,
