@@ -11,11 +11,8 @@ use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Collection;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use Rappasoft\LaravelAuthenticationLog\Traits\AuthenticationLoggable;
@@ -31,6 +28,8 @@ final class User extends Authenticatable implements Auditable, FilamentUser
 
     protected string $referencePrefix = 'USR';
 
+    protected bool $auditStrict = true;
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -39,6 +38,10 @@ final class User extends Authenticatable implements Auditable, FilamentUser
     protected $hidden = [
         'password',
         'remember_token',
+    ];
+
+    protected array $auditRedact = [
+        'password',
     ];
 
     /**
@@ -53,21 +56,6 @@ final class User extends Authenticatable implements Auditable, FilamentUser
             'password' => 'hashed',
         ];
     }
-
-    //    public function clients(): BelongsToMany
-    //    {
-    //        return $this->belongsToMany(Client::class);
-    //    }
-
-    //    public function getTenants(Panel $panel): Collection
-    //    {
-    //        return $this->clients;
-    //    }
-
-    //    public function canAccessTenant(Model $tenant): bool
-    //    {
-    //        return $this->clients()->whereKey($tenant)->exists();
-    //    }
 
     public function canAccessPanel(Panel $panel): bool
     {

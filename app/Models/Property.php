@@ -91,6 +91,14 @@ final class Property extends Model implements Auditable
     }
 
     /**
+     * Determine if the model should be searchable.
+     */
+    //    public function shouldBeSearchable(): bool
+    //    {
+    //        return $this->isAvailable();
+    //    }
+
+    /**
      * @return BelongsTo<PropertyType, Property>
      */
     public function propertyType(): BelongsTo
@@ -149,6 +157,6 @@ final class Property extends Model implements Auditable
 
     public function scopeIsAvailable(Builder $query): void
     {
-        $query->where('available', true);
+        $query->where('available', PropertyAvailable::YES);
     }
 }

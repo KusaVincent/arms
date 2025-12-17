@@ -82,9 +82,9 @@ return [
     |
     */
 
-    'panel_user' => [
+    'manage_user' => [
         'enabled' => true,
-        'name' => 'panel_user',
+        'name' => 'manage_user',
     ],
 
     /*

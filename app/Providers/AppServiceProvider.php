@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Policies\AuditPolicy;
 use App\Policies\AuthenticationLogPolicy;
 use App\Services\ElasticSearchService;
 use BezhanSalleh\FilamentShield\Commands\GenerateCommand;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+use OwenIt\Auditing\Models\Audit;
 use Rappasoft\LaravelAuthenticationLog\Models\AuthenticationLog;
 
 class AppServiceProvider extends ServiceProvider
@@ -38,7 +40,9 @@ class AppServiceProvider extends ServiceProvider
         $this->configureModels();
         $this->configureCommands();
 
+        Gate::policy(Audit::class, AuditPolicy::class);
         Gate::policy(AuthenticationLog::class, AuthenticationLogPolicy::class);
+
         Section::configureUsing(fn (Section $section): Section => $section->columnSpanFull());
     }
 
