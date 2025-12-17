@@ -10,11 +10,12 @@ php artisan optimize:clear
 
 php artisan filament:cache
 
-#shield
+# shield
 
 php artisan shield:setup
 
 php artisan shield:generate --all
+![Shield permission](storage/snips/shield.png)
 
 php artisan shield:super-admin --user=1 --panel=2 --tenant=2
 

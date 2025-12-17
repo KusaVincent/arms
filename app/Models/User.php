@@ -11,6 +11,8 @@ use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
@@ -60,6 +62,20 @@ final class User extends Authenticatable implements Auditable, FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
         return true;
+    }
+
+
+    public function properties(): BelongsToMany
+    {
+        return $this->belongsToMany(Property::class)
+            ->using(PropertyUser::class)
+            ->withPivot(['created_by'])
+            ->withTimestamps();
+    }
+
+    public function subscriptionPackages(): HasMany
+    {
+        return $this->hasMany(SubscriptionPackage::class);
     }
 
     //    #[\Override]

@@ -19,9 +19,11 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 use Tapp\FilamentAuthenticationLog\RelationManagers\AuthenticationLogsRelationManager;
+use BezhanSalleh\FilamentShield\Concerns\HasShieldPermissions;
 
 class UserResource extends Resource
 {
+
     protected static ?string $model = User::class;
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';

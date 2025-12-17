@@ -9,6 +9,7 @@ use App\Traits\Referenceable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
@@ -32,4 +33,10 @@ final class Payment extends Model implements Auditable
     {
         return $this->belongsTo(PaymentMethod::class);
     }
+
+    public function subscriptionPackage(): HasOne
+    {
+        return $this->hasOne(SubscriptionPackage::class);
+    }
+
 }

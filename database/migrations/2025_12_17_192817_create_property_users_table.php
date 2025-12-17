@@ -1,8 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
-use App\Models\Amenity;
+use App\Models\User;
 use App\Models\Property;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,21 +13,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('amenity_property', function (Blueprint $table): void {
+        Schema::create('property_user', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(User::class)
+                ->constrained()
+                ->cascadeOnDelete();
             $table->foreignIdFor(Property::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->foreignIdFor(Amenity::class)
-                ->constrained()
-                ->cascadeOnDelete();
+            $table->string('relationship');
             $table->foreignId('created_by')
                 ->nullable()
                 ->constrained('users')
                 ->nullOnDelete();
             $table->timestamps();
 
-            $table->unique(['amenity_id', 'property_id']);
+            $table->unique(['user_id', 'property_id']);
         });
     }
 };

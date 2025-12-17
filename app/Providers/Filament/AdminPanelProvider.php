@@ -64,7 +64,7 @@ class AdminPanelProvider extends PanelProvider
                     ->navigationBadge()
                     ->globallySearchable()
                     ->sectionColumnSpan(1)
-                    ->navigationGroup('Settings')
+                    ->navigationGroup('Security Management System')
                     ->globalSearchResultsLimit(50)
                     ->forceGlobalSearchCaseInsensitive()
                     ->navigationBadgeColor('success')

@@ -125,6 +125,17 @@ final class Property extends Model implements Auditable
             ->withTimestamps();
     }
 
+    /**
+     * @return BelongsToMany<User>
+     */
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class)
+            ->using(PropertyUser::class)
+            ->withPivot(['created_by'])
+            ->withTimestamps();
+    }
+
     public function leaseAgreements(): HasMany
     {
         return $this->hasMany(LeaseAgreement::class);

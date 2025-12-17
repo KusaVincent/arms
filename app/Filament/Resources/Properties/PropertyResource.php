@@ -11,6 +11,7 @@ use App\Filament\Resources\Properties\RelationManagers\LocationRelationManager;
 use App\Filament\Resources\Properties\RelationManagers\MaintenanceRelationManager;
 use App\Filament\Resources\Properties\RelationManagers\PropertyMediaRelationManager;
 use App\Filament\Resources\Properties\RelationManagers\PropertyTypeRelationManager;
+use App\Filament\Resources\Properties\RelationManagers\UsersRelationManager;
 use App\Filament\ReusableResources\ResourceForm\PropertyForm;
 use App\Filament\ReusableResources\ResourceTable\PropertyTable;
 use App\Models\Property;
@@ -67,6 +68,7 @@ class PropertyResource extends Resource
     public static function getRelations(): array
     {
         return [
+            UsersRelationManager::class,
             AuditsRelationManager::class,
             AmenitiesRelationManager::class,
             LocationRelationManager::class,
