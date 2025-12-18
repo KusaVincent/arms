@@ -30,7 +30,6 @@ class SubscriptionPackageFactory extends Factory
         $expiryDate = (clone $effectiveDate)->modify('+'.$packageDescription->period_in_months.' months');
 
         return [
-            'mnemonic'          => strtoupper(Str::random(6)),
             'user_id'           => $user->id,
             'payment_id'        => $payment->id,
             'package_description_id' => $packageDescription->id,

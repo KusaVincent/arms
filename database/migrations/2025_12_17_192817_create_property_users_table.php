@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)
                 ->constrained()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->foreignIdFor(Property::class)
                 ->constrained()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->string('relationship');
             $table->foreignId('created_by')
                 ->nullable()

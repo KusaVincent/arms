@@ -21,14 +21,14 @@ return new class extends Migration
                 ->index();
             $table->foreignIdFor(User::class)
                 ->constrained()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->foreignIdFor(Payment::class)
                 ->unique()
                 ->constrained()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->foreignIdFor(PackageDescription::class)
                 ->constrained()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->integer('no_of_properties');
             $table->integer('no_of_support_team');
             $table->string('status');

@@ -26,10 +26,10 @@ return new class extends Migration
                 ->index();
             $table->foreignIdFor(PropertyType::class)
                 ->constrained()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->foreignIdFor(Location::class)
                 ->constrained()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->string('name');
             $table->text('description');
             $table->text('property_image');

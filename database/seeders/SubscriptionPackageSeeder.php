@@ -34,7 +34,6 @@ class SubscriptionPackageSeeder extends Seeder
                 );
 
                 SubscriptionPackage::create([
-                    'mnemonic'               => strtoupper(Str::random(6)),
                     'user_id'                => $users->random()->id,
                     'payment_id'             => $payment->id,
                     'package_description_id' => $package->id,

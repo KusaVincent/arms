@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PackagePublished;
 use App\Enums\PackageStatus;
 use App\Traits\Referenceable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,11 +24,13 @@ class PackageDescription extends Model implements Auditable
     protected $attributes = [
         'period_in_months' => 0,
         'period_in_years' => 0,
+        'published' => PackagePublished::NO,
         'status' => PackageStatus::INACTIVE,
     ];
 
     protected $casts = [
         'status' => PackageStatus::class,
+        'published' => PackagePublished::class,
     ];
 
     public function subscriptionPackages(): HasMany

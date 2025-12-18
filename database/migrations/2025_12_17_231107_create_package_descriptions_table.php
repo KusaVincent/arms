@@ -21,6 +21,9 @@ return new class extends Migration
             $table->integer('period_in_months');
             $table->integer('period_in_years');
             $table->string('status');
+            $table->string('published');
+            $table->datetime('published_from')->nullable();
+            $table->datetime('published_until')->nullable();
             $table->timestamps();
         });
     }

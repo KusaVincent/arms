@@ -21,7 +21,7 @@ return new class extends Migration
                 ->index();
             $table->foreignIdFor(Property::class)
                 ->constrained()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->text('image_one');
             $table->text('image_two')->nullable();
             $table->text('image_three')->nullable();

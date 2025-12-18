@@ -22,10 +22,10 @@ return new class extends Migration
                 ->index();
             $table->foreignIdFor(Property::class)
                 ->constrained()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->foreignIdFor(Tenant::class)
                 ->constrained()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->text('description');
             $table->smallInteger('status')
                 ->default(0);

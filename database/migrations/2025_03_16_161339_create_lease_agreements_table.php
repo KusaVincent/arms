@@ -22,10 +22,10 @@ return new class extends Migration
                 ->index();
             $table->foreignIdFor(Tenant::class)
                 ->constrained()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->foreignIdFor(Property::class)
                 ->constrained()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->date('lease_start_date');
             $table->date('lease_end_date');
             $table->decimal('rent_amount', 10);

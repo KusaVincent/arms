@@ -19,10 +19,10 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Property::class)
                 ->constrained()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->foreignIdFor(Amenity::class)
                 ->constrained()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->foreignId('created_by')
                 ->nullable()
                 ->constrained('users')

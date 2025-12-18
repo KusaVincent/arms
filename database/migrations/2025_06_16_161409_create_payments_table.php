@@ -22,10 +22,10 @@ return new class extends Migration
                 ->index();
             $table->foreignIdFor(LeaseAgreement::class)
                 ->constrained()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->foreignIdFor(PaymentMethod::class)
                 ->constrained()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->date('payment_date');
             $table->decimal('payment_amount', 10);
             $table->timestamps();

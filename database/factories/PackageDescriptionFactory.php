@@ -23,7 +23,6 @@ class PackageDescriptionFactory extends Factory
         $periodYears  = (int) ($periodMonths / 12);
 
         return [
-            'mnemonic'          => strtoupper(Str::random(6)), // unique mnemonic
             'name'              => $this->faker->words(3, true),
             'description'       => $this->faker->sentence(10),
             'period_in_months'  => $periodMonths,
