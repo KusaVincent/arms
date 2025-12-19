@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Abouts;
 
+use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\Abouts\Pages\CreateAbout;
 use App\Filament\Resources\Abouts\Pages\EditAbout;
 use App\Filament\Resources\Abouts\Pages\ListAbouts;
@@ -18,7 +19,6 @@ use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class AboutResource extends Resource
 {
@@ -61,7 +61,7 @@ class AboutResource extends Resource
     public static function getRelations(): array
     {
         return [
-            AuditsRelationManager::class,
+            ActivitiesRelationManager::class,
         ];
     }
 

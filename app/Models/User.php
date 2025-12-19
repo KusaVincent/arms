@@ -15,18 +15,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use OwenIt\Auditing\Auditable as AuditableTrait;
-use OwenIt\Auditing\Contracts\Auditable;
 use Rappasoft\LaravelAuthenticationLog\Traits\AuthenticationLoggable;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @method static create()
  */
-final class User extends Authenticatable implements Auditable, FilamentUser
+final class User extends Authenticatable implements FilamentUser
 {
-    use AuditableTrait, AuthenticationLoggable, HasFactory,HasPanelShield,HasRoles,KeepsDeletedModels,Notifiable, Referenceable;
+    use AuthenticationLoggable, HasFactory, HasPanelShield,HasRoles,KeepsDeletedModels,LogsActivity,Notifiable, Referenceable;
 
     protected string $referencePrefix = 'USR';
 
@@ -64,6 +64,11 @@ final class User extends Authenticatable implements Auditable, FilamentUser
         return true;
     }
 
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll();
+    }
 
     public function properties(): BelongsToMany
     {

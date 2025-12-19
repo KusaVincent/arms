@@ -10,19 +10,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use OwenIt\Auditing\Auditable as AuditableTrait;
-use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
-final class Payment extends Model implements Auditable
+final class Payment extends Model
 {
-    use AuditableTrait, HasFactory, KeepsDeletedModels, Referenceable;
+    use HasFactory,KeepsDeletedModels, LogsActivity, Referenceable;
 
     protected string $referencePrefix = 'PAY';
 
     protected $casts = [
         'payment_amount' => PaymentCast::class,
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll();
+    }
 
     public function leaseAgreement(): BelongsTo
     {
@@ -38,5 +44,4 @@ final class Payment extends Model implements Auditable
     {
         return $this->hasOne(SubscriptionPackage::class);
     }
-
 }

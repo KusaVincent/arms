@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use AlizHarb\ActivityLog\ActivityLogPlugin;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -59,7 +60,10 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])->plugins([
-                FilamentAuthenticationLogPlugin::make(),
+                ActivityLogPlugin::make()
+                    ->label('Activity Log')
+                    ->pluralLabel('Activity Logs')
+                    ->navigationGroup('Security Management System'),
                 FilamentShieldPlugin::make()
                     ->navigationBadge()
                     ->globallySearchable()
@@ -71,6 +75,7 @@ class AdminPanelProvider extends PanelProvider
                     ->gridColumns(['default' => 1, 'sm' => 2, 'lg' => 3])
                     ->resourceCheckboxListColumns(['default' => 1, 'sm' => 2])
                     ->checkboxListColumns(['default' => 1, 'sm' => 2, 'lg' => 4]),
+                FilamentAuthenticationLogPlugin::make(),
             ]);
     }
 }

@@ -2,6 +2,9 @@
 
 namespace App\Filament\Resources\ServiceAvailabilities;
 
+use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
+use App\Filament\Resources\ServiceAvailabilities\Pages\CreateServiceAvailability;
+use App\Filament\Resources\ServiceAvailabilities\Pages\EditServiceAvailability;
 use App\Filament\Resources\ServiceAvailabilities\Pages\ListServiceAvailabilities;
 use App\Filament\Resources\ServiceAvailabilityResource\Pages;
 use App\Filament\ReusableResources\ResourceForm\ServiceAvailabilityForm;
@@ -17,7 +20,6 @@ use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class ServiceAvailabilityResource extends Resource
 {
@@ -60,7 +62,7 @@ class ServiceAvailabilityResource extends Resource
     public static function getRelations(): array
     {
         return [
-            AuditsRelationManager::class,
+            ActivitiesRelationManager::class,
         ];
     }
 
@@ -68,8 +70,8 @@ class ServiceAvailabilityResource extends Resource
     {
         return [
             'index' => ListServiceAvailabilities::route('/'),
-            //            'create' => Pages\CreateServiceAvailability::route('/create'),
-            //            'edit' => Pages\EditServiceAvailability::route('/{record}/edit'),
+//                        'create' => CreateServiceAvailability::route('/create'),
+                        'edit' => EditServiceAvailability::route('/{record}/edit'),
         ];
     }
 }

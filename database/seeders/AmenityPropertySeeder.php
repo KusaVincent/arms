@@ -31,8 +31,8 @@ final class AmenityPropertySeeder extends Seeder
                 ->each(function ($amenityId) use ($property, $propertyUserIds): void {
                     AmenityProperty::create([
                         'property_id' => $property->id,
-                        'amenity_id'  => $amenityId,
-                        'created_by'  => $propertyUserIds->random(),
+                        'amenity_id' => $amenityId,
+                        'created_by' => $propertyUserIds->random(),
                     ]);
                 });
         });

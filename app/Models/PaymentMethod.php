@@ -6,19 +6,25 @@ use App\Traits\Referenceable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use OwenIt\Auditing\Auditable as AuditableTrait;
-use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * @method static inRandomOrder()
  * @method static factory()
  * @method static create(mixed $about)
  */
-class PaymentMethod extends Model implements Auditable
+class PaymentMethod extends Model
 {
-    use AuditableTrait, HasFactory, Referenceable;
+    use HasFactory, LogsActivity, Referenceable;
 
     protected string $referencePrefix = 'PMT';
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll();
+    }
 
     public function payments(): HasMany
     {

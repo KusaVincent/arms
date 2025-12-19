@@ -7,7 +7,7 @@ class SanitizationHelper
     public static function stripFormatting($value): float
     {
         if (is_string($value)) {
-            return (float) str_replace(['Ksh ', ','], '', $value);
+            return (float) str_replace(['KES ', ','], '', $value);
         }
 
         return $value;

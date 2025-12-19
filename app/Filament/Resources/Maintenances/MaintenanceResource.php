@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Maintenances;
 
+use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\Maintenances\Pages\CreateMaintenance;
 use App\Filament\Resources\Maintenances\Pages\EditMaintenance;
 use App\Filament\Resources\Maintenances\Pages\ListMaintenances;
@@ -20,7 +21,6 @@ use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class MaintenanceResource extends Resource
 {
@@ -63,9 +63,9 @@ class MaintenanceResource extends Resource
     public static function getRelations(): array
     {
         return [
-            AuditsRelationManager::class,
             TenantRelationManager::class,
             PropertyRelationManager::class,
+            ActivitiesRelationManager::class,
         ];
     }
 

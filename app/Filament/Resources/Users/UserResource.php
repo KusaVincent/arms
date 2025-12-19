@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Users;
 
+use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\Users\Pages\CreateUser;
 use App\Filament\Resources\Users\Pages\EditUser;
 use App\Filament\Resources\Users\Pages\ListUsers;
@@ -17,13 +18,10 @@ use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 use Tapp\FilamentAuthenticationLog\RelationManagers\AuthenticationLogsRelationManager;
-use BezhanSalleh\FilamentShield\Concerns\HasShieldPermissions;
 
 class UserResource extends Resource
 {
-
     protected static ?string $model = User::class;
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -63,8 +61,8 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            AuditsRelationManager::class,
             AuthenticationLogsRelationManager::class,
+            ActivitiesRelationManager::class,
         ];
     }
 

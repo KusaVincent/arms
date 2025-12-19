@@ -27,11 +27,11 @@ class PropertyUserSeeder extends Seeder
         PropertyUser::firstOrCreate(
             [
                 'property_id' => $property->id,
-                'user_id'     => $ownerId,
+                'user_id' => $ownerId,
             ],
             [
                 'relationship' => 'owner',
-                'created_by'   => $this->randomUserExcluding($eligibleUsers, [$ownerId]),
+                'created_by' => $this->randomUserExcluding($eligibleUsers, [$ownerId]),
             ]
         );
 
@@ -52,11 +52,11 @@ class PropertyUserSeeder extends Seeder
                 PropertyUser::firstOrCreate(
                     [
                         'property_id' => $property->id,
-                        'user_id'     => $userId,
+                        'user_id' => $userId,
                     ],
                     [
                         'relationship' => 'user',
-                        'created_by'   => $this->randomUserExcluding($eligibleUsers, [$userId]),
+                        'created_by' => $this->randomUserExcluding($eligibleUsers, [$userId]),
                     ]
                 );
             });
@@ -64,7 +64,8 @@ class PropertyUserSeeder extends Seeder
 
     private function randomUserExcluding($eligibleUsers, array $exclude = []): int
     {
-        $filtered = $eligibleUsers->filter(fn ($id) => !in_array($id, $exclude));
+        $filtered = $eligibleUsers->filter(fn ($id) => ! in_array($id, $exclude));
+
         return $filtered->random();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PaymentMethods;
 
+use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\PaymentMethods\Pages\CreatePaymentMethod;
 use App\Filament\Resources\PaymentMethods\Pages\EditPaymentMethod;
 use App\Filament\Resources\PaymentMethods\Pages\ListPaymentMethods;
@@ -18,7 +19,6 @@ use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class PaymentMethodResource extends Resource
 {
@@ -60,8 +60,8 @@ class PaymentMethodResource extends Resource
     public static function getRelations(): array
     {
         return [
-            AuditsRelationManager::class,
             PaymentsRelationManager::class,
+            ActivitiesRelationManager::class,
         ];
     }
 

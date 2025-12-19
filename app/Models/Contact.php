@@ -9,22 +9,28 @@ use App\Traits\Referenceable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use OwenIt\Auditing\Auditable as AuditableTrait;
-use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * @method static whereNot(string $string, string $string1)
  * @method static create(string[] $contact)
  */
-final class Contact extends Model implements Auditable
+final class Contact extends Model
 {
-    use AuditableTrait, HasFactory, Referenceable, SoftDeletes;
+    use HasFactory,LogsActivity, Referenceable, SoftDeletes;
 
     protected string $referencePrefix = 'CON';
 
     protected $casts = [
         'section' => ContactSection::class,
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll();
+    }
 
     protected $attributes = [
         'section' => ContactSection::ALL,

@@ -6,18 +6,24 @@ namespace App\Models;
 
 use App\Traits\Referenceable;
 use Illuminate\Database\Eloquent\Model;
-use OwenIt\Auditing\Auditable as AuditableTrait;
-use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
 /**
  * @method static create(array $all)
  */
-final class CustomerSupport extends Model implements Auditable
+final class CustomerSupport extends Model
 {
-    use AuditableTrait, KeepsDeletedModels, Referenceable;
+    use KeepsDeletedModels,LogsActivity, Referenceable;
 
     protected string $referencePrefix = 'CUS';
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll();
+    }
 
     public function getEmailAttribute($value): string
     {

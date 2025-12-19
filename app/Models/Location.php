@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\HigherOrderCollectionProxy;
-use OwenIt\Auditing\Auditable as AuditableTrait;
-use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
 /**
@@ -23,11 +23,17 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  * @property mixed $address
  * @property HigherOrderCollectionProxy|mixed|null $full_details
  */
-final class Location extends Model implements Auditable
+final class Location extends Model
 {
-    use AuditableTrait, HasFactory, KeepsDeletedModels, Referenceable;
+    use HasFactory, KeepsDeletedModels, LogsActivity, Referenceable;
 
     protected string $referencePrefix = 'LOC';
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll();
+    }
 
     public function properties(): HasMany
     {

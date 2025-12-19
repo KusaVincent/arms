@@ -11,7 +11,6 @@ enum PackageStatus: int implements HasColor, HasLabel
     case ACTIVE = 1;
     case EXPIRED = 2;
 
-
     public function getColor(): string
     {
         return match ($this) {

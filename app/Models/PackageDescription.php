@@ -8,16 +8,16 @@ use App\Traits\Referenceable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use OwenIt\Auditing\Auditable as AuditableTrait;
-use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
 /**
  * @method static inRandomOrder()
  */
-class PackageDescription extends Model implements Auditable
+class PackageDescription extends Model
 {
-    use HasFactory, KeepsDeletedModels, AuditableTrait, Referenceable;
+    use HasFactory,KeepsDeletedModels, LogsActivity, Referenceable;
 
     protected string $referencePrefix = 'PKG';
 
@@ -32,6 +32,12 @@ class PackageDescription extends Model implements Auditable
         'status' => PackageStatus::class,
         'published' => PackagePublished::class,
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll();
+    }
 
     public function subscriptionPackages(): HasMany
     {

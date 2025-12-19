@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Properties;
 
+use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\Properties\Pages\CreateProperty;
 use App\Filament\Resources\Properties\Pages\EditProperty;
 use App\Filament\Resources\Properties\Pages\ListProperties;
@@ -25,7 +26,6 @@ use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class PropertyResource extends Resource
 {
@@ -69,13 +69,13 @@ class PropertyResource extends Resource
     {
         return [
             UsersRelationManager::class,
-            AuditsRelationManager::class,
             AmenitiesRelationManager::class,
             LocationRelationManager::class,
             PropertyTypeRelationManager::class,
             PropertyMediaRelationManager::class,
             LeaseAgreementsRelationManager::class,
             MaintenanceRelationManager::class,
+            ActivitiesRelationManager::class,
         ];
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Tenants;
 
+use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\Tenants\Pages\CreateTenant;
 use App\Filament\Resources\Tenants\Pages\EditTenant;
 use App\Filament\Resources\Tenants\Pages\ListTenants;
@@ -20,7 +21,6 @@ use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class TenantResource extends Resource
 {
@@ -65,9 +65,9 @@ class TenantResource extends Resource
     public static function getRelations(): array
     {
         return [
-            AuditsRelationManager::class,
             MaintenanceRelationManager::class,
             LeaseAgreementRelationManager::class,
+            ActivitiesRelationManager::class,
         ];
     }
 

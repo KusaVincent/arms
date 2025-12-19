@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PropertyMedia;
 
+use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\PropertyMedia\Pages\CreatePropertyMedia;
 use App\Filament\Resources\PropertyMedia\Pages\EditPropertyMedia;
 use App\Filament\Resources\PropertyMedia\Pages\ListPropertyMedia;
@@ -19,7 +20,6 @@ use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class PropertyMediaResource extends Resource
 {
@@ -62,8 +62,8 @@ class PropertyMediaResource extends Resource
     public static function getRelations(): array
     {
         return [
-            AuditsRelationManager::class,
             PropertyRelationManager::class,
+            ActivitiesRelationManager::class,
         ];
     }
 

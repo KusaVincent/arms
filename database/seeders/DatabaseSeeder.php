@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\Models\PackageDescription;
-use App\Models\SubscriptionPackage;
 use Illuminate\Database\Seeder;
 
 final class DatabaseSeeder extends Seeder

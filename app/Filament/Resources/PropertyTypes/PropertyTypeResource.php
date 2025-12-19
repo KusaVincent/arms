@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PropertyTypes;
 
+use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\PropertyTypeResource\Pages;
 use App\Filament\Resources\PropertyTypes\Pages\EditPropertyType;
 use App\Filament\Resources\PropertyTypes\Pages\ListPropertyTypes;
@@ -19,7 +20,6 @@ use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class PropertyTypeResource extends Resource
 {
@@ -62,8 +62,8 @@ class PropertyTypeResource extends Resource
     public static function getRelations(): array
     {
         return [
-            AuditsRelationManager::class,
             PropertiesRelationManager::class,
+            ActivitiesRelationManager::class,
         ];
     }
 

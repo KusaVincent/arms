@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\CustomerSupports;
 
+use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\CustomerSupports\Pages\CreateCustomerSupport;
 use App\Filament\Resources\CustomerSupports\Pages\EditCustomerSupport;
 use App\Filament\Resources\CustomerSupports\Pages\ListCustomerSupports;
@@ -17,7 +18,6 @@ use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class CustomerSupportResource extends Resource
 {
@@ -59,7 +59,7 @@ class CustomerSupportResource extends Resource
     public static function getRelations(): array
     {
         return [
-            AuditsRelationManager::class,
+            ActivitiesRelationManager::class,
         ];
     }
 

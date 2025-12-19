@@ -17,8 +17,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Scout\Searchable;
-use OwenIt\Auditing\Auditable as AuditableTrait;
-use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
 /**
@@ -38,9 +38,9 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  * @method static count()
  * @method static inRandomOrder()
  */
-final class Property extends Model implements Auditable
+final class Property extends Model
 {
-    use AuditableTrait, HasFactory, KeepsDeletedModels, Referenceable, Searchable, Sluggable;
+    use HasFactory,KeepsDeletedModels, LogsActivity, Referenceable, Searchable, Sluggable;
 
     protected string $referencePrefix = 'PPT';
 
@@ -88,6 +88,12 @@ final class Property extends Model implements Auditable
             'type_name' => $this->propertyType->type_name,
             'created_at' => $this->created_at->timestamp,
         ]);
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll();
     }
 
     /**

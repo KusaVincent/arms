@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\LeaseAgreements;
 
+use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\LeaseAgreements\Pages\CreateLeaseAgreement;
 use App\Filament\Resources\LeaseAgreements\Pages\EditLeaseAgreement;
 use App\Filament\Resources\LeaseAgreements\Pages\ListLeaseAgreements;
@@ -21,7 +22,6 @@ use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class LeaseAgreementResource extends Resource
 {
@@ -64,10 +64,10 @@ class LeaseAgreementResource extends Resource
     public static function getRelations(): array
     {
         return [
-            AuditsRelationManager::class,
             TenantRelationManager::class,
             PropertyRelationManager::class,
             PaymentsRelationManager::class,
+            ActivitiesRelationManager::class,
         ];
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Locations;
 
+use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\Locations\Pages\CreateLocation;
 use App\Filament\Resources\Locations\Pages\EditLocation;
 use App\Filament\Resources\Locations\Pages\ListLocations;
@@ -19,7 +20,6 @@ use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class LocationResource extends Resource
 {
@@ -62,8 +62,8 @@ class LocationResource extends Resource
     public static function getRelations(): array
     {
         return [
-            AuditsRelationManager::class,
             PropertiesRelationManager::class,
+            ActivitiesRelationManager::class,
         ];
     }
 

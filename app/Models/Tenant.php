@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use OwenIt\Auditing\Auditable as AuditableTrait;
-use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
 /**
@@ -24,11 +24,17 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  *
  * @method static inRandomOrder()
  */
-final class Tenant extends Model implements Auditable
+final class Tenant extends Model
 {
-    use AuditableTrait, HasFactory, KeepsDeletedModels, Referenceable;
+    use HasFactory,KeepsDeletedModels, LogsActivity, Referenceable;
 
     protected string $referencePrefix = 'TNT';
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll();
+    }
 
     /**
      * @return HasMany<LeaseAgreement, Tenant>

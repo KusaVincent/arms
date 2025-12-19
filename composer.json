@@ -7,6 +7,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.4",
+        "alizharb/filament-activity-log": "^1.1",
         "bezhansalleh/filament-shield": "^4.0",
         "cviebrock/eloquent-sluggable": "^12.0",
         "eg-mohamed/referenceable": "^2.0",
@@ -20,7 +21,6 @@
         "opcodesio/log-viewer": "^3.17",
         "spatie/laravel-deleted-models": "^1.1",
         "stancl/tenancy": "^3.9",
-        "tapp/filament-auditing": "4.0",
         "tapp/filament-authentication-log": "5.0",
         "torann/geoip": "^3.0",
         "typesense/typesense-php": "^5.1"

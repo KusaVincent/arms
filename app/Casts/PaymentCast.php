@@ -14,7 +14,7 @@ class PaymentCast implements CastsAttributes
      */
     public function get(Model $model, string $key, mixed $value, array $attributes): string
     {
-        return 'Ksh '.number_format($value);
+        return 'KES '.number_format($value);
     }
 
     /**
@@ -24,7 +24,7 @@ class PaymentCast implements CastsAttributes
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): int
     {
-        $cleaned = str_replace(['Ksh ', ','], '', (string) $value);
+        $cleaned = str_replace(['KES ', ','], '', (string) $value);
 
         return (int) ceil((float) $cleaned);
     }

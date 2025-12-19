@@ -8,15 +8,21 @@ use App\Traits\Referenceable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use OwenIt\Auditing\Auditable as AuditableTrait;
-use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
-final class PropertyMedia extends Model implements Auditable
+final class PropertyMedia extends Model
 {
-    use AuditableTrait, HasFactory, KeepsDeletedModels, Referenceable;
+    use HasFactory,KeepsDeletedModels, LogsActivity, Referenceable;
 
     protected string $referencePrefix = 'PPM';
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll();
+    }
 
     public function property(): BelongsTo
     {

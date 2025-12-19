@@ -10,16 +10,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use OwenIt\Auditing\Auditable as AuditableTrait;
-use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
 /**
  * @method static inRandomOrder()
  */
-final class LeaseAgreement extends Model implements Auditable
+final class LeaseAgreement extends Model
 {
-    use AuditableTrait, HasFactory, KeepsDeletedModels, Referenceable;
+    use HasFactory, KeepsDeletedModels, LogsActivity, Referenceable;
 
     protected string $referencePrefix = 'LAG';
 
@@ -27,6 +27,12 @@ final class LeaseAgreement extends Model implements Auditable
         'rent_amount' => PaymentCast::class,
         'deposit_amount' => PaymentCast::class,
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll();
+    }
 
     public function tenant(): BelongsTo
     {

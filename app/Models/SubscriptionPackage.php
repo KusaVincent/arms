@@ -7,15 +7,15 @@ use App\Traits\Referenceable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
-use OwenIt\Auditing\Auditable as AuditableTrait;
 
-class SubscriptionPackage extends Model implements Auditable
+class SubscriptionPackage extends Model
 {
-    use HasFactory, KeepsDeletedModels, Referenceable, AuditableTrait;
+    use HasFactory,KeepsDeletedModels, LogsActivity, Referenceable;
 
-    protected string $referencePrefix = 'SPI'; //mode name . invoice
+    protected string $referencePrefix = 'SPI'; // mode name . invoice
 
     protected $attributes = [
         'no_of_properties' => 0,
@@ -26,6 +26,12 @@ class SubscriptionPackage extends Model implements Auditable
     protected $casts = [
         'status' => PackageStatus::class,
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll();
+    }
 
     public function payment(): BelongsTo
     {

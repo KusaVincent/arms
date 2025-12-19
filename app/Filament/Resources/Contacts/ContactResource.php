@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Contacts;
 
+use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\Contacts\Pages\CreateContact;
 use App\Filament\Resources\Contacts\Pages\EditContact;
 use App\Filament\Resources\Contacts\Pages\ListContacts;
@@ -18,7 +19,6 @@ use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class ContactResource extends Resource
 {
@@ -61,7 +61,7 @@ class ContactResource extends Resource
     public static function getRelations(): array
     {
         return [
-            AuditsRelationManager::class,
+            ActivitiesRelationManager::class,
         ];
     }
 

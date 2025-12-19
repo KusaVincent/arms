@@ -9,18 +9,24 @@ use App\Traits\Referenceable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use OwenIt\Auditing\Auditable as AuditableTrait;
-use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * @method static where(string $string, $serviceKey)
  * @method static create(array $serviceAvailability)
  */
-final class ServiceAvailability extends Model implements Auditable
+final class ServiceAvailability extends Model
 {
-    use AuditableTrait, HasFactory, Referenceable, SoftDeletes;
+    use HasFactory, LogsActivity, Referenceable, SoftDeletes;
 
     protected string $referencePrefix = 'SAV';
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll();
+    }
 
     protected $casts = [
         'is_active' => ActiveServiceAvailability::class,
