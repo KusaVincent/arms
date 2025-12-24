@@ -6,7 +6,6 @@ use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\ServiceAvailabilities\Pages\CreateServiceAvailability;
 use App\Filament\Resources\ServiceAvailabilities\Pages\EditServiceAvailability;
 use App\Filament\Resources\ServiceAvailabilities\Pages\ListServiceAvailabilities;
-use App\Filament\Resources\ServiceAvailabilityResource\Pages;
 use App\Filament\ReusableResources\ResourceForm\ServiceAvailabilityForm;
 use App\Filament\ReusableResources\ResourceTable\ServiceAvailabilityTable;
 use App\Models\ServiceAvailability;
@@ -70,8 +69,8 @@ class ServiceAvailabilityResource extends Resource
     {
         return [
             'index' => ListServiceAvailabilities::route('/'),
-//                        'create' => CreateServiceAvailability::route('/create'),
-                        'edit' => EditServiceAvailability::route('/{record}/edit'),
+            //                        'create' => CreateServiceAvailability::route('/create'),
+            'edit' => EditServiceAvailability::route('/{record}/edit'),
         ];
     }
 }

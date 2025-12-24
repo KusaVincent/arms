@@ -70,6 +70,6 @@ return [
     // If you are not a cdn user, use false
     'behind_cdn' => false,
     'authenticatable' => [
-        'field-to-display' => 'name',
+        'field-to-display' => 'email',
     ],
 ];

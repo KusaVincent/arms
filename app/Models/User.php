@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Services\UserService;
 use App\Traits\Referenceable;
 use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
 use Filament\Models\Contracts\FilamentUser;
@@ -82,15 +81,4 @@ final class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(SubscriptionPackage::class);
     }
-
-    //    #[\Override]
-    //    protected static function booted(): void
-    //    {
-    //        self::created(function (User $user): void {
-    //            if (app()->runningInConsole() && ! $user->roles()->exists()) {
-    //                $userService = app(UserService::class);
-    //                $userService->assignDefaultRoleToUser($user);
-    //            }
-    //        });
-    //    }
 }

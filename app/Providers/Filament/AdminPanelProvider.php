@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use AlizHarb\ActivityLog\ActivityLogPlugin;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
+use EightCedars\FilamentInactivityGuard\FilamentInactivityGuardPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -19,7 +20,11 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Carbon;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
+use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
+use Swis\Filament\Backgrounds\ImageProviders\MyImages;
 use Tapp\FilamentAuthenticationLog\FilamentAuthenticationLogPlugin;
 
 class AdminPanelProvider extends PanelProvider
@@ -75,7 +80,20 @@ class AdminPanelProvider extends PanelProvider
                     ->gridColumns(['default' => 1, 'sm' => 2, 'lg' => 3])
                     ->resourceCheckboxListColumns(['default' => 1, 'sm' => 2])
                     ->checkboxListColumns(['default' => 1, 'sm' => 2, 'lg' => 4]),
+                FilamentBackgroundsPlugin::make()
+                    ->remember(60000)
+                    ->imageProvider(
+                        MyImages::make()
+                            ->directory('storage/background-images')
+                    ),
+                FilamentInactivityGuardPlugin::make()
+                    ->inactiveAfter(1 * Carbon::SECONDS_PER_MINUTE)
+                    ->showNoticeFor(0.5 * Carbon::SECONDS_PER_MINUTE)
+//                    ->enabled(!app()->isLocal())
+                    ->keepActiveOn(['change', 'select', 'mousemove']),
                 FilamentAuthenticationLogPlugin::make(),
+                FilamentSpatieLaravelHealthPlugin::make()
+                    ->authorize(fn () => auth()->user()->can('View:HealthCheckResults')),
             ]);
     }
 }

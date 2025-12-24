@@ -22,8 +22,9 @@ return [
         'tabs' => [
             'pages' => true,
             'widgets' => true,
+            'enabled' => true,
             'resources' => true,
-            'custom_permissions' => false,
+            'custom_permissions' => true,
         ],
     ],
 

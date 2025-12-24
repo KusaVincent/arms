@@ -203,7 +203,7 @@ return [
     |
     */
     'permissions' => [
-        'enabled' => false,
+        'enabled' => true,
 
         /**
          * Custom authorization callback.
@@ -214,8 +214,10 @@ return [
          * Example: fn($user) => $user->id === 1
          * Example: fn($user) => $user->hasRole('super_admin')
          * Example: 'App\Support\ActivityLogAuthorization' (class with __invoke method)
+         *
+         * 'custom_authorization' => null,
          */
-        'custom_authorization' => null,
+        'custom_authorization' => fn ($user) => $user->hasPermissionTo('ViewAny:Activity'),
 
         'view_any' => 'view_any_activity',
         'view' => 'view_activity',

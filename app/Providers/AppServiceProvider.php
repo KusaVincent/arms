@@ -17,6 +17,22 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Rappasoft\LaravelAuthenticationLog\Models\AuthenticationLog;
+use Spatie\CpuLoadHealthCheck\CpuLoadCheck;
+use Spatie\Health\Checks\Checks\CacheCheck;
+use Spatie\Health\Checks\Checks\DatabaseCheck;
+use Spatie\Health\Checks\Checks\DatabaseConnectionCountCheck;
+use Spatie\Health\Checks\Checks\DatabaseTableSizeCheck;
+use Spatie\Health\Checks\Checks\DebugModeCheck;
+use Spatie\Health\Checks\Checks\EnvironmentCheck;
+use Spatie\Health\Checks\Checks\OptimizedAppCheck;
+use Spatie\Health\Checks\Checks\PingCheck;
+use Spatie\Health\Checks\Checks\QueueCheck;
+use Spatie\Health\Checks\Checks\RedisCheck;
+use Spatie\Health\Checks\Checks\RedisMemoryUsageCheck;
+use Spatie\Health\Checks\Checks\ScheduleCheck;
+use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
+use Spatie\Health\Facades\Health;
+use Spatie\SecurityAdvisoriesHealthCheck\SecurityAdvisoriesCheck;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,6 +53,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureModels();
         $this->configureCommands();
+        $this->spatieLaravelHealthCheckPlugin();
 
         Gate::policy(AuthenticationLog::class, AuthenticationLogPolicy::class);
 
@@ -61,6 +78,30 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->filamentShieldProhibitDestructiveCommands();
         DB::prohibitDestructiveCommands($this->app->isProduction());
+    }
+
+    public function spatieLaravelHealthCheckPlugin(): void
+    {
+        Health::checks([
+            RedisCheck::new(),
+            QueueCheck::new(),
+            CacheCheck::new(),
+            CpuLoadCheck::new(),
+            DatabaseCheck::new(),
+            ScheduleCheck::new(),
+            DebugModeCheck::new(),
+            EnvironmentCheck::new(),
+            OptimizedAppCheck::new(),
+            RedisMemoryUsageCheck::new()
+                ->warnWhenAboveMb(900)
+                ->failWhenAboveMb(1000),
+            DatabaseTableSizeCheck::new(),
+            SecurityAdvisoriesCheck::new(),
+            DatabaseConnectionCountCheck::new(),
+            UsedDiskSpaceCheck::new()
+                ->warnWhenUsedSpaceIsAbovePercentage(60),
+            PingCheck::new()->url('https://google.com')->timeout(2),
+        ]);
     }
 
     private function filamentShieldProhibitDestructiveCommands(): void
