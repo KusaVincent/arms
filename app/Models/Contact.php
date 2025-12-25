@@ -16,21 +16,15 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @method static whereNot(string $string, string $string1)
  * @method static create(string[] $contact)
  */
-final class Contact extends Model
+final class Contact extends BaseModel
 {
-    use HasFactory,LogsActivity, Referenceable, SoftDeletes;
+    use SoftDeletes;
 
     protected string $referencePrefix = 'CON';
 
     protected $casts = [
         'section' => ContactSection::class,
     ];
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logAll();
-    }
 
     protected $attributes = [
         'section' => ContactSection::ALL,

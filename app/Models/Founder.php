@@ -14,17 +14,11 @@ use Spatie\Activitylog\Traits\LogsActivity;
 /**
  * @method static create(array $founder)
  */
-final class Founder extends Model
+final class Founder extends BaseModel
 {
-    use HasFactory, LogsActivity, Referenceable, softDeletes;
+    use softDeletes;
 
     protected string $referencePrefix = 'FND';
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logAll();
-    }
 
     protected $casts = [
         'social_media' => 'json:unicode',

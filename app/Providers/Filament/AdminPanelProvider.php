@@ -48,8 +48,6 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
             ])
             ->middleware([
                 StartSession::class,
@@ -87,9 +85,9 @@ class AdminPanelProvider extends PanelProvider
                             ->directory('storage/background-images')
                     ),
                 FilamentInactivityGuardPlugin::make()
-                    ->inactiveAfter(1 * Carbon::SECONDS_PER_MINUTE)
-                    ->showNoticeFor(0.5 * Carbon::SECONDS_PER_MINUTE)
-//                    ->enabled(!app()->isLocal())
+                    ->inactiveAfter(5 * Carbon::SECONDS_PER_MINUTE)
+                    ->showNoticeFor(1 * Carbon::SECONDS_PER_MINUTE)
+                    ->enabled(!app()->isLocal())
                     ->keepActiveOn(['change', 'select', 'mousemove']),
                 FilamentAuthenticationLogPlugin::make(),
                 FilamentSpatieLaravelHealthPlugin::make()

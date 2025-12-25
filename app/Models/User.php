@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\HasCustomSlug;
 use App\Traits\Referenceable;
 use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
 use Filament\Models\Contracts\FilamentUser;
@@ -25,7 +26,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 final class User extends Authenticatable implements FilamentUser
 {
-    use AuthenticationLoggable, HasFactory, HasPanelShield,HasRoles,KeepsDeletedModels,LogsActivity,Notifiable, Referenceable;
+    use AuthenticationLoggable, HasFactory, HasPanelShield,HasRoles,KeepsDeletedModels,LogsActivity,Notifiable, Referenceable, HasCustomSlug;
 
     protected string $referencePrefix = 'USR';
 

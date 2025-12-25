@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\Referenceable;
+use Faker\Provider\Base;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -23,17 +24,11 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  * @property mixed $address
  * @property HigherOrderCollectionProxy|mixed|null $full_details
  */
-final class Location extends Model
+final class Location extends BaseModel
 {
-    use HasFactory, KeepsDeletedModels, LogsActivity, Referenceable;
+    use KeepsDeletedModels;
 
     protected string $referencePrefix = 'LOC';
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logAll();
-    }
 
     public function properties(): HasMany
     {

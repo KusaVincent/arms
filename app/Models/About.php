@@ -14,15 +14,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
 /**
  * @method static create(string[] $array)
  */
-final class About extends Model
+final class About extends BaseModel
 {
-    use HasFactory, LogsActivity, Referenceable, softDeletes;
+    use softDeletes;
 
     protected string $referencePrefix = 'ABT';
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logAll();
-    }
 }

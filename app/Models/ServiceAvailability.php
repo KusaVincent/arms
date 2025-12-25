@@ -16,17 +16,11 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @method static where(string $string, $serviceKey)
  * @method static create(array $serviceAvailability)
  */
-final class ServiceAvailability extends Model
+final class ServiceAvailability extends BaseModel
 {
-    use HasFactory, LogsActivity, Referenceable, SoftDeletes;
+    use SoftDeletes;
 
     protected string $referencePrefix = 'SAV';
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logAll();
-    }
 
     protected $casts = [
         'is_active' => ActiveServiceAvailability::class,

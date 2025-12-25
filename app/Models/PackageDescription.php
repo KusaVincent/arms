@@ -15,9 +15,9 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 /**
  * @method static inRandomOrder()
  */
-class PackageDescription extends Model
+class PackageDescription extends BaseModel
 {
-    use HasFactory,KeepsDeletedModels, LogsActivity, Referenceable;
+    use KeepsDeletedModels;
 
     protected string $referencePrefix = 'PKG';
 
@@ -32,12 +32,6 @@ class PackageDescription extends Model
         'status' => PackageStatus::class,
         'published' => PackagePublished::class,
     ];
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logAll();
-    }
 
     public function subscriptionPackages(): HasMany
     {

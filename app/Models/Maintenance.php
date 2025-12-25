@@ -14,9 +14,9 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
-final class Maintenance extends Model
+final class Maintenance extends BaseModel
 {
-    use HasFactory,KeepsDeletedModels, LogsActivity, Referenceable;
+    use KeepsDeletedModels;
 
     protected string $referencePrefix = 'MNT';
 
@@ -27,12 +27,6 @@ final class Maintenance extends Model
     protected $attributes = [
         'status' => MaintenanceStatus::PENDING,
     ];
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logAll();
-    }
 
     public function property(): BelongsTo
     {

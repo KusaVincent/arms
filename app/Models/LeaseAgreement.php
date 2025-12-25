@@ -17,9 +17,9 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 /**
  * @method static inRandomOrder()
  */
-final class LeaseAgreement extends Model
+final class LeaseAgreement extends BaseModel
 {
-    use HasFactory, KeepsDeletedModels, LogsActivity, Referenceable;
+    use KeepsDeletedModels;
 
     protected string $referencePrefix = 'LAG';
 
@@ -27,12 +27,6 @@ final class LeaseAgreement extends Model
         'rent_amount' => PaymentCast::class,
         'deposit_amount' => PaymentCast::class,
     ];
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logAll();
-    }
 
     public function tenant(): BelongsTo
     {

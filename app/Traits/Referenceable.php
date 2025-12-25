@@ -13,7 +13,7 @@ trait Referenceable
     protected string $referenceStrategy = 'template';
 
     protected array $referenceTemplate = [
-        'format' => '{PREFIX}{YEAR2}{MONTH}{DAY}{SEQ}',
+        'format' => '{PREFIX}{YEAR2}{MONTH}{DAY}{SEQ}{RANDOM}',
         'sequence_length' => 4,
     ];
 }

@@ -17,17 +17,11 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  * @method static inRandomOrder()
  * @method static firstOrCreate(string[] $array)
  */
-final class PropertyType extends Model
+final class PropertyType extends BaseModel
 {
-    use HasFactory, KeepsDeletedModels, LogsActivity, Referenceable;
+    use KeepsDeletedModels;
 
     protected string $referencePrefix = 'PPT';
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logAll();
-    }
 
     public function properties(): HasMany
     {

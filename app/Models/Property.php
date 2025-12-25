@@ -38,9 +38,9 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  * @method static count()
  * @method static inRandomOrder()
  */
-final class Property extends Model
+final class Property extends BaseModel
 {
-    use HasFactory,KeepsDeletedModels, LogsActivity, Referenceable, Searchable, Sluggable;
+    use KeepsDeletedModels,Searchable, Sluggable;
 
     protected string $referencePrefix = 'PPT';
 
@@ -88,12 +88,6 @@ final class Property extends Model
             'type_name' => $this->propertyType->type_name,
             'created_at' => $this->created_at->timestamp,
         ]);
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logAll();
     }
 
     /**

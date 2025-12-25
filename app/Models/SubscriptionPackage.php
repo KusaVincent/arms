@@ -11,11 +11,11 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
-class SubscriptionPackage extends Model
+class SubscriptionPackage extends BaseModel
 {
-    use HasFactory,KeepsDeletedModels, LogsActivity, Referenceable;
+    use KeepsDeletedModels;
 
-    protected string $referencePrefix = 'SPI'; // mode name . invoice
+    protected string $referencePrefix = 'SPI'; // model name . invoice
 
     protected $attributes = [
         'no_of_properties' => 0,
@@ -26,12 +26,6 @@ class SubscriptionPackage extends Model
     protected $casts = [
         'status' => PackageStatus::class,
     ];
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logAll();
-    }
 
     public function payment(): BelongsTo
     {

@@ -16,9 +16,9 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  * @method static inRandomOrder()
  * @method static create(string[] $amenity)
  */
-final class Amenity extends Model
+final class Amenity extends BaseModel
 {
-    use HasFactory,KeepsDeletedModels,LogsActivity, Referenceable;
+    use KeepsDeletedModels;
 
     protected string $referencePrefix = 'AMT';
 
@@ -26,12 +26,6 @@ final class Amenity extends Model
         'amenity_icon' => 'house',
         'amenity_icon_color' => 'text-blue-500',
     ];
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logAll();
-    }
 
     public function properties(): BelongsToMany
     {

@@ -13,17 +13,11 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 /**
  * @method static create(array $all)
  */
-final class CustomerSupport extends Model
+final class CustomerSupport extends BaseModel
 {
-    use KeepsDeletedModels,LogsActivity, Referenceable;
+    use KeepsDeletedModels;
 
     protected string $referencePrefix = 'CUS';
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logAll();
-    }
 
     public function getEmailAttribute($value): string
     {

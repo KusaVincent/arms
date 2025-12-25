@@ -14,21 +14,15 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
-final class Payment extends Model
+final class Payment extends BaseModel
 {
-    use HasFactory,KeepsDeletedModels, LogsActivity, Referenceable;
+    use KeepsDeletedModels;
 
     protected string $referencePrefix = 'PAY';
 
     protected $casts = [
         'payment_amount' => PaymentCast::class,
     ];
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logAll();
-    }
 
     public function leaseAgreement(): BelongsTo
     {

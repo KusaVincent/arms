@@ -14,18 +14,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @method static factory()
  * @method static create(mixed $about)
  */
-class PaymentMethod extends Model
+class PaymentMethod extends BaseModel
 {
-    use HasFactory, LogsActivity, Referenceable;
-
-    protected string $referencePrefix = 'PMT';
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logAll();
-    }
-
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
