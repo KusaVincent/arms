@@ -17,7 +17,8 @@ class LeaseAgreementTable
                 TextColumn::make('mnemonic')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('tenant.fullname')
+                TextColumn::make('tenant.user.name')
+                    ->label('Tenant Name')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('property.name')

@@ -13,6 +13,7 @@ use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Rappasoft\LaravelAuthenticationLog\Traits\AuthenticationLoggable;
@@ -30,8 +31,6 @@ final class User extends Authenticatable implements FilamentUser
 
     protected string $referencePrefix = 'USR';
 
-    protected bool $auditStrict = true;
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -40,10 +39,6 @@ final class User extends Authenticatable implements FilamentUser
     protected $hidden = [
         'password',
         'remember_token',
-    ];
-
-    protected array $auditRedact = [
-        'password',
     ];
 
     /**
@@ -70,16 +65,27 @@ final class User extends Authenticatable implements FilamentUser
             ->logAll();
     }
 
-    public function properties(): BelongsToMany
-    {
-        return $this->belongsToMany(Property::class)
-            ->using(PropertyUser::class)
-            ->withPivot(['created_by'])
-            ->withTimestamps();
-    }
-
     public function subscriptionPackages(): HasMany
     {
         return $this->hasMany(SubscriptionPackage::class);
+    }
+
+    public function tenant(): HasOne
+    {
+        return $this->hasOne(Tenant::class);
+    }
+
+    public function operator(): HasOne
+    {
+        return $this->hasOne(Operator::class);
+    }
+
+    protected static function booted(): void
+    {
+        static::saving(function ($user) {
+            if ($user->first_name || $user->last_name) {
+                $user->name = trim("{$user->first_name} {$user->last_name}");
+            }
+        });
     }
 }

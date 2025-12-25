@@ -2,18 +2,17 @@
 
 namespace Database\Seeders;
 
+use App\Models\Operator;
 use App\Models\Property;
-use App\Models\PropertyUser;
+use App\Models\OperatorProperty;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class PropertyUserSeeder extends Seeder
+class OperatorPropertySeeder extends Seeder
 {
     public function run(): void
     {
-        $superAdmin = User::where('email', 'superadmin@example.com')->first();
-
-        $eligibleUsers = User::where('id', '!=', $superAdmin->id)->pluck('id');
+        $eligibleUsers = Operator::where('type','!=', 'Owner')->pluck('id');
 
         Property::all()->each(function ($property) use ($eligibleUsers) {
             $this->assignUsersToProperty($property, $eligibleUsers);
@@ -22,12 +21,12 @@ class PropertyUserSeeder extends Seeder
 
     private function assignUsersToProperty($property, $eligibleUsers): void
     {
-        $ownerId = $eligibleUsers->random();
+        $ownerId = Operator::where('type', 'Owner')->pluck('id')->random();
 
-        PropertyUser::firstOrCreate(
+        OperatorProperty::firstOrCreate(
             [
                 'property_id' => $property->id,
-                'user_id' => $ownerId,
+                'operator_id' => $ownerId,
             ],
             [
                 'relationship' => 'owner',
@@ -35,7 +34,7 @@ class PropertyUserSeeder extends Seeder
             ]
         );
 
-        $ownerUserCount = PropertyUser::where('user_id', $ownerId)->count();
+        $ownerUserCount = OperatorProperty::where('operator_id', $ownerId)->count();
         $maxUsers = max(1, $ownerUserCount);
 
         $remainingUsers = $eligibleUsers->filter(fn ($id) => $id !== $ownerId);
@@ -48,15 +47,15 @@ class PropertyUserSeeder extends Seeder
         $count = fake()->numberBetween(1, min($maxUsers, $remainingUsers->count()));
 
         $remainingUsers->random($count)
-            ->each(function ($userId) use ($property, $eligibleUsers) {
-                PropertyUser::firstOrCreate(
+            ->each(function ($operatorId) use ($property, $eligibleUsers) {
+                OperatorProperty::firstOrCreate(
                     [
                         'property_id' => $property->id,
-                        'user_id' => $userId,
+                        'operator_id' => $operatorId,
                     ],
                     [
-                        'relationship' => 'user',
-                        'created_by' => $this->randomUserExcluding($eligibleUsers, [$userId]),
+                        'relationship' => 'operator',
+                        'created_by' => $this->randomUserExcluding($eligibleUsers, [$operatorId]),
                     ]
                 );
             });

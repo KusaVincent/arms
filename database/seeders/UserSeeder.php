@@ -17,15 +17,12 @@ class UserSeeder extends Seeder
         User::firstOrCreate(
             ['email' => 'superadmin@example.com'],
             [
-                'name' => 'Super Admin',
+                'first_name' => 'Super',
+                'last_name' => 'Admin',
                 'password' => '12345678',
+                'user_type'=>'admin',
+                'phone_number' => '254',
             ]
         );
-
-        User::factory()
-            ->count(20)
-            ->create([
-                'password' => '12345678',
-            ]);
     }
 }

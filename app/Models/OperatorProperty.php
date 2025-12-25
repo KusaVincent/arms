@@ -12,7 +12,7 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  * @method static where(string $string, $id)
  * @method static firstOrCreate(array $array, array $array1)
  */
-class PropertyUser extends Pivot
+class OperatorProperty extends Pivot
 {
     use HasFactory, KeepsDeletedModels;
 
@@ -21,8 +21,8 @@ class PropertyUser extends Pivot
         return $this->belongsTo(Property::class);
     }
 
-    public function user(): BelongsTo
+    public function operator(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Operator::class);
     }
 }

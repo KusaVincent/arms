@@ -3,6 +3,7 @@
 namespace App\Filament\ReusableResources\ResourceForm;
 
 use Exception;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Schemas\Components\Section;
@@ -17,7 +18,8 @@ class TenantForm
     {
         return $schema
             ->components([
-                Section::make()
+                Section::make('User Details')
+                    ->relationship('user')
                     ->schema([
                         Section::make()
                             ->schema([
@@ -27,26 +29,21 @@ class TenantForm
                                 TextInput::make('last_name')
                                     ->required(),
                             ])->columns(3),
+
                         Section::make()
                             ->schema([
+                                Select::make('roles')
+                                    ->relationship('roles', 'name')
+                                    ->multiple()
+                                    ->preload()
+                                    ->searchable(),
                                 TextInput::make('email')
                                     ->email()
-                                    ->required()
-                                    ->unique(ignoreRecord: true),
-                                TextInput::make('phone')
+                                    ->required(),
+                                TextInput::make('phone_number')
                                     ->tel()
                                     ->required(),
-                                TextInput::make('password')
-                                    ->visible(fn ($livewire): bool => $livewire instanceof CreateRecord)
-                                    ->password()
-                                    ->required()
-                                    ->confirmed(),
-                                TextInput::make('password_confirmation')
-                                    ->visible(fn ($livewire): bool => $livewire instanceof CreateRecord)
-                                    ->password()
-                                    ->required()
-                                    ->dehydrated(false),
-                            ])->columns(),
+                            ])->columns(3),
                     ]),
             ]);
     }

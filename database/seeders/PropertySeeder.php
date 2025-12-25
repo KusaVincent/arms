@@ -14,6 +14,6 @@ final class PropertySeeder extends Seeder
      */
     public function run(): void
     {
-        Property::factory()->count(3000)->create();
+        Property::factory()->count(500)->create();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Filament\ReusableResources\ResourceTable;
 
+use App\Actions\AssignColor;
 use Exception;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -18,11 +19,15 @@ class TenantTable
                 TextColumn::make('mnemonic')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('fullname')
+                TextColumn::make('user.name')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('email'),
-                TextColumn::make('phone'),
+                TextColumn::make('user.email'),
+                TextColumn::make('user.phone_number'),
+                TextColumn::make('user.roles.name')
+                    ->badge()
+                    ->label('Role')
+                    ->color(fn (string $state): string => AssignColor::getColor($state)),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->label('Added On')

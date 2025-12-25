@@ -18,12 +18,9 @@ return new class extends Migration
             $table->string('mnemonic')
                 ->unique()
                 ->index();
-            $table->string('first_name');
-            $table->string('middle_name')->nullable();
-            $table->string('last_name');
-            $table->string('email')->unique();
-            $table->string('phone');
-            $table->string('password');
+            $table->foreignIdFor(\App\Models\User::class)
+                ->constrained()
+                ->cascadeOnDelete();
             $table->timestamps();
         });
     }

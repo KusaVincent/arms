@@ -21,11 +21,6 @@ final class TenantFactory extends Factory
     public function definition(): array
     {
         return [
-            'phone' => $this->faker->phoneNumber(),
-            'last_name' => $this->faker->lastName(),
-            'first_name' => $this->faker->firstName(),
-            'password' => Hash::make('password'),
-            'email' => $this->faker->unique()->safeEmail(),
         ];
     }
 }

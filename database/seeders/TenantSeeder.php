@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use App\Models\Tenant;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 final class TenantSeeder extends Seeder
@@ -14,6 +15,10 @@ final class TenantSeeder extends Seeder
      */
     public function run(): void
     {
-        Tenant::factory(15)->create();
+        User::factory()
+            ->count(5)
+            ->tenant()
+            ->withTenantProfile()
+            ->create();
     }
 }

@@ -128,10 +128,10 @@ final class Property extends BaseModel
     /**
      * @return BelongsToMany<User>
      */
-    public function users(): BelongsToMany
+    public function operators(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
-            ->using(PropertyUser::class)
+            ->using(OperatorProperty::class)
             ->withPivot(['created_by'])
             ->withTimestamps();
     }

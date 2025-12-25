@@ -21,7 +21,14 @@ class UserForm
             ->components([
                 Section::make()
                     ->schema([
-                        TextInput::make('name')
+                        TextInput::make('first_name')
+                            ->required(),
+                        TextInput::make('middle_name'),
+                        TextInput::make('last_name')
+                            ->required(),
+                        TextInput::make('user_type')
+                            ->required(),
+                        TextInput::make('phone_number')
                             ->required(),
                         TextInput::make('email')
                             ->email()
@@ -32,9 +39,6 @@ class UserForm
                             ->multiple()
                             ->preload()
                             ->searchable(),
-                        //                        CheckboxList::make('roles')
-                        //                            ->relationship('roles', 'name')
-                        //                            ->searchable(),
                         TextInput::make('password')
                             ->password()
                             ->required()

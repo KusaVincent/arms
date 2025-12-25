@@ -72,6 +72,7 @@ class AppServiceProvider extends ServiceProvider
         Model::unguard();
         Model::shouldBeStrict();
         Model::automaticallyEagerLoadRelationships();
+        Model::preventAccessingMissingAttributes($this->app->isProduction());
     }
 
     private function configureCommands(): void

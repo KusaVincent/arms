@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Operator;
 use App\Models\Property;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -13,9 +14,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('property_user', function (Blueprint $table) {
+        Schema::create('operator_property', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)
+            $table->foreignIdFor(Operator::class)
                 ->constrained()
                 ->nullOnDelete();
             $table->foreignIdFor(Property::class)
@@ -28,7 +29,7 @@ return new class extends Migration
                 ->nullOnDelete();
             $table->timestamps();
 
-            $table->unique(['user_id', 'property_id']);
+            $table->unique(['operator_id', 'property_id']);
         });
     }
 };

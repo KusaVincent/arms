@@ -2,14 +2,15 @@
 
 namespace Database\Factories;
 
+use App\Models\Operator;
 use App\Models\Property;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PropertyUser>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\OperatorProperty>
  */
-class PropertyUserFactory extends Factory
+class OperatorPropertyFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,7 +20,7 @@ class PropertyUserFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::inRandomOrder()->first()->id ?? User::factory(),
+            'operator_id' => Operator::inRandomOrder()->first()->id ?? Operator::factory(),
             'property_id' => Property::inRandomOrder()->first()->id ?? Property::factory(),
         ];
     }

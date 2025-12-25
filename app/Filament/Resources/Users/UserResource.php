@@ -18,6 +18,7 @@ use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Tapp\FilamentAuthenticationLog\RelationManagers\AuthenticationLogsRelationManager;
 
 class UserResource extends Resource
@@ -55,6 +56,12 @@ class UserResource extends Resource
                     DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->where('user_type', 'admin');
     }
 
     #[\Override]

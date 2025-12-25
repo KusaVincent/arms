@@ -7,7 +7,7 @@ namespace Database\Seeders;
 use App\Models\Amenity;
 use App\Models\AmenityProperty;
 use App\Models\Property;
-use App\Models\PropertyUser;
+use App\Models\OperatorProperty;
 use Illuminate\Database\Seeder;
 
 final class AmenityPropertySeeder extends Seeder
@@ -18,8 +18,8 @@ final class AmenityPropertySeeder extends Seeder
     public function run(): void
     {
         Property::all()->each(function ($property): void {
-            $propertyUserIds = PropertyUser::where('property_id', $property->id)
-                ->pluck('user_id');
+            $propertyUserIds = OperatorProperty::where('property_id', $property->id)
+                ->pluck('operator_id');
 
             if ($propertyUserIds->isEmpty()) {
                 return;
