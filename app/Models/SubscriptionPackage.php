@@ -7,10 +7,14 @@ use App\Traits\Referenceable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
+/**
+ * @method static inRandomOrder()
+ */
 class SubscriptionPackage extends BaseModel
 {
     use KeepsDeletedModels;
@@ -27,9 +31,9 @@ class SubscriptionPackage extends BaseModel
         'status' => PackageStatus::class,
     ];
 
-    public function payment(): BelongsTo
+    public function payment(): MorphMany
     {
-        return $this->belongsTo(Payment::class);
+        return $this->morphMany(Payment::class, 'payable');
     }
 
     public function user(): BelongsTo

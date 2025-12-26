@@ -126,6 +126,7 @@ return [
 
     'guard_control' => env('GUARD_CONTROL', 0),
 
+    'client_url' => env('CLIENT_URL', 'https://rms.test'),
     'admin_panel_url' => env('ADMIN_PANEL_DOMAIN', 'https://admin.arms.test'),
     'lease_panel_url' => env('LEASE_PANEL_DOMAIN', 'https://lease.arms.test'),
     'manage_panel_url' => env('MANAGE_PANEL_DOMAIN', 'https://manage.arms.test'),

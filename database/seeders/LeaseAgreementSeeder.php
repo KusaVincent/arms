@@ -19,7 +19,11 @@ final class LeaseAgreementSeeder extends Seeder
     public function run(): void
     {
         LeaseAgreement::factory(30)->create()->each(function ($lease): void {
-            Payment::factory(random_int(1, 5))->create(['lease_agreement_id' => $lease->id]);
+            Payment::factory(random_int(1, 2))->create([
+                'payable_id'   => $lease->id,
+                'payable_type' => $lease->getMorphClass(),
+                'payment_amount' => $lease->rent_amount,
+            ]);
         });
     }
 }

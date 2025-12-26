@@ -7,6 +7,7 @@ namespace Database\Factories;
 use App\Models\LeaseAgreement;
 use App\Models\Payment;
 use App\Models\PaymentMethod;
+use App\Models\SubscriptionPackage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -25,7 +26,16 @@ final class PaymentFactory extends Factory
             'payment_date' => $this->faker->dateTimeBetween('-1 year'),
             'payment_amount' => $this->faker->numberBetween(500, 5000),
             'payment_method_id' => PaymentMethod::inRandomOrder()->first()->id ?? PaymentMethod::factory(),
-            'lease_agreement_id' => LeaseAgreement::inRandomOrder()->first()->id ?? LeaseAgreement::factory(),
+            'payable_id' => LeaseAgreement::inRandomOrder()->first()->id ?? LeaseAgreement::factory(),
+            'payable_type' => new LeaseAgreement()->getMorphClass(),
         ];
+    }
+
+    public function forSubscription(): self
+    {
+        return $this->state(fn (array $attributes) => [
+            'payable_id' => SubscriptionPackage::inRandomOrder()->first()->id ?? SubscriptionPackage::factory(),
+            'payable_type' => new SubscriptionPackage()->getMorphClass(),
+        ]);
     }
 }

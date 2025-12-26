@@ -2,9 +2,12 @@
 
 namespace App\Filament\ReusableResources\ResourceForm;
 
+use App\Models\LeaseAgreement;
+use App\Models\SubscriptionPackage;
 use App\Utils\SanitizationHelper;
 use Exception;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\MorphToSelect;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Pages\EditRecord;
@@ -23,11 +26,51 @@ class PaymentForm
             ->components([
                 Section::make()
                     ->schema([
-                        Select::make('lease_agreement_id')
+                        MorphToSelect::make('payable')
+                            ->label('Paid Towards')
+                            ->types([
+                                MorphToSelect\Type::make(LeaseAgreement::class)
+                                    ->label('Lease Agreement')
+                                    ->getOptionLabelFromRecordUsing(fn (LeaseAgreement $record) =>
+                                    "{$record->property?->name} (Lease #{$record->id} - {$record->tenant?->user?->name})"
+                                    )
+                                    ->getOptionsUsing(function (?string $search): array {
+                                        return LeaseAgreement::query()
+                                            ->with(['property', 'tenant.user']) // Eager load to prevent N+1
+                                            ->when($search, function ($query) use ($search) {
+                                                $query->whereHas('property', fn ($q) => $q->where('name', 'ilike', "%{$search}%"))
+                                                    ->orWhere('id', 'like', "%{$search}%");
+                                            })
+                                            ->limit(50)
+                                            ->get()
+                                            ->mapWithKeys(fn ($record) => [
+                                                $record->id => "{$record->property?->name} (Ref: #{$record->id} - {$record->tenant?->user?->name})"
+                                            ])
+                                            ->toArray();
+                                    }),
+
+                                MorphToSelect\Type::make(SubscriptionPackage::class)
+                                    ->label('Package Subscription')
+                                    ->getOptionLabelFromRecordUsing(fn (SubscriptionPackage $record) =>
+                                    "{$record->packageDescription?->name} (User: {$record->user?->name})"
+                                    )
+                                    ->getOptionsUsing(function (?string $search): array {
+                                        return SubscriptionPackage::query()
+                                            ->with(['packageDescription', 'user']) // Eager load to prevent N+1
+                                            ->when($search, function ($query) use ($search) {
+                                                $query->whereHas('packageDescription', fn ($q) => $q->where('name', 'ilike', "%{$search}%"))
+                                                    ->orWhere('id', 'like', "%{$search}%");
+                                            })
+                                            ->limit(50)
+                                            ->get()
+                                            ->mapWithKeys(fn ($record) => [
+                                                $record->id => "{$record->packageDescription?->name} (User: {$record->user?->name})"
+                                            ])
+                                            ->toArray();
+                                    }),
+                            ])
                             ->required()
-                            ->searchable()
-                            ->label('Lease Agreement')
-                            ->relationship('leaseAgreement.tenant', 'last_name'),
+                            ->searchable(),
                         Select::make('payment_method')
                             ->required()
                             ->label('Payment Method')

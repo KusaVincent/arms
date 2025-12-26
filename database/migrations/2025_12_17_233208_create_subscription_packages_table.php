@@ -22,10 +22,6 @@ return new class extends Migration
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->nullOnDelete();
-            $table->foreignIdFor(Payment::class)
-                ->unique()
-                ->constrained()
-                ->nullOnDelete();
             $table->foreignIdFor(PackageDescription::class)
                 ->constrained()
                 ->nullOnDelete();

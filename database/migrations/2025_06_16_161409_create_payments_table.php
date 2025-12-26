@@ -20,9 +20,7 @@ return new class extends Migration
             $table->string('mnemonic')
                 ->unique()
                 ->index();
-            $table->foreignIdFor(LeaseAgreement::class)
-                ->constrained()
-                ->nullOnDelete();
+            $table->nullableMorphs('payable');
             $table->foreignIdFor(PaymentMethod::class)
                 ->constrained()
                 ->nullOnDelete();

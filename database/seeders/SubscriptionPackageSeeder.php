@@ -16,31 +16,37 @@ class SubscriptionPackageSeeder extends Seeder
     public function run(): void
     {
         $users = User::all();
-        $packages = PackageDescription::all();
+        $packageDescriptions = PackageDescription::all();
 
-        $packages->each(function ($package) use ($users) {
+        if ($users->isEmpty() || $packageDescriptions->isEmpty()) {
+            return;
+        }
 
+        $packageDescriptions->each(function ($description) use ($users) {
             $count = rand(1, 3);
 
             for ($i = 0; $i < $count; $i++) {
-
-                $payment = Payment::factory()->create();
-
                 $effectiveDate = now()->subMonths(rand(0, 6));
                 $expiryDate = (clone $effectiveDate)->addMonths(
-                    max(1, $package->period_in_months)
+                    max(1, $description->period_in_months)
                 );
 
-                SubscriptionPackage::create([
+                $subscription = SubscriptionPackage::create([
                     'user_id' => $users->random()->id,
-                    'payment_id' => $payment->id,
-                    'package_description_id' => $package->id,
+                    'package_description_id' => $description->id,
                     'no_of_properties' => rand(1, 10),
                     'no_of_support_team' => rand(1, 5),
-                    'status' => $package->status,
+                    'status' => $description->status,
                     'effective_date' => $effectiveDate,
                     'expiry_date' => $expiryDate,
                 ]);
+
+                Payment::factory()
+                    ->forSubscription()
+                    ->create([
+                        'payable_id' => $subscription->id,
+                        'payment_amount' => $description->price ?? rand(1000, 5000),
+                    ]);
             }
         });
     }

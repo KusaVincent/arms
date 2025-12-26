@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
  */
 class OperatorFactory extends Factory
 {
+    protected static bool $ownerGenerated = false;
     /**
      * Define the model's default state.
      *
@@ -17,8 +18,17 @@ class OperatorFactory extends Factory
      */
     public function definition(): array
     {
+        // If we haven't made an owner yet, make one now.
+        if (!static::$ownerGenerated) {
+            static::$ownerGenerated = true;
+            return [
+                'type' => 'Owner',
+            ];
+        }
+
+        // Otherwise, only pick from the remaining types.
         return [
-            'type' => fake()->randomElement(['Owner', 'Caretaker', 'Maintainer']),
+            'type' => fake()->randomElement(['Caretaker', 'Maintainer']),
         ];
     }
 }

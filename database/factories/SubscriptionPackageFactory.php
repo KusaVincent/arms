@@ -22,7 +22,6 @@ class SubscriptionPackageFactory extends Factory
     public function definition(): array
     {
         $user = User::inRandomOrder()->first() ?? User::factory()->create();
-        $payment = Payment::inRandomOrder()->first() ?? Payment::factory()->create();
         $packageDescription = PackageDescription::inRandomOrder()->first() ?? PackageDescription::factory()->create();
 
         $effectiveDate = $this->faker->dateTimeBetween('-1 year', 'now');
@@ -30,7 +29,6 @@ class SubscriptionPackageFactory extends Factory
 
         return [
             'user_id' => $user->id,
-            'payment_id' => $payment->id,
             'package_description_id' => $packageDescription->id,
             'no_of_properties' => $this->faker->numberBetween(1, 10),
             'no_of_support_team' => $this->faker->numberBetween(1, 5),

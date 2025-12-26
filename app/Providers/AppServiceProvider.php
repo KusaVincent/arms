@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\LeaseAgreement;
+use App\Models\SubscriptionPackage;
 use App\Policies\AuthenticationLogPolicy;
 use App\Services\ElasticSearchService;
 use BezhanSalleh\FilamentShield\Commands\GenerateCommand;
@@ -12,6 +14,7 @@ use BezhanSalleh\FilamentShield\Commands\SetupCommand;
 use BezhanSalleh\FilamentShield\Commands\SuperAdminCommand;
 use Filament\Schemas\Components\Section;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
@@ -58,6 +61,11 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(AuthenticationLog::class, AuthenticationLogPolicy::class);
 
         Section::configureUsing(fn (Section $section): Section => $section->columnSpanFull());
+
+        Relation::morphMap([
+            'lease' => LeaseAgreement::class,
+            'subscription' => SubscriptionPackage::class,
+        ]);
     }
 
     private function configureUrl(): void
@@ -85,23 +93,27 @@ class AppServiceProvider extends ServiceProvider
     {
         Health::checks([
             RedisCheck::new(),
-            QueueCheck::new(),
+            RedisMemoryUsageCheck::new()
+                ->warnWhenAboveMb(900),
+
             CacheCheck::new(),
-            CpuLoadCheck::new(),
+
             DatabaseCheck::new(),
+            DatabaseConnectionCountCheck::new(),
+            DatabaseTableSizeCheck::new(),
+
+            SecurityAdvisoriesCheck::new(),
+            PingCheck::new()->url(config('app.admin_panel_url'))->timeout(2),
+
+            QueueCheck::new(),
+            CpuLoadCheck::new(),
+            UsedDiskSpaceCheck::new()
+                ->warnWhenUsedSpaceIsAbovePercentage(60),
+
             ScheduleCheck::new(),
             DebugModeCheck::new(),
             EnvironmentCheck::new(),
             OptimizedAppCheck::new(),
-            RedisMemoryUsageCheck::new()
-                ->warnWhenAboveMb(900)
-                ->failWhenAboveMb(1000),
-            DatabaseTableSizeCheck::new(),
-            SecurityAdvisoriesCheck::new(),
-            DatabaseConnectionCountCheck::new(),
-            UsedDiskSpaceCheck::new()
-                ->warnWhenUsedSpaceIsAbovePercentage(60),
-            PingCheck::new()->url('https://google.com')->timeout(2),
         ]);
     }
 
