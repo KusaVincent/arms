@@ -87,5 +87,15 @@ final class User extends Authenticatable implements FilamentUser
                 $user->name = trim("{$user->first_name} {$user->last_name}");
             }
         });
+
+//        static::created(function ($user) {
+//            $user->assignRole('panel_user');
+//        });
+//
+//        static::saved(function ($user) {
+//            if (! $user->hasRole('panel_user')) {
+//                $user->assignRole('panel_user');
+//            }
+//        });
     }
 }

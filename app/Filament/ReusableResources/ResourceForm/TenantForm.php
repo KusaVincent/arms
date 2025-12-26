@@ -18,33 +18,7 @@ class TenantForm
     {
         return $schema
             ->components([
-                Section::make('User Details')
-                    ->relationship('user')
-                    ->schema([
-                        Section::make()
-                            ->schema([
-                                TextInput::make('first_name')
-                                    ->required(),
-                                TextInput::make('middle_name'),
-                                TextInput::make('last_name')
-                                    ->required(),
-                            ])->columns(3),
-
-                        Section::make()
-                            ->schema([
-                                Select::make('roles')
-                                    ->relationship('roles', 'name')
-                                    ->multiple()
-                                    ->preload()
-                                    ->searchable(),
-                                TextInput::make('email')
-                                    ->email()
-                                    ->required(),
-                                TextInput::make('phone_number')
-                                    ->tel()
-                                    ->required(),
-                            ])->columns(3),
-                    ]),
+                OperatorTenantMutatedForm::make($schema),
             ]);
     }
 }

@@ -26,8 +26,6 @@ class UserForm
                         TextInput::make('middle_name'),
                         TextInput::make('last_name')
                             ->required(),
-                        TextInput::make('user_type')
-                            ->required(),
                         TextInput::make('phone_number')
                             ->required(),
                         TextInput::make('email')
