@@ -7,7 +7,7 @@ namespace Database\Factories;
 use App\Models\LeaseAgreement;
 use App\Models\Payment;
 use App\Models\PaymentMethod;
-use App\Models\SubscriptionPackage;
+use App\Models\PackageSubscription;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -34,8 +34,8 @@ final class PaymentFactory extends Factory
     public function forSubscription(): self
     {
         return $this->state(fn (array $attributes) => [
-            'payable_id' => SubscriptionPackage::inRandomOrder()->first()->id ?? SubscriptionPackage::factory(),
-            'payable_type' => new SubscriptionPackage()->getMorphClass(),
+            'payable_id' => PackageSubscription::inRandomOrder()->first()->id ?? PackageSubscription::factory(),
+            'payable_type' => new PackageSubscription()->getMorphClass(),
         ]);
     }
 }

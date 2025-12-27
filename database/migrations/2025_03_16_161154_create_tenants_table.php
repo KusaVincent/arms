@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\User;
 
 return new class extends Migration
 {
@@ -18,7 +19,7 @@ return new class extends Migration
             $table->string('mnemonic')
                 ->unique()
                 ->index();
-            $table->foreignIdFor(\App\Models\User::class)
+            $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete();
             $table->timestamps();

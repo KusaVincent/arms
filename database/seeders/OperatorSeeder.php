@@ -19,5 +19,7 @@ class OperatorSeeder extends Seeder
             ->operator()
             ->withOperatorProfile()
             ->create();
+
+        $this->command->info('Owner Users and Operator profiles created successfully.');
     }
 }

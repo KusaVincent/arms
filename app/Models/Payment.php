@@ -24,20 +24,10 @@ final class Payment extends BaseModel
         'payment_amount' => PaymentCast::class,
     ];
 
-//    public function leaseAgreement(): BelongsTo
-//    {
-//        return $this->payable()->where('payable_type', LeaseAgreement::class);
-//    }
-
     public function paymentMethod(): BelongsTo
     {
         return $this->belongsTo(PaymentMethod::class);
     }
-
-//    public function subscriptionPackage(): HasOne
-//    {
-//        return $this->hasOne(SubscriptionPackage::class);
-//    }
 
     public function payable(): BelongsTo
     {

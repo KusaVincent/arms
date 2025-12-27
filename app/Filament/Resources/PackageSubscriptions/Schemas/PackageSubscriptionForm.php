@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\SubscriptionPackages\Schemas;
+namespace App\Filament\Resources\PackageSubscriptions\Schemas;
 
 use App\Enums\PackageStatus;
 use Filament\Forms\Components\DateTimePicker;
@@ -8,7 +8,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
-class SubscriptionPackageForm
+class PackageSubscriptionForm
 {
     public static function configure(Schema $schema): Schema
     {

@@ -22,8 +22,6 @@ class PackageDescription extends BaseModel
     protected string $referencePrefix = 'PKG';
 
     protected $attributes = [
-        'period_in_months' => 0,
-        'period_in_years' => 0,
         'published' => PackagePublished::NO,
         'status' => PackageStatus::INACTIVE,
     ];
@@ -35,6 +33,6 @@ class PackageDescription extends BaseModel
 
     public function subscriptionPackages(): HasMany
     {
-        return $this->hasMany(SubscriptionPackage::class);
+        return $this->hasMany(PackageSubscription::class);
     }
 }

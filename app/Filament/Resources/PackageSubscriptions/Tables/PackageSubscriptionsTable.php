@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\SubscriptionPackages\Tables;
+namespace App\Filament\Resources\PackageSubscriptions\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -10,7 +10,7 @@ use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class SubscriptionPackagesTable
+class PackageSubscriptionsTable
 {
     public static function configure(Table $table): Table
     {
@@ -18,11 +18,12 @@ class SubscriptionPackagesTable
             ->columns([
                 TextColumn::make('mnemonic')
                     ->searchable(),
-                TextColumn::make('user.name')
+                TextColumn::make('operator.user.name')
                     ->searchable(),
-                TextColumn::make('payment.id')
+                TextColumn::make('payment.payment_amount')
                     ->searchable(),
                 TextColumn::make('packageDescription.name')
+                    ->label('Package Name')
                     ->searchable(),
                 TextColumn::make('no_of_properties')
                     ->numeric()

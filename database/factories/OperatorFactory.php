@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,17 +19,17 @@ class OperatorFactory extends Factory
      */
     public function definition(): array
     {
-        // If we haven't made an owner yet, make one now.
-        if (!static::$ownerGenerated) {
-            static::$ownerGenerated = true;
-            return [
-                'type' => 'Owner',
-            ];
-        }
-
-        // Otherwise, only pick from the remaining types.
         return [
-            'type' => fake()->randomElement(['Caretaker', 'Maintainer']),
+            'type' => 'Owner',
+            'user_id' => User::factory(),
+            'owner_id' => null,
         ];
+    }
+
+    public function support(string $type = 'Caretaker'): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'type' => $type,
+        ]);
     }
 }

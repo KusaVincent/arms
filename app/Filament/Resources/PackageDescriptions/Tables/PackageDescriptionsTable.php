@@ -22,10 +22,10 @@ class PackageDescriptionsTable
                     ->searchable(),
                 TextColumn::make('description')
                     ->searchable(),
-                TextColumn::make('period_in_months')
+                TextColumn::make('monthly_package_price')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('period_in_years')
+                TextColumn::make('annual_package_price')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('status')

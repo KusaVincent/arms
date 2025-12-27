@@ -15,7 +15,7 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 /**
  * @method static inRandomOrder()
  */
-class SubscriptionPackage extends BaseModel
+class PackageSubscription extends BaseModel
 {
     use KeepsDeletedModels;
 
@@ -36,13 +36,19 @@ class SubscriptionPackage extends BaseModel
         return $this->morphMany(Payment::class, 'payable');
     }
 
-    public function user(): BelongsTo
+    public function operator(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Operator::class);
     }
 
     public function packageDescription(): BelongsTo
     {
         return $this->belongsTo(PackageDescription::class);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', PackageStatus::ACTIVE)
+            ->where('expiry_date', '>', now());
     }
 }

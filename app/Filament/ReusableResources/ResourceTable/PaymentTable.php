@@ -4,7 +4,7 @@ namespace App\Filament\ReusableResources\ResourceTable;
 
 use App\Actions\AssignColor;
 use App\Models\LeaseAgreement;
-use App\Models\SubscriptionPackage;
+use App\Models\PackageSubscription;
 use Exception;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -29,25 +29,25 @@ class PaymentTable
 
                         return match (true) {
                             $state instanceof LeaseAgreement => $state->tenant?->user?->name ?? 'Unknown Tenant',
-                            $state instanceof SubscriptionPackage => $state->user?->name ?? 'Unknown User',
+                            $state instanceof PackageSubscription => $state->user?->name ?? 'Unknown User',
                             default => 'Unknown',
                         };
                     })
                     ->description(fn ($record): string => match($record->payable_type) {
                         'lease', LeaseAgreement::class => 'Lease Agreement',
-                        'subscription', SubscriptionPackage::class => 'Subscription Package',
+                        'subscription', PackageSubscription::class => 'Subscription Package',
                         default => 'Other',
                     })->searchable(query: function ($query, string $search): void {
                         $query->whereHasMorph(
                             'payable',
-                            [LeaseAgreement::class, SubscriptionPackage::class],
+                            [LeaseAgreement::class, PackageSubscription::class],
                             function ($query, $type) use ($search) {
                                 if ($type === LeaseAgreement::class) {
                                     $query->whereHas('tenant.user', function ($q) use ($search) {
                                         $q->where('name', 'ilike', "%{$search}%");
                                     });
                                 }
-                                if ($type === SubscriptionPackage::class) {
+                                if ($type === PackageSubscription::class) {
                                     $query->whereHas('user', function ($q) use ($search) {
                                         $q->where('name', 'ilike', "%{$search}%");
                                     });
@@ -63,20 +63,20 @@ class PaymentTable
 
                         return match (true) {
                             $state instanceof LeaseAgreement => $state->property?->name ?? 'No Property',
-                            $state instanceof SubscriptionPackage => $state->packageDescription?->name ?? 'No Package',
+                            $state instanceof PackageSubscription => $state->packageDescription?->name ?? 'No Package',
                             default => 'Unknown Type',
                         };
                     })->searchable(query: function ($query, string $search): void {
                         $query->whereHasMorph(
                             'payable',
-                            [LeaseAgreement::class, SubscriptionPackage::class],
+                            [LeaseAgreement::class, PackageSubscription::class],
                             function ($query, $type) use ($search) {
                                 if ($type === LeaseAgreement::class) {
                                     $query->whereHas('property', function ($q) use ($search) {
                                         $q->where('name', 'ilike', "%{$search}%");
                                     });
                                 }
-                                if ($type === SubscriptionPackage::class) {
+                                if ($type === PackageSubscription::class) {
                                     $query->whereHas('packageDescription', function ($q) use ($search) {
                                         $q->where('name', 'ilike', "%{$search}%");
                                     });
@@ -89,7 +89,7 @@ class PaymentTable
                     ->sortable()
                     ->searchable()
                     ->label('Payment Method')
-                    ->color(fn (string $state): string => AssignColor::getColor($state)),
+                    ->color(fn ($record): string => $record->paymentMethod?->color ?? 'gray'),
                 TextColumn::make('payment_amount')
                     ->sortable()
                     ->searchable()

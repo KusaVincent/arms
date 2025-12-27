@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Filament\Resources\SubscriptionPackages\Pages;
+namespace App\Filament\Resources\PackageSubscriptions\Pages;
 
-use App\Filament\Resources\SubscriptionPackages\SubscriptionPackageResource;
+use App\Filament\Resources\PackageSubscriptions\PackageSubscriptionResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
 
-class EditSubscriptionPackage extends EditRecord
+class EditPackageSubscription extends EditRecord
 {
-    protected static string $resource = SubscriptionPackageResource::class;
+    protected static string $resource = PackageSubscriptionResource::class;
 
     protected function getHeaderActions(): array
     {

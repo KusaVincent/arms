@@ -25,7 +25,7 @@ return new class extends Migration
                 ->constrained()
                 ->nullOnDelete();
             $table->date('payment_date');
-            $table->decimal('payment_amount', 10);
+            $table->integer('payment_amount');
             $table->timestamps();
         });
     }

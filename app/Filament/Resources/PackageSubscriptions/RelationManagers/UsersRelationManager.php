@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\SubscriptionPackages\RelationManagers;
+namespace App\Filament\Resources\PackageSubscriptions\RelationManagers;
 
 use App\Filament\ReusableResources\ResourceTable\UserTable;
 use Filament\Actions\AttachAction;

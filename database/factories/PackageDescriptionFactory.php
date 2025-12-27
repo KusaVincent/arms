@@ -18,14 +18,17 @@ class PackageDescriptionFactory extends Factory
      */
     public function definition(): array
     {
-        $periodMonths = $this->faker->numberBetween(1, 24);
-        $periodYears = (int) ($periodMonths / 12);
+        $properties = rand(2, 5);
+        $price = $this->faker->numberBetween(10000, 50000);
 
         return [
             'name' => $this->faker->words(3, true),
             'description' => $this->faker->sentence(10),
-            'period_in_months' => $periodMonths,
-            'period_in_years' => $periodYears,
+            'monthly_package_price' => $price,
+            'annual_package_price' => $price * 10,
+            'properties' => $properties,
+            'support_team' => $properties < 5
+                ? rand(0, 3) : rand(5, 10),
             'status' => $this->faker->randomElement([
                 PackageStatus::ACTIVE,
                 PackageStatus::INACTIVE,

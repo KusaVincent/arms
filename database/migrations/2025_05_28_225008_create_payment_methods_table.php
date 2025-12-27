@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('payment_methods', function (Blueprint $table): void {
             $table->id();
-            $table->string('name')
-                ->unique();
             $table->string('mnemonic')
                 ->unique()
                 ->index();
+            $table->string('name')
+                ->unique();
+            $table->string('color')
+                ->nullable();
             $table->timestamps();
         });
     }

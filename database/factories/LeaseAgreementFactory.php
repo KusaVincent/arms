@@ -8,6 +8,7 @@ use App\Models\LeaseAgreement;
 use App\Models\Property;
 use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
 /**
  * @extends Factory<LeaseAgreement>
@@ -21,14 +22,31 @@ final class LeaseAgreementFactory extends Factory
      */
     public function definition(): array
     {
+        $term = $this->faker->randomElement(['Monthly', 'Yearly']);
+        $property = Property::inRandomOrder()->first() ?? Property::factory()->create();
+
+        $rent = str_replace(['KES ', ','], '', (string) $property->rent);
+
+        $leaseAmount = ($term === 'Yearly')
+            ? $rent * 12
+            : $rent;
+
+        $startDate = Carbon::instance($this->faker->dateTimeBetween('-1 month', 'now'));
+        $endDate = (clone $startDate)->addMonth();
+
+        if ($term === 'Yearly') {
+            $startDate = Carbon::instance($this->faker->dateTimeBetween('-1 year', 'now'));
+            $endDate = (clone $startDate)->addYear();
+        }
+
         return [
-            'rent_amount' => $this->faker->numberBetween(1000, 5000),
-            'lease_term' => $this->faker->randomElement(['Monthly', 'Yearly']),
-            'deposit_amount' => $this->faker->numberBetween(500, 2000),
-            'lease_start_date' => $this->faker->dateTimeBetween('-1 year'),
+            'lease_term' => $term,
+            'lease_end_date' => $endDate,
+            'lease_amount' => $leaseAmount,
+            'property_id' => $property->id,
+            'lease_start_date' => $startDate,
             'tenant_id' => Tenant::inRandomOrder()->first()->id ?? Tenant::factory(),
-            'property_id' => Property::inRandomOrder()->first()->id ?? Property::factory(),
-            'lease_end_date' => $this->faker->dateTimeBetween('now', '+1 year'),
+            'deposit_amount' => str_replace(['KES ', ','], '', (string) $property->deposit),
         ];
     }
 }

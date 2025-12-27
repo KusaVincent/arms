@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Filament\Resources\SubscriptionPackages\Schemas;
+namespace App\Filament\Resources\PackageSubscriptions\Schemas;
 
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
 
-class SubscriptionPackageInfolist
+class PackageSubscriptionInfolist
 {
     public static function configure(Schema $schema): Schema
     {

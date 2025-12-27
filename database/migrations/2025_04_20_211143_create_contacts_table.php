@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('contacts', function (Blueprint $table): void {
             $table->id();
-            $table->string('label');
-            $table->string('icon');
-            $table->string('link');
             $table->string('mnemonic')
                 ->unique()
                 ->index();
+            $table->string('label');
+            $table->string('icon');
+            $table->string('link');
             $table->string('link_text');
             $table->smallInteger('section')->default(0);
             $table->timestamps();

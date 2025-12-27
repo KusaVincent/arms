@@ -19,6 +19,7 @@ class PaymentMethodFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence,
+            'color' => $this->faker->colorName,
         ];
     }
 }

@@ -18,8 +18,10 @@ return new class extends Migration
                 ->index();
             $table->string('name');
             $table->string('description');
-            $table->integer('period_in_months');
-            $table->integer('period_in_years');
+            $table->integer('properties');
+            $table->integer('support_team');
+            $table->integer('monthly_package_price');
+            $table->integer('annual_package_price');
             $table->string('status');
             $table->string('published');
             $table->datetime('published_from')->nullable();

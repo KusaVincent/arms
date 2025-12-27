@@ -24,6 +24,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @method static create()
+ * @property mixed $operator
  */
 final class User extends Authenticatable implements FilamentUser
 {
@@ -63,11 +64,6 @@ final class User extends Authenticatable implements FilamentUser
     {
         return LogOptions::defaults()
             ->logAll();
-    }
-
-    public function subscriptionPackages(): HasMany
-    {
-        return $this->hasMany(SubscriptionPackage::class);
     }
 
     public function tenant(): HasOne

@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Models\LeaseAgreement;
-use App\Models\SubscriptionPackage;
+use App\Models\PackageSubscription;
 use App\Policies\AuthenticationLogPolicy;
 use App\Services\ElasticSearchService;
 use BezhanSalleh\FilamentShield\Commands\GenerateCommand;
@@ -64,7 +64,7 @@ class AppServiceProvider extends ServiceProvider
 
         Relation::morphMap([
             'lease' => LeaseAgreement::class,
-            'subscription' => SubscriptionPackage::class,
+            'subscription' => PackageSubscription::class,
         ]);
     }
 

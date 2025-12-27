@@ -12,7 +12,7 @@ class OperatorPropertySeeder extends Seeder
 {
     public function run(): void
     {
-        $eligibleUsers = Operator::where('type','!=', 'Owner')->pluck('id');
+        $eligibleUsers = Operator::whereNot('type', 'Owner')->pluck('id');
 
         Property::all()->each(function ($property) use ($eligibleUsers) {
             $this->assignUsersToProperty($property, $eligibleUsers);

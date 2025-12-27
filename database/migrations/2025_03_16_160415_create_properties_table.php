@@ -17,13 +17,13 @@ return new class extends Migration
     {
         Schema::create('properties', function (Blueprint $table): void {
             $table->id();
+            $table->string('mnemonic')
+                ->unique()
+                ->index();
             $table->string('slug')
                 ->unique()
                 ->index()
                 ->nullable();
-            $table->string('mnemonic')
-                ->unique()
-                ->index();
             $table->foreignIdFor(PropertyType::class)
                 ->constrained()
                 ->nullOnDelete();

@@ -19,10 +19,10 @@ class PackageDescriptionForm
             ->components([
                 TextInput::make('name')
                     ->required(),
-                TextInput::make('period_in_months')
+                TextInput::make('monthly_package_price')
                     ->required()
                     ->numeric(),
-                TextInput::make('period_in_years')
+                TextInput::make('annual_package_price')
                     ->required()
                     ->numeric(),
                 Select::make('status')

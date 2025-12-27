@@ -3,7 +3,7 @@
 namespace App\Filament\ReusableResources\ResourceForm;
 
 use App\Models\LeaseAgreement;
-use App\Models\SubscriptionPackage;
+use App\Models\PackageSubscription;
 use App\Utils\SanitizationHelper;
 use Exception;
 use Filament\Forms\Components\DatePicker;
@@ -49,13 +49,13 @@ class PaymentForm
                                             ->toArray();
                                     }),
 
-                                MorphToSelect\Type::make(SubscriptionPackage::class)
+                                MorphToSelect\Type::make(PackageSubscription::class)
                                     ->label('Package Subscription')
-                                    ->getOptionLabelFromRecordUsing(fn (SubscriptionPackage $record) =>
+                                    ->getOptionLabelFromRecordUsing(fn (PackageSubscription $record) =>
                                     "{$record->packageDescription?->name} (User: {$record->user?->name})"
                                     )
                                     ->getOptionsUsing(function (?string $search): array {
-                                        return SubscriptionPackage::query()
+                                        return PackageSubscription::query()
                                             ->with(['packageDescription', 'user']) // Eager load to prevent N+1
                                             ->when($search, function ($query) use ($search) {
                                                 $query->whereHas('packageDescription', fn ($q) => $q->where('name', 'ilike', "%{$search}%"))

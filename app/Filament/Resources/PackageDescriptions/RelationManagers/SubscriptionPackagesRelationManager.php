@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\PackageDescriptions\RelationManagers;
 
-use App\Filament\Resources\SubscriptionPackages\Tables\SubscriptionPackagesTable;
+use App\Filament\Resources\PackageSubscriptions\Tables\PackageSubscriptionsTable;
 use Filament\Actions\AssociateAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
@@ -23,7 +23,7 @@ class SubscriptionPackagesRelationManager extends RelationManager
 
     public function table(Table $table): Table
     {
-        return SubscriptionPackagesTable::configure($table)
+        return PackageSubscriptionsTable::configure($table)
             ->recordTitleAttribute('mnemonic')
             ->filters([
                 //
