@@ -6,8 +6,8 @@ namespace App\Policies;
 
 use App\Models\PackageSubscription;
 use App\Traits\HasGuardControl;
-use Illuminate\Foundation\Auth\User as AuthUser;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Foundation\Auth\User as AuthUser;
 
 class PackageSubscriptionPolicy
 {
@@ -67,5 +67,4 @@ class PackageSubscriptionPolicy
     {
         return ! $this->isGuardEnabled() || $authUser->can('Reorder:PackageSubscription');
     }
-
 }

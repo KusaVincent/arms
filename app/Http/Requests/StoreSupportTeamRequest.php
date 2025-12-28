@@ -12,7 +12,7 @@ class StoreSupportTeamRequest
 
         $subscription = $owner->activeSubscription;
 
-        if (!$subscription) {
+        if (! $subscription) {
             return false;
         }
 

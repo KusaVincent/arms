@@ -24,8 +24,6 @@ return new class extends Migration
             $table->string('full_address')->unique();
             $table->text('map')->nullable();
             $table->timestamps();
-
-            $table->unique(['address', 'town_city', 'area'], 'unique_address_town_city_area');
         });
     }
 };

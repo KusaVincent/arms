@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
-use App\Traits\HasGuardControl;
-use Illuminate\Foundation\Auth\User as AuthUser;
 use App\Models\PackageDescription;
+use App\Traits\HasGuardControl;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Foundation\Auth\User as AuthUser;
 
 class PackageDescriptionPolicy
 {
@@ -67,5 +67,4 @@ class PackageDescriptionPolicy
     {
         return ! $this->isGuardEnabled() || $authUser->can('Reorder:PackageDescription');
     }
-
 }

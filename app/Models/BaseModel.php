@@ -11,7 +11,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class BaseModel extends Model
 {
-    use Referenceable, LogsActivity, HasCustomSlug, HasFactory;
+    use HasCustomSlug, HasFactory, LogsActivity, Referenceable;
 
     public function getActivitylogOptions(): LogOptions
     {

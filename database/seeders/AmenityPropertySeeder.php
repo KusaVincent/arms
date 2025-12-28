@@ -6,8 +6,8 @@ namespace Database\Seeders;
 
 use App\Models\Amenity;
 use App\Models\AmenityProperty;
-use App\Models\Property;
 use App\Models\OperatorProperty;
+use App\Models\Property;
 use Illuminate\Database\Seeder;
 
 final class AmenityPropertySeeder extends Seeder

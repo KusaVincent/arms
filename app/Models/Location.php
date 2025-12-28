@@ -4,14 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Traits\Referenceable;
-use Faker\Provider\Base;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\HigherOrderCollectionProxy;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
 /**
@@ -30,6 +25,34 @@ final class Location extends BaseModel
 
     protected string $referencePrefix = 'LOC';
 
+    protected function townCity(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value): string => $this->sanitizeString($value),
+        );
+    }
+
+    protected function address(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value): string => $this->sanitizeString($value),
+        );
+    }
+
+    protected function area(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value): string => $this->sanitizeString($value),
+        );
+    }
+
+    private function sanitizeString(mixed $string): string
+    {
+        $clean = preg_replace('/\s+/', ' ', (string) $string);
+
+        return ucwords(trim((string) $clean));
+    }
+
     public function properties(): HasMany
     {
         return $this->hasMany(Property::class);
@@ -40,9 +63,9 @@ final class Location extends BaseModel
     {
         Location::saving(function ($location): void {
             $parts = array_filter([
-                trim((string) $location->town_city),
-                trim((string) $location->area),
-                trim((string) $location->address),
+                $location->town_city,
+                $location->area,
+                $location->address,
             ]);
 
             // take care of unique failure

@@ -3,9 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Operator;
-use App\Models\Property;
 use App\Models\OperatorProperty;
-use App\Models\User;
+use App\Models\Property;
 use Illuminate\Database\Seeder;
 
 class OperatorPropertySeeder extends Seeder

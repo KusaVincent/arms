@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
                 'first_name' => 'Super',
                 'last_name' => 'Admin',
                 'password' => '12345678',
-                'user_type'=>'admin',
+                'user_type' => 'admin',
                 'phone_number' => '254',
             ]
         );

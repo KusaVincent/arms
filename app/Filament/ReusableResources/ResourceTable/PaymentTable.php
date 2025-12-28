@@ -2,7 +2,6 @@
 
 namespace App\Filament\ReusableResources\ResourceTable;
 
-use App\Actions\AssignColor;
 use App\Models\LeaseAgreement;
 use App\Models\PackageSubscription;
 use Exception;
@@ -25,7 +24,9 @@ class PaymentTable
                     ->label('Paid By / Target')
                     ->state(fn ($record) => $record->payable)
                     ->formatStateUsing(function ($state) {
-                        if (!$state) return 'N/A';
+                        if (! $state) {
+                            return 'N/A';
+                        }
 
                         return match (true) {
                             $state instanceof LeaseAgreement => $state->tenant?->user?->name ?? 'Unknown Tenant',
@@ -33,7 +34,7 @@ class PaymentTable
                             default => 'Unknown',
                         };
                     })
-                    ->description(fn ($record): string => match($record->payable_type) {
+                    ->description(fn ($record): string => match ($record->payable_type) {
                         'lease', LeaseAgreement::class => 'Lease Agreement',
                         'subscription', PackageSubscription::class => 'Subscription Package',
                         default => 'Other',
@@ -59,7 +60,9 @@ class PaymentTable
                     ->label('Paid For')
                     ->state(fn ($record) => $record->payable)
                     ->formatStateUsing(function ($state) {
-                        if (!$state) return '—';
+                        if (! $state) {
+                            return '—';
+                        }
 
                         return match (true) {
                             $state instanceof LeaseAgreement => $state->property?->name ?? 'No Property',

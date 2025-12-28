@@ -31,8 +31,7 @@ class PaymentForm
                             ->types([
                                 MorphToSelect\Type::make(LeaseAgreement::class)
                                     ->label('Lease Agreement')
-                                    ->getOptionLabelFromRecordUsing(fn (LeaseAgreement $record) =>
-                                    "{$record->property?->name} (Lease #{$record->id} - {$record->tenant?->user?->name})"
+                                    ->getOptionLabelFromRecordUsing(fn (LeaseAgreement $record) => "{$record->property?->name} (Lease #{$record->id} - {$record->tenant?->user?->name})"
                                     )
                                     ->getOptionsUsing(function (?string $search): array {
                                         return LeaseAgreement::query()
@@ -44,15 +43,14 @@ class PaymentForm
                                             ->limit(50)
                                             ->get()
                                             ->mapWithKeys(fn ($record) => [
-                                                $record->id => "{$record->property?->name} (Ref: #{$record->id} - {$record->tenant?->user?->name})"
+                                                $record->id => "{$record->property?->name} (Ref: #{$record->id} - {$record->tenant?->user?->name})",
                                             ])
                                             ->toArray();
                                     }),
 
                                 MorphToSelect\Type::make(PackageSubscription::class)
                                     ->label('Package Subscription')
-                                    ->getOptionLabelFromRecordUsing(fn (PackageSubscription $record) =>
-                                    "{$record->packageDescription?->name} (User: {$record->user?->name})"
+                                    ->getOptionLabelFromRecordUsing(fn (PackageSubscription $record) => "{$record->packageDescription?->name} (User: {$record->user?->name})"
                                     )
                                     ->getOptionsUsing(function (?string $search): array {
                                         return PackageSubscription::query()
@@ -64,7 +62,7 @@ class PaymentForm
                                             ->limit(50)
                                             ->get()
                                             ->mapWithKeys(fn ($record) => [
-                                                $record->id => "{$record->packageDescription?->name} (User: {$record->user?->name})"
+                                                $record->id => "{$record->packageDescription?->name} (User: {$record->user?->name})",
                                             ])
                                             ->toArray();
                                     }),

@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Traits\Referenceable;
-use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
 /**

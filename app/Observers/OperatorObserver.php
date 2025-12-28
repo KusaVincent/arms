@@ -14,8 +14,8 @@ class OperatorObserver
 
             $subscription = $owner->activeSubscription();
 
-            if (!$subscription) {
-                throw new \Exception("The owner does not have an active subscription.");
+            if (! $subscription) {
+                throw new \Exception('The owner does not have an active subscription.');
             }
 
             $limit = $subscription->no_of_support_team;

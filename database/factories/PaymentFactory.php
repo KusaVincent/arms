@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Models\LeaseAgreement;
+use App\Models\PackageSubscription;
 use App\Models\Payment;
 use App\Models\PaymentMethod;
-use App\Models\PackageSubscription;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

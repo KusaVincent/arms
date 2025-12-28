@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Operator>
@@ -12,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class OperatorFactory extends Factory
 {
     protected static bool $ownerGenerated = false;
+
     /**
      * Define the model's default state.
      *

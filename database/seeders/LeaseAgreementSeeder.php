@@ -36,7 +36,7 @@ final class LeaseAgreementSeeder extends Seeder
                         : random_int(1, (int) $remainingBalance);
 
                     Payment::factory()->create([
-                        'payable_id'     => $lease->id,
+                        'payable_id' => $lease->id,
                         'payment_amount' => $amountToPay,
                     ]);
                 }

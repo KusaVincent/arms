@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
-use App\Traits\HasGuardControl;
-use Illuminate\Foundation\Auth\User as AuthUser;
 use App\Models\Operator;
+use App\Traits\HasGuardControl;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Foundation\Auth\User as AuthUser;
 
 class OperatorPolicy
 {
@@ -67,5 +67,4 @@ class OperatorPolicy
     {
         return ! $this->isGuardEnabled() || $authUser->can('Reorder:Operator');
     }
-
 }

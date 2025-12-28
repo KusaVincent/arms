@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Enums\PackageStatus;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,6 +13,7 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  * @method static create(array $array)
  * @method static find(mixed $owner_id)
  * @method static whereNot(string $string, string $string1)
+ *
  * @property mixed $owner_id
  * @property mixed $owner
  */

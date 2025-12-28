@@ -17,17 +17,17 @@ trait HandleRecordCreation
             $userData = $data['user'] ?? [];
 
             $user = User::create([
-                'first_name'   => $userData['first_name'],
-                'middle_name'  => $userData['middle_name'] ?? null,
-                'last_name'    => $userData['last_name'],
-                'email'        => $userData['email'],
+                'first_name' => $userData['first_name'],
+                'middle_name' => $userData['middle_name'] ?? null,
+                'last_name' => $userData['last_name'],
+                'email' => $userData['email'],
                 'phone_number' => $userData['phone_number'],
-                'user_type'    => $this->userType,
-                'password'     => Str::random(12),
-                'name'         => "{$userData['first_name']} {$userData['last_name']}",
+                'user_type' => $this->userType,
+                'password' => Str::random(12),
+                'name' => "{$userData['first_name']} {$userData['last_name']}",
             ]);
 
-            if (!empty($userData['roles'])) {
+            if (! empty($userData['roles'])) {
                 $user->roles()->sync($userData['roles']);
             }
 

@@ -6,7 +6,8 @@ use Rector\Config\RectorConfig;
 
 return RectorConfig::configure()
     ->withPaths([
-        //        __DIR__.'/app',
+        __DIR__.'/app/Casts',
+        __DIR__.'/app/Models',
         __DIR__.'/public',
         __DIR__.'/resources',
         __DIR__.'/routes',

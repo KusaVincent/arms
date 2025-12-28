@@ -12,7 +12,7 @@ class SupportTeamSeeder extends Seeder
     public function run(): void
     {
         $ownersWithSubs = Operator::whereNull('owner_id')
-            ->whereHas('packageSubscriptions', function($q) {
+            ->whereHas('packageSubscriptions', function ($q) {
                 $q->where('status', PackageStatus::ACTIVE)->where('expiry_date', '>', now());
             })->get();
 

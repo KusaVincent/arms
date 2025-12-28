@@ -5,11 +5,9 @@ namespace Database\Seeders;
 use App\Enums\PackageStatus;
 use App\Models\Operator;
 use App\Models\PackageDescription;
-use App\Models\Payment;
 use App\Models\PackageSubscription;
-use App\Models\User;
+use App\Models\Payment;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Carbon;
 
 class PackageSubscriptionSeeder extends Seeder
 {
@@ -51,7 +49,7 @@ class PackageSubscriptionSeeder extends Seeder
                     'operator_id' => $owner->id,
                     'package_description_id' => $description->id,
                     'package_price' => $packagePrice,
-                    'negotiated_price' => $negotiatedPrice ? (int)ceil($negotiatedPrice) : null,
+                    'negotiated_price' => $negotiatedPrice ? (int) ceil($negotiatedPrice) : null,
                     'no_of_properties' => $description->properties,
                     'no_of_support_team' => $description->support_team,
                     'status' => $status,

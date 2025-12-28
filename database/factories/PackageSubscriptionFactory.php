@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Enums\PackageStatus;
 use App\Models\PackageDescription;
-use App\Models\Payment;
 use App\Models\PackageSubscription;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -45,7 +44,7 @@ class PackageSubscriptionFactory extends Factory
             'effective_date' => $effectiveDate,
             'expiry_date' => $expiryDate,
             'package_period' => $period,
-            'package_price'=>$period == 'Month'
+            'package_price' => $period == 'Month'
                 ? $packageDescription->monthly_package_price
                 : $packageDescription->annual_package_price,
             'negotiated_price' => null,

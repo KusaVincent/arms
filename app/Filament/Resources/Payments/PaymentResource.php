@@ -64,7 +64,7 @@ class PaymentResource extends Resource
     {
         return [
             PaymentMethodRelationManager::class,
-//            LeaseAgreementsRelationManager::class,
+            //            LeaseAgreementsRelationManager::class,
             ActivitiesRelationManager::class,
         ];
     }

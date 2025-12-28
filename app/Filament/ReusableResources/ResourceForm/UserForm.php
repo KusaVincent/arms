@@ -3,7 +3,6 @@
 namespace App\Filament\ReusableResources\ResourceForm;
 
 use Exception;
-use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Pages\CreateRecord;
