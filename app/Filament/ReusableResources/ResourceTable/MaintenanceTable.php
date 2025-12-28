@@ -21,7 +21,8 @@ class MaintenanceTable
                 TextColumn::make('property.name')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('tenant.fullname')
+                TextColumn::make('tenant.user.name')
+                    ->label('Tenant')
                     ->searchable(),
                 TextColumn::make('status')
                     ->badge()

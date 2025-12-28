@@ -21,8 +21,10 @@ class OperatorsTable
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('type')
+                    ->sortable()
                     ->searchable(),
                 TextColumn::make('user.name')
+                    ->label('Name')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('user.email')

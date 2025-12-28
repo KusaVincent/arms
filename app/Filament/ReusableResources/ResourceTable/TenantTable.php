@@ -20,10 +20,13 @@ class TenantTable
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('user.name')
+                    ->label('Name')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('user.email'),
-                TextColumn::make('user.phone_number'),
+                TextColumn::make('user.email')
+                    ->label('Email'),
+                TextColumn::make('user.phone_number')
+                    ->label('Phone Number'),
                 TextColumn::make('user.roles.name')
                     ->badge()
                     ->label('Role')
