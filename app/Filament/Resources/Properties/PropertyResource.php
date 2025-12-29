@@ -68,7 +68,7 @@ class PropertyResource extends Resource
     public static function getRelations(): array
     {
         return [
-            UsersRelationManager::class,
+//            UsersRelationManager::class,
             AmenitiesRelationManager::class,
             LocationRelationManager::class,
             PropertyTypeRelationManager::class,

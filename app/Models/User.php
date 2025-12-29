@@ -10,10 +10,12 @@ use App\Traits\Referenceable;
 use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Rappasoft\LaravelAuthenticationLog\Traits\AuthenticationLoggable;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -40,6 +42,13 @@ final class User extends Authenticatable implements FilamentUser
         'password',
         'remember_token',
     ];
+
+//    public function getAvatarUrlUrlAttribute(): ?string
+//    {
+//        return $this->avatar_url
+//            ? Storage::disk('public')->url($this->avatar_url)
+//            : null;
+//    }
 
     /**
      * Get the attributes that should be cast.
@@ -75,6 +84,11 @@ final class User extends Authenticatable implements FilamentUser
         return $this->hasOne(Operator::class);
     }
 
+    public function scopeIsAdmin(Builder $query)
+    {
+        $query->where('user_type', 'admin');
+    }
+
     #[\Override]
     protected static function booted(): void
     {
@@ -83,15 +97,5 @@ final class User extends Authenticatable implements FilamentUser
                 $user->name = trim("{$user->first_name} {$user->last_name}");
             }
         });
-
-        //        static::created(function ($user) {
-        //            $user->assignRole('panel_user');
-        //        });
-        //
-        //        static::saved(function ($user) {
-        //            if (! $user->hasRole('panel_user')) {
-        //                $user->assignRole('panel_user');
-        //            }
-        //        });
     }
 }

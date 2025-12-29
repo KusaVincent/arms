@@ -3,12 +3,18 @@
 namespace App\Providers\Filament;
 
 use AlizHarb\ActivityLog\ActivityLogPlugin;
+use App\Filament\Pages\Auth\EditProfile;
+use App\Filament\Resources\Users\UserResource;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use EightCedars\FilamentInactivityGuard\FilamentInactivityGuardPlugin;
+use Filament\Actions\Action;
+use Filament\Forms\Components\TextInput;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
+use Filament\Notifications\Notification;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -19,6 +25,8 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
 use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
@@ -37,6 +45,7 @@ class AdminPanelProvider extends PanelProvider
             ->pages([Dashboard::class])
             ->sidebarCollapsibleOnDesktop()
             ->brandLogoHeight('3rem')
+            ->profile(EditProfile::class)
             ->colors(['primary' => Color::Blue])
             ->favicon(asset('storage/favicon.png'))
             ->domain(config('app.admin_panel_url'))
@@ -57,6 +66,45 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 AddQueuedCookiesToResponse::class,
                 DispatchServingFilamentEvent::class,
+            ])
+            ->userMenuItems([
+                Action::make('change-password')
+                    ->label('Change Password')
+                    ->icon('heroicon-o-key')
+                    ->modalHeading('Update Password')
+                    ->modalDescription('Please ensure your account is using a long, random password to stay secure.')
+                    ->modalSubmitActionLabel('Update')
+                    ->modalWidth('lg')
+                    ->form([
+                        TextInput::make('current_password')
+                            ->password()
+                            ->required()
+                            ->currentPassword(),
+                        TextInput::make('new_password')
+                            ->label('New Password')
+                            ->password()
+                            ->required()
+                            ->rule(Password::default())
+                            ->confirmed(),
+                        TextInput::make('new_password_confirmation')
+                            ->label('Confirm New Password')
+                            ->password()
+                            ->required(),
+                    ])
+                    ->action(function (array $data) {
+                        auth()->user()->update([
+                            'password' => Hash::make($data['new_password']),
+                        ]);
+
+                        Notification::make()
+                            ->title('Password updated successfully')
+                            ->success()
+                            ->send();
+                    }),
+                'logout' => fn (Action $action) => $action
+                    ->label('Log out')
+                    ->icon('heroicon-o-arrow-left-on-rectangle')
+                    ->color('danger'),
             ])
             ->authMiddleware([
                 Authenticate::class,

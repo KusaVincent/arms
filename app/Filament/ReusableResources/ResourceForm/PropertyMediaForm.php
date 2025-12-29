@@ -7,6 +7,8 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\HtmlString;
 
 class PropertyMediaForm
 {
@@ -74,14 +76,15 @@ class PropertyMediaForm
                                     ->imagePreviewHeight(self::$imagePreviewHeight),
                                 FileUpload::make('video')
                                     ->reactive()
-                                    ->maxSize(51200)
+                                    ->maxSize(10240)
                                     ->disk('public')
+                                    ->panelAspectRatio('16:9')
                                     ->directory(self::$directoryPath)
+                                    ->panelLayout('integrated')
+                                    ->imagePreviewHeight('250')
+                                    ->loadingIndicatorPosition('left')
                                     ->acceptedFileTypes(['video/mp4', 'video/avi', 'video/mkv'])
-                                    ->helperText(fn ($state) => $state
-                                        ? '<video controls width="300"><source src="'.asset(self::$directoryPath.$state).'" type="video/mp4"></video>'
-                                        : null
-                                    ),
+                                    ->validationMessages(['max' => 'The video must not be larger than 10MB.']),
                             ])->columns(),
                     ]),
             ]);

@@ -11,6 +11,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class PaymentMethod extends BaseModel
 {
+    protected $attributes = [
+        'color' => 'gray',
+    ];
+
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
