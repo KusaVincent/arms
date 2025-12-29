@@ -20,15 +20,16 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class TenantResource extends Resource
 {
+    protected static ?int $navigationSort = 2;
+
     protected static ?string $model = Tenant::class;
 
-    protected static ?string $tenantOwnershipRelationshipName = 'user';
-
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string|null|\UnitEnum $navigationGroup = 'Customer Management';
 
     /**
      * @throws Exception

@@ -23,9 +23,11 @@ use Filament\Tables\Table;
 
 class LocationResource extends Resource
 {
+    protected static ?int $navigationSort = 4;
+
     protected static ?string $model = Location::class;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string|null|\UnitEnum $navigationGroup = 'Property Management';
 
     /**
      * @throws Exception

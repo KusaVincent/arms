@@ -17,13 +17,18 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class CustomerSupportResource extends Resource
 {
+    protected static ?int $navigationSort = 3;
+
     protected static ?string $model = CustomerSupport::class;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel = 'Secure Messages';
+
+    protected static string|null|\UnitEnum $navigationGroup = 'Customer Management';
 
     /**
      * @throws Exception

@@ -24,7 +24,7 @@ class PaymentMethodResource extends Resource
 {
     protected static ?string $model = PaymentMethod::class;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string|null|\UnitEnum $navigationGroup = 'Payments';
 
     /**
      * @throws Exception

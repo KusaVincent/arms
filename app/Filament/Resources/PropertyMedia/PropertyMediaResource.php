@@ -23,9 +23,11 @@ use Filament\Tables\Table;
 
 class PropertyMediaResource extends Resource
 {
+    protected static ?int $navigationSort = 2;
+
     protected static ?string $model = PropertyMedia::class;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string|null|\UnitEnum $navigationGroup = 'Property Management';
 
     /**
      * @throws Exception

@@ -43,12 +43,12 @@ final class User extends Authenticatable implements FilamentUser
         'remember_token',
     ];
 
-//    public function getAvatarUrlUrlAttribute(): ?string
-//    {
-//        return $this->avatar_url
-//            ? Storage::disk('public')->url($this->avatar_url)
-//            : null;
-//    }
+    //    public function getAvatarUrlUrlAttribute(): ?string
+    //    {
+    //        return $this->avatar_url
+    //            ? Storage::disk('public')->url($this->avatar_url)
+    //            : null;
+    //    }
 
     /**
      * Get the attributes that should be cast.
@@ -84,7 +84,7 @@ final class User extends Authenticatable implements FilamentUser
         return $this->hasOne(Operator::class);
     }
 
-    public function scopeIsAdmin(Builder $query)
+    public function scopeIsAdmin(Builder $query): void
     {
         $query->where('user_type', 'admin');
     }

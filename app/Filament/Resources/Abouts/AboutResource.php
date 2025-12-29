@@ -25,7 +25,7 @@ class AboutResource extends Resource
 {
     protected static ?string $model = About::class;
 
-    protected static string|null|BackedEnum $navigationIcon = Heroicon::OutlinedArchiveBox;
+    protected static string|null|\UnitEnum $navigationGroup = 'Settings';
 
     /**
      * @throws Exception

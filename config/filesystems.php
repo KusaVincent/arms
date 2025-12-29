@@ -45,7 +45,7 @@ return [
                 env('LEASE_PANEL_DOMAIN'),
                 env('ADMIN_PANEL_DOMAIN'),
                 env('MANAGE_PANEL_DOMAIN'),
-            ]) ? url('/') .'/storage' : env('APP_URL').'/storage',
+            ]) ? url('/').'/storage' : env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,

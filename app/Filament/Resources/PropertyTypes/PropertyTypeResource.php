@@ -23,9 +23,11 @@ use Filament\Tables\Table;
 
 class PropertyTypeResource extends Resource
 {
+    protected static ?int $navigationSort = 3;
+
     protected static ?string $model = PropertyType::class;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string|null|\UnitEnum $navigationGroup = 'Property Management';
 
     /**
      * @throws Exception

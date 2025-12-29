@@ -29,9 +29,11 @@ use Filament\Tables\Table;
 
 class PropertyResource extends Resource
 {
+    protected static ?int $navigationSort = 1;
+
     protected static ?string $model = Property::class;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string|null|\UnitEnum $navigationGroup = 'Property Management';
 
     /**
      * @throws Exception
@@ -68,7 +70,7 @@ class PropertyResource extends Resource
     public static function getRelations(): array
     {
         return [
-//            UsersRelationManager::class,
+            //            UsersRelationManager::class,
             AmenitiesRelationManager::class,
             LocationRelationManager::class,
             PropertyTypeRelationManager::class,

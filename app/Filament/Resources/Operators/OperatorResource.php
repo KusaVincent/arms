@@ -16,9 +16,11 @@ use Filament\Tables\Table;
 
 class OperatorResource extends Resource
 {
+    protected static ?int $navigationSort = 1;
+
     protected static ?string $model = Operator::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|null|\UnitEnum $navigationGroup = 'Customer Management';
 
     public static function form(Schema $schema): Schema
     {

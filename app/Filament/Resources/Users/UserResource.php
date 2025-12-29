@@ -26,6 +26,8 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
+    protected static ?string $navigationLabel = 'User Management';
+
     protected static string|null|BackedEnum $navigationIcon = Heroicon::User;
 
     public static function getNavigationBadge(): ?string
