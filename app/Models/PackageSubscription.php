@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\PaymentCast;
 use App\Enums\PackageStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,6 +22,8 @@ class PackageSubscription extends BaseModel
         'no_of_properties' => 0,
         'no_of_support_team' => 0,
         'status' => PackageStatus::INACTIVE,
+        'package_price' => PaymentCast::class,
+        'negotiated_price' => PaymentCast::class,
     ];
 
     protected $casts = [

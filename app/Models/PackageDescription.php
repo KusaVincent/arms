@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\PaymentCast;
 use App\Enums\PackagePublished;
 use App\Enums\PackageStatus;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,6 +20,8 @@ class PackageDescription extends BaseModel
     protected $attributes = [
         'published' => PackagePublished::NO,
         'status' => PackageStatus::INACTIVE,
+        'annual_package_price' => PaymentCast::class,
+        'monthly_package_price' => PaymentCast::class,
     ];
 
     protected $casts = [

@@ -30,7 +30,7 @@ class LeaseAgreementTable
                     ->dateTime()
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('rent_amount')
+                TextColumn::make('lease_amount')
                     ->searchable(),
                 TextColumn::make('deposit_amount')
                     ->searchable(),

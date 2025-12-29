@@ -19,7 +19,7 @@ final class LeaseAgreement extends BaseModel
     protected string $referencePrefix = 'LAG';
 
     protected $casts = [
-        'rent_amount' => PaymentCast::class,
+        'lease_amount' => PaymentCast::class,
         'deposit_amount' => PaymentCast::class,
     ];
 

@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\HigherOrderCollectionProxy;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
 /**
  * @property mixed $middle_name
  * @property mixed $last_name
  * @property mixed $first_name
+ * @property HigherOrderCollectionProxy|mixed|null $user
  *
  * @template TFactory of Factory
  *

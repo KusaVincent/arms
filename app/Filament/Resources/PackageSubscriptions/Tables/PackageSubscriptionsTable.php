@@ -20,8 +20,12 @@ class PackageSubscriptionsTable
                     ->searchable(),
                 TextColumn::make('operator.user.name')
                     ->searchable(),
-                TextColumn::make('payment.payment_amount')
-                    ->searchable(),
+                TextColumn::make('package_price')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('negotiated_price')
+                    ->numeric()
+                    ->sortable(),
                 TextColumn::make('packageDescription.name')
                     ->label('Package Name')
                     ->searchable(),

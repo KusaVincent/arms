@@ -44,7 +44,7 @@ class PackageSubscriptionResource extends Resource
     public static function getRelations(): array
     {
         return [
-            UsersRelationManager::class,
+//            UsersRelationManager::class,
             PaymentRelationManager::class,
             PackageDescriptionRelationManager::class,
             ActivitiesRelationManager::class,

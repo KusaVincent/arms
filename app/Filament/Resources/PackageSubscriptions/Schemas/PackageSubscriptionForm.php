@@ -3,9 +3,11 @@
 namespace App\Filament\Resources\PackageSubscriptions\Schemas;
 
 use App\Enums\PackageStatus;
+use App\Utils\SanitizationHelper;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Resources\Pages\EditRecord;
 use Filament\Schemas\Schema;
 
 class PackageSubscriptionForm
@@ -20,6 +22,18 @@ class PackageSubscriptionForm
                 TextInput::make('no_of_support_team')
                     ->required()
                     ->numeric(),
+                TextInput::make('package_price')
+                    ->required()
+                    ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
+                        ? SanitizationHelper::stripFormatting($state)
+                        : $state
+                    ),
+                TextInput::make('negotiated_price')
+                    ->required()
+                    ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
+                        ? SanitizationHelper::stripFormatting($state)
+                        : $state
+                    ),
                 Select::make('status')
                     ->options(PackageStatus::class)
                     ->required(),

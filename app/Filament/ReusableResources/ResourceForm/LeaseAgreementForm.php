@@ -2,6 +2,7 @@
 
 namespace App\Filament\ReusableResources\ResourceForm;
 
+use App\Models\Tenant;
 use App\Utils\SanitizationHelper;
 use Exception;
 use Filament\Forms\Components\DatePicker;
@@ -26,9 +27,21 @@ class LeaseAgreementForm
                         Section::make()
                             ->schema([
                                 Select::make('tenant_id')
+                                    ->label('Tenant')
                                     ->required()
                                     ->searchable()
-                                    ->relationship('tenant', 'first_name'),
+                                    ->getSearchResultsUsing(fn (string $search): array =>
+                                    Tenant::query()
+                                        ->whereHas('user', function ($query) use ($search) {
+                                            $query->where('name', 'ilike', "%{$search}%");
+                                        })
+                                        ->get()
+                                        ->mapWithKeys(fn ($tenant) => [$tenant->id => $tenant->user->name])
+                                        ->toArray()
+                                    )
+                                    ->getOptionLabelUsing(fn ($value): ?string =>
+                                        Tenant::find($value)?->user?->name
+                                    ),
                                 Select::make('property_id')
                                     ->required()
                                     ->searchable()
@@ -46,7 +59,7 @@ class LeaseAgreementForm
                             ])->columns(3),
                         Section::make()
                             ->schema([
-                                TextInput::make('rent_amount')
+                                TextInput::make('lease_amount')
                                     ->required()
                                     ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
                                         ? SanitizationHelper::stripFormatting($state)

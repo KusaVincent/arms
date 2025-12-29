@@ -4,10 +4,12 @@ namespace App\Filament\Resources\PackageDescriptions\Schemas;
 
 use App\Enums\PackagePublished;
 use App\Enums\PackageStatus;
+use App\Utils\SanitizationHelper;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Resources\Pages\EditRecord;
 use Filament\Schemas\Schema;
 
 class PackageDescriptionForm
@@ -20,10 +22,16 @@ class PackageDescriptionForm
                     ->required(),
                 TextInput::make('monthly_package_price')
                     ->required()
-                    ->numeric(),
+                    ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
+                        ? SanitizationHelper::stripFormatting($state)
+                        : $state
+                    ),
                 TextInput::make('annual_package_price')
                     ->required()
-                    ->numeric(),
+                    ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
+                        ? SanitizationHelper::stripFormatting($state)
+                        : $state
+                    ),
                 Select::make('status')
                     ->options(PackageStatus::class)
                     ->required(),

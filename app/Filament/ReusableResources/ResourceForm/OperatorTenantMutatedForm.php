@@ -24,9 +24,11 @@ class OperatorTenantMutatedForm
             ->schema([
                 Section::make()
                     ->schema([
-                        TextInput::make('first_name')->required(),
+                        TextInput::make('first_name')
+                            ->required(),
                         TextInput::make('middle_name'),
-                        TextInput::make('last_name')->required(),
+                        TextInput::make('last_name')
+                            ->required(),
                     ])->columns(3),
                 Section::make()
                     ->schema([
@@ -42,8 +44,12 @@ class OperatorTenantMutatedForm
                                 fn (Select $component) => $component
                                     ->relationship('roles', 'name')
                             ),
-                        TextInput::make('email')->email()->required(),
-                        TextInput::make('phone_number')->tel()->required(),
+                        TextInput::make('email')
+                            ->email()
+                            ->required(),
+                        TextInput::make('phone_number')
+                            ->tel()
+                            ->required(),
                     ])->columns(3),
             ])
             ->saveRelationshipsUsing(null);
