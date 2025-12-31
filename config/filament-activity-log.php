@@ -6,6 +6,7 @@ use AlizHarb\ActivityLog\Resources\ActivityLogs\ActivityLogResource;
 use AlizHarb\ActivityLog\Taps\SetActivityContextTap;
 use AlizHarb\ActivityLog\Widgets\ActivityChartWidget;
 use AlizHarb\ActivityLog\Widgets\LatestActivityWidget;
+use App\Policies\ActivityLogAuthorizer;
 
 return [
     /*
@@ -217,7 +218,7 @@ return [
          *
          * 'custom_authorization' => null,
          */
-        'custom_authorization' => fn ($user) => $user->hasPermissionTo('ViewAny:Activity'),
+        'custom_authorization' => ActivityLogAuthorizer::class,
 
         'view_any' => 'view_any_activity',
         'view' => 'view_activity',

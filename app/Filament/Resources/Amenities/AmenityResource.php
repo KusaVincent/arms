@@ -10,7 +10,7 @@ use App\Filament\Resources\Amenities\RelationManagers\PropertiesRelationManager;
 use App\Filament\ReusableResources\ResourceForm\AmenityForm;
 use App\Filament\ReusableResources\ResourceTable\AmenityTable;
 use App\Models\Amenity;
-use BackedEnum;
+use App\Traits\HasSharedResourceProperties;
 use Exception;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -23,9 +23,13 @@ use Filament\Tables\Table;
 
 class AmenityResource extends Resource
 {
+    use HasSharedResourceProperties;
+
     protected static ?int $navigationSort = 5;
 
     protected static ?string $model = Amenity::class;
+
+    protected static ?string $recordTitleAttribute = 'amenity_name';
 
     protected static string|null|\UnitEnum $navigationGroup = 'Property Management';
 

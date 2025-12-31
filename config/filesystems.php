@@ -41,11 +41,34 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => in_array(url('/'), [
-                env('LEASE_PANEL_DOMAIN'),
-                env('ADMIN_PANEL_DOMAIN'),
-                env('MANAGE_PANEL_DOMAIN'),
-            ]) ? url('/').'/storage' : env('APP_URL').'/storage',
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
+        'admin_storage' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public'),
+            'url' => env('ADMIN_PANEL_DOMAIN').'/storage',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
+        'manage_storage' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public'),
+            'url' => env('MANAGE_PANEL_DOMAIN').'/storage',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
+        'lease_storage' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public'),
+            'url' => env('LEASE_PANEL_DOMAIN').'/storage',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,

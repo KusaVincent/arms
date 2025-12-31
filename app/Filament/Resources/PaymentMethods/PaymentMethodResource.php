@@ -10,7 +10,7 @@ use App\Filament\Resources\PaymentMethods\RelationManagers\PaymentsRelationManag
 use App\Filament\ReusableResources\ResourceForm\PaymentMethodForm;
 use App\Filament\ReusableResources\ResourceTable\PaymentMethodTable;
 use App\Models\PaymentMethod;
-use BackedEnum;
+use App\Traits\HasSharedResourceProperties;
 use Exception;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -22,7 +22,11 @@ use Filament\Tables\Table;
 
 class PaymentMethodResource extends Resource
 {
+    use HasSharedResourceProperties;
+
     protected static ?string $model = PaymentMethod::class;
+
+    protected static ?string $recordTitleAttribute = 'name';
 
     protected static string|null|\UnitEnum $navigationGroup = 'Payments';
 

@@ -10,7 +10,7 @@ use App\Filament\Resources\Locations\RelationManagers\PropertiesRelationManager;
 use App\Filament\ReusableResources\ResourceForm\LocationForm;
 use App\Filament\ReusableResources\ResourceTable\LocationTable;
 use App\Models\Location;
-use BackedEnum;
+use App\Traits\HasSharedResourceProperties;
 use Exception;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -23,9 +23,13 @@ use Filament\Tables\Table;
 
 class LocationResource extends Resource
 {
+    use HasSharedResourceProperties;
+
     protected static ?int $navigationSort = 4;
 
     protected static ?string $model = Location::class;
+
+    protected static ?string $recordTitleAttribute = 'full_address';
 
     protected static string|null|\UnitEnum $navigationGroup = 'Property Management';
 

@@ -11,7 +11,7 @@ use App\Filament\Resources\Tenants\RelationManagers\MaintenanceRelationManager;
 use App\Filament\ReusableResources\ResourceForm\TenantForm;
 use App\Filament\ReusableResources\ResourceTable\TenantTable;
 use App\Models\Tenant;
-use BackedEnum;
+use App\Traits\HasSharedResourceProperties;
 use Exception;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -20,14 +20,17 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class TenantResource extends Resource
 {
+    use HasSharedResourceProperties;
+
     protected static ?int $navigationSort = 2;
 
     protected static ?string $model = Tenant::class;
+
+    protected static ?string $recordTitleAttribute = 'user_name';
 
     protected static string|null|\UnitEnum $navigationGroup = 'Customer Management';
 
@@ -38,6 +41,11 @@ class TenantResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return TenantForm::form($schema);
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['user.name', 'user.middle_name', 'user.email', 'user.phone_number'];
     }
 
     /**

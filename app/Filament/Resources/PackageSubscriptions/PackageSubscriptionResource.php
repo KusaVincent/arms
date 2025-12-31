@@ -14,15 +14,18 @@ use App\Filament\Resources\PackageSubscriptions\Schemas\PackageSubscriptionForm;
 use App\Filament\Resources\PackageSubscriptions\Schemas\PackageSubscriptionInfolist;
 use App\Filament\Resources\PackageSubscriptions\Tables\PackageSubscriptionsTable;
 use App\Models\PackageSubscription;
-use BackedEnum;
+use App\Traits\HasSharedResourceProperties;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class PackageSubscriptionResource extends Resource
 {
+    use HasSharedResourceProperties;
+
     protected static ?string $model = PackageSubscription::class;
+
+    protected static ?string $recordTitleAttribute = 'operator_name';
 
     protected static string|null|\UnitEnum $navigationGroup = 'Subscription Management';
 
@@ -44,7 +47,7 @@ class PackageSubscriptionResource extends Resource
     public static function getRelations(): array
     {
         return [
-//            UsersRelationManager::class,
+            //            UsersRelationManager::class,
             PaymentRelationManager::class,
             PackageDescriptionRelationManager::class,
             ActivitiesRelationManager::class,

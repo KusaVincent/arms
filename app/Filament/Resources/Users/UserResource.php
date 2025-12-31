@@ -9,6 +9,7 @@ use App\Filament\Resources\Users\Pages\ListUsers;
 use App\Filament\ReusableResources\ResourceForm\UserForm;
 use App\Filament\ReusableResources\ResourceTable\UserTable;
 use App\Models\User;
+use App\Traits\HasSharedResourceProperties;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -24,7 +25,11 @@ use Tapp\FilamentAuthenticationLog\RelationManagers\AuthenticationLogsRelationMa
 
 class UserResource extends Resource
 {
+    use HasSharedResourceProperties;
+
     protected static ?string $model = User::class;
+
+    protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $navigationLabel = 'User Management';
 
@@ -33,6 +38,11 @@ class UserResource extends Resource
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::isAdmin()->count();
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name', 'user_type', 'middle_name', 'email', 'phone_number'];
     }
 
     /**

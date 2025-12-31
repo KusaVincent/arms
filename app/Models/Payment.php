@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Casts\PaymentCast;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
@@ -26,5 +27,12 @@ final class Payment extends BaseModel
     public function payable(): BelongsTo
     {
         return $this->morphTo();
+    }
+
+    protected function paymentMethodName(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->paymentMethod?->name ?? 'N/A',
+        );
     }
 }

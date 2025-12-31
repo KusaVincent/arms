@@ -9,7 +9,7 @@ use App\Filament\Resources\CustomerSupports\Pages\ListCustomerSupports;
 use App\Filament\ReusableResources\ResourceForm\CustomerSupportForm;
 use App\Filament\ReusableResources\ResourceTable\CustomerSupportTable;
 use App\Models\CustomerSupport;
-use BackedEnum;
+use App\Traits\HasSharedResourceProperties;
 use Exception;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -17,12 +17,15 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class CustomerSupportResource extends Resource
 {
+    use HasSharedResourceProperties;
+
     protected static ?int $navigationSort = 3;
+
+    protected static ?string $recordTitleAttribute = 'email';
 
     protected static ?string $model = CustomerSupport::class;
 

@@ -10,7 +10,7 @@ use App\Filament\Resources\PropertyMedia\RelationManagers\PropertyRelationManage
 use App\Filament\ReusableResources\ResourceForm\PropertyMediaForm;
 use App\Filament\ReusableResources\ResourceTable\PropertyMediaTable;
 use App\Models\PropertyMedia;
-use BackedEnum;
+use App\Traits\HasSharedResourceProperties;
 use Exception;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -23,9 +23,13 @@ use Filament\Tables\Table;
 
 class PropertyMediaResource extends Resource
 {
+    use HasSharedResourceProperties;
+
     protected static ?int $navigationSort = 2;
 
     protected static ?string $model = PropertyMedia::class;
+
+    protected static ?string $recordTitleAttribute = 'property_name';
 
     protected static string|null|\UnitEnum $navigationGroup = 'Property Management';
 

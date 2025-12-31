@@ -26,49 +26,52 @@ class PaymentForm
             ->components([
                 Section::make()
                     ->schema([
-                        MorphToSelect::make('payable')
-                            ->label('Paid Towards')
-                            ->types([
-                                MorphToSelect\Type::make(LeaseAgreement::class)
-                                    ->label('Lease Agreement')
-                                    ->getOptionLabelFromRecordUsing(fn (LeaseAgreement $record) => "{$record->property?->name} (Lease #{$record->id} - {$record->tenant?->user?->name})"
-                                    )
-                                    ->getOptionsUsing(function (?string $search): array {
-                                        return LeaseAgreement::query()
-                                            ->with(['property', 'tenant.user']) // Eager load to prevent N+1
-                                            ->when($search, function ($query) use ($search) {
-                                                $query->whereHas('property', fn ($q) => $q->where('name', 'ilike', "%{$search}%"))
-                                                    ->orWhere('id', 'like', "%{$search}%");
-                                            })
-                                            ->limit(50)
-                                            ->get()
-                                            ->mapWithKeys(fn ($record) => [
-                                                $record->id => "{$record->property?->name} (Ref: #{$record->id} - {$record->tenant?->user?->name})",
-                                            ])
-                                            ->toArray();
-                                    }),
+                MorphToSelect::make('payable')
+                    ->label('Paid Towards')
+                    ->types([
+                        MorphToSelect\Type::make(LeaseAgreement::class)
+                            ->label('Lease Agreement')
+                            ->getOptionLabelFromRecordUsing(fn (LeaseAgreement $record) => "{$record->property?->name} (Lease #{$record->id} - {$record->tenant?->user?->name})"
+                            )
+                            ->getOptionsUsing(function (?string $search): array {
+                                return LeaseAgreement::query()
+                                    ->with(['property', 'tenant.user']) // Eager load to prevent N+1
+                                    ->when($search, function ($query) use ($search) {
+                                        $query->whereHas('property', fn ($q) => $q->where('name', 'ilike', "%{$search}%"))
+                                            ->orWhere('id', 'like', "%{$search}%");
+                                    })
+                                    ->limit(50)
+                                    ->get()
+                                    ->mapWithKeys(fn ($record) => [
+                                        $record->id => "{$record->property?->name} (Ref: #{$record->id} - {$record->tenant?->user?->name})",
+                                    ])
+                                    ->toArray();
+                            }),
 
-                                MorphToSelect\Type::make(PackageSubscription::class)
-                                    ->label('Package Subscription')
-                                    ->getOptionLabelFromRecordUsing(fn (PackageSubscription $record) => "{$record->packageDescription?->name} (User: {$record->user?->name})"
-                                    )
-                                    ->getOptionsUsing(function (?string $search): array {
-                                        return PackageSubscription::query()
-                                            ->with(['packageDescription', 'user']) // Eager load to prevent N+1
-                                            ->when($search, function ($query) use ($search) {
-                                                $query->whereHas('packageDescription', fn ($q) => $q->where('name', 'ilike', "%{$search}%"))
-                                                    ->orWhere('id', 'like', "%{$search}%");
-                                            })
-                                            ->limit(50)
-                                            ->get()
-                                            ->mapWithKeys(fn ($record) => [
-                                                $record->id => "{$record->packageDescription?->name} (User: {$record->user?->name})",
-                                            ])
-                                            ->toArray();
-                                    }),
-                            ])
-                            ->required()
-                            ->searchable(),
+                        MorphToSelect\Type::make(PackageSubscription::class)
+                            ->label('Package Subscription')
+                            ->getOptionLabelFromRecordUsing(fn (PackageSubscription $record) => "{$record->packageDescription?->name} (User: {$record->user?->name})"
+                            )
+                            ->getOptionsUsing(function (?string $search): array {
+                                return PackageSubscription::query()
+                                    ->with(['packageDescription', 'user']) // Eager load to prevent N+1
+                                    ->when($search, function ($query) use ($search) {
+                                        $query->whereHas('packageDescription', fn ($q) => $q->where('name', 'ilike', "%{$search}%"))
+                                            ->orWhere('id', 'like', "%{$search}%");
+                                    })
+                                    ->limit(50)
+                                    ->get()
+                                    ->mapWithKeys(fn ($record) => [
+                                        $record->id => "{$record->packageDescription?->name} (User: {$record->user?->name})",
+                                    ])
+                                    ->toArray();
+                            }),
+                    ])
+                    ->required()
+                    ->searchable()->columns(),
+                ]),
+                Section::make()
+                    ->schema([
                         Select::make('payment_method')
                             ->required()
                             ->label('Payment Method')
@@ -86,7 +89,7 @@ class PaymentForm
                             ->date()
                             ->required()
                             ->label('Payment Date'),
-                    ])->columns(),
+                    ])->columns(3),
             ]);
     }
 }

@@ -11,7 +11,7 @@ use App\Filament\Resources\Maintenances\RelationManagers\TenantRelationManager;
 use App\Filament\ReusableResources\ResourceForm\MaintenanceForm;
 use App\Filament\ReusableResources\ResourceTable\MaintenanceTable;
 use App\Models\Maintenance;
-use BackedEnum;
+use App\Traits\HasSharedResourceProperties;
 use Exception;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -24,9 +24,13 @@ use Filament\Tables\Table;
 
 class MaintenanceResource extends Resource
 {
+    use HasSharedResourceProperties;
+
     protected static ?int $navigationSort = 7;
 
     protected static ?string $model = Maintenance::class;
+
+    protected static ?string $recordTitleAttribute = 'property_name';
 
     protected static string|null|\UnitEnum $navigationGroup = 'Property Management';
 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
 /**
  * @method static inRandomOrder()
@@ -11,6 +12,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class PaymentMethod extends BaseModel
 {
+    use KeepsDeletedModels;
+
+    protected string $referencePrefix = 'PMD';
+
     protected $attributes = [
         'color' => 'gray',
     ];

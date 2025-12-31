@@ -10,7 +10,7 @@ use App\Filament\Resources\PropertyTypes\RelationManagers\PropertiesRelationMana
 use App\Filament\ReusableResources\ResourceForm\PropertyTypeForm;
 use App\Filament\ReusableResources\ResourceTable\PropertyTypeTable;
 use App\Models\PropertyType;
-use BackedEnum;
+use App\Traits\HasSharedResourceProperties;
 use Exception;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -23,9 +23,13 @@ use Filament\Tables\Table;
 
 class PropertyTypeResource extends Resource
 {
+    use HasSharedResourceProperties;
+
     protected static ?int $navigationSort = 3;
 
     protected static ?string $model = PropertyType::class;
+
+    protected static ?string $recordTitleAttribute = 'type_name';
 
     protected static string|null|\UnitEnum $navigationGroup = 'Property Management';
 

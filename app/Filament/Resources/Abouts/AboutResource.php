@@ -9,7 +9,7 @@ use App\Filament\Resources\Abouts\Pages\ListAbouts;
 use App\Filament\ReusableResources\ResourceForm\AboutForm;
 use App\Filament\ReusableResources\ResourceTable\AboutTable;
 use App\Models\About;
-use BackedEnum;
+use App\Traits\HasSharedResourceProperties;
 use Exception;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -18,12 +18,15 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class AboutResource extends Resource
 {
+    use HasSharedResourceProperties;
+
     protected static ?string $model = About::class;
+
+    protected static ?string $recordTitleAttribute = 'title';
 
     protected static string|null|\UnitEnum $navigationGroup = 'Settings';
 

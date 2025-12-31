@@ -9,7 +9,7 @@ use App\Filament\Resources\Contacts\Pages\ListContacts;
 use App\Filament\ReusableResources\ResourceForm\ContactForm;
 use App\Filament\ReusableResources\ResourceTable\ContactTable;
 use App\Models\Contact;
-use BackedEnum;
+use App\Traits\HasSharedResourceProperties;
 use Exception;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -22,7 +22,11 @@ use Filament\Tables\Table;
 
 class ContactResource extends Resource
 {
+    use HasSharedResourceProperties;
+
     protected static ?string $model = Contact::class;
+
+    protected static ?string $recordTitleAttribute = 'label';
 
     protected static string|null|\UnitEnum $navigationGroup = 'Settings';
 

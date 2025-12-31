@@ -8,17 +8,20 @@ use App\Filament\Resources\Operators\Pages\ListOperators;
 use App\Filament\Resources\Operators\Schemas\OperatorForm;
 use App\Filament\Resources\Operators\Tables\OperatorsTable;
 use App\Models\Operator;
-use BackedEnum;
+use App\Traits\HasSharedResourceProperties;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class OperatorResource extends Resource
 {
+    use HasSharedResourceProperties;
+
     protected static ?int $navigationSort = 1;
 
     protected static ?string $model = Operator::class;
+
+    protected static ?string $recordTitleAttribute = 'user_name';
 
     protected static string|null|\UnitEnum $navigationGroup = 'Customer Management';
 

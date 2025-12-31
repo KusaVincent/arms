@@ -30,8 +30,7 @@ class LeaseAgreementForm
                                     ->label('Tenant')
                                     ->required()
                                     ->searchable()
-                                    ->getSearchResultsUsing(fn (string $search): array =>
-                                    Tenant::query()
+                                    ->getSearchResultsUsing(fn (string $search): array => Tenant::query()
                                         ->whereHas('user', function ($query) use ($search) {
                                             $query->where('name', 'ilike', "%{$search}%");
                                         })
@@ -39,8 +38,7 @@ class LeaseAgreementForm
                                         ->mapWithKeys(fn ($tenant) => [$tenant->id => $tenant->user->name])
                                         ->toArray()
                                     )
-                                    ->getOptionLabelUsing(fn ($value): ?string =>
-                                        Tenant::find($value)?->user?->name
+                                    ->getOptionLabelUsing(fn ($value): ?string => Tenant::find($value)?->user?->name
                                     ),
                                 Select::make('property_id')
                                     ->required()

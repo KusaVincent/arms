@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Casts\PaymentCast;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
@@ -36,5 +37,12 @@ final class LeaseAgreement extends BaseModel
     public function payments(): MorphMany
     {
         return $this->morphMany(Payment::class, 'payable');
+    }
+
+    protected function tenantName(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->tenant?->user?->name ?? 'N/A',
+        );
     }
 }

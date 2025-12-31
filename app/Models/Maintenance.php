@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Enums\MaintenanceStatus;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
@@ -31,6 +32,13 @@ final class Maintenance extends BaseModel
     public function tenant(): BelongsTo
     {
         return $this->belongsTo(Tenant::class);
+    }
+
+    protected function propertyName(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->property?->name ?? 'N/A',
+        );
     }
 
     #[\Override]

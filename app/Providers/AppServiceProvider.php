@@ -54,18 +54,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->assignedDisk();
         $this->configureModels();
         $this->configureCommands();
         $this->spatieLaravelHealthCheckPlugin();
 
         Gate::policy(AuthenticationLog::class, AuthenticationLogPolicy::class);
-
         Section::configureUsing(fn (Section $section): Section => $section->columnSpanFull());
 
         Relation::morphMap([
             'lease' => LeaseAgreement::class,
             'subscription' => PackageSubscription::class,
         ]);
+
     }
 
     private function configureUrl(): void
@@ -125,5 +126,26 @@ class AppServiceProvider extends ServiceProvider
         PublishCommand::prohibit($this->app->isProduction());
         GenerateCommand::prohibit($this->app->isProduction());
         SuperAdminCommand::prohibit($this->app->isProduction());
+    }
+
+    public function assignedDisk(): void
+    {
+        if (app()->runningInConsole()) {
+            return;
+        }
+
+        $host = request()->getHost();
+        $scheme = request()->getScheme();
+
+        $disk = match ($host) {
+            config('app.lease_panel_url') => 'lease_storage',
+            config('app.admin_panel_url') => 'admin_storage',
+            config('app.manage_panel_url') => 'manage_storage',
+            default => 'public',
+        };
+
+        config(['filesystems.default' => $disk]);
+        config(['filament.default_filesystem_disk' => $disk]);
+        config(["filesystems.disks.$disk.url" => "$scheme://$host/storage"]);
     }
 }

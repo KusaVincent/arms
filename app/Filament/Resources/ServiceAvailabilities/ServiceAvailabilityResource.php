@@ -9,7 +9,7 @@ use App\Filament\Resources\ServiceAvailabilities\Pages\ListServiceAvailabilities
 use App\Filament\ReusableResources\ResourceForm\ServiceAvailabilityForm;
 use App\Filament\ReusableResources\ResourceTable\ServiceAvailabilityTable;
 use App\Models\ServiceAvailability;
-use BackedEnum;
+use App\Traits\HasSharedResourceProperties;
 use Exception;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -22,7 +22,11 @@ use Filament\Tables\Table;
 
 class ServiceAvailabilityResource extends Resource
 {
+    use HasSharedResourceProperties;
+
     protected static ?string $model = ServiceAvailability::class;
+
+    protected static ?string $recordTitleAttribute = 'service_key';
 
     protected static string|null|\UnitEnum $navigationGroup = 'Settings';
 

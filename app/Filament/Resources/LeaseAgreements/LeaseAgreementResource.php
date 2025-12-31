@@ -12,7 +12,7 @@ use App\Filament\Resources\LeaseAgreements\RelationManagers\TenantRelationManage
 use App\Filament\ReusableResources\ResourceForm\LeaseAgreementForm;
 use App\Filament\ReusableResources\ResourceTable\LeaseAgreementTable;
 use App\Models\LeaseAgreement;
-use BackedEnum;
+use App\Traits\HasSharedResourceProperties;
 use Exception;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -25,9 +25,13 @@ use Filament\Tables\Table;
 
 class LeaseAgreementResource extends Resource
 {
+    use HasSharedResourceProperties;
+
     protected static ?int $navigationSort = 6;
 
     protected static ?string $model = LeaseAgreement::class;
+
+    protected static ?string $recordTitleAttribute = 'tenant_name';
 
     protected static string|null|\UnitEnum $navigationGroup = 'Property Management';
 

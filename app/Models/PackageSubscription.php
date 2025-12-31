@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Casts\PaymentCast;
 use App\Enums\PackageStatus;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -49,5 +50,12 @@ class PackageSubscription extends BaseModel
     {
         return $query->where('status', PackageStatus::ACTIVE)
             ->where('expiry_date', '>', now());
+    }
+
+    protected function operatorName(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->operator?->user?->name ?? 'N/A',
+        );
     }
 }

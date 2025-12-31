@@ -10,14 +10,17 @@ use App\Filament\Resources\PackageDescriptions\RelationManagers\SubscriptionPack
 use App\Filament\Resources\PackageDescriptions\Schemas\PackageDescriptionForm;
 use App\Filament\Resources\PackageDescriptions\Tables\PackageDescriptionsTable;
 use App\Models\PackageDescription;
-use BackedEnum;
+use App\Traits\HasSharedResourceProperties;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class PackageDescriptionResource extends Resource
 {
+    use HasSharedResourceProperties;
+
+    protected static ?string $recordTitleAttribute = 'name';
+
     protected static ?string $model = PackageDescription::class;
 
     protected static string|null|\UnitEnum $navigationGroup = 'Subscription Management';

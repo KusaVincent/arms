@@ -29,6 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->colors(['primary' => Color::Blue])
             ->favicon(asset('storage/favicon.png'))
             ->brandLogo(asset('storage/logo/logo.png'))
+            ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
             ->darkModeBrandLogo(asset('storage/logo/logo.png'))
 
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
