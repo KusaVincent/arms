@@ -3,6 +3,7 @@
 namespace App\Filament\ReusableResources\ResourceForm;
 
 use App\Enums\MaintenanceStatus;
+use App\Filament\Resources\Common\SelectField;
 use Exception;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\MarkdownEditor;
@@ -24,14 +25,12 @@ class MaintenanceForm
                     ->schema([
                         Section::make()
                             ->schema([
-                                Select::make('property_id')
+                                SelectField::make('property_id')
                                     ->required()
-                                    ->searchable()
                                     ->relationship('property', 'name'),
-                                Select::make('tenant_id')
+                                SelectField::make('tenant_id')
                                     ->required()
-                                    ->searchable()
-                                    ->relationship('tenant', 'first_name'),
+                                    ->relationship('tenant', 'user_name'),
                                 Select::make('status')
                                     ->native(false)
                                     ->options(MaintenanceStatus::class)

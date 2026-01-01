@@ -4,6 +4,7 @@ namespace App\Filament\ReusableResources\ResourceForm;
 
 use App\Enums\PropertyAvailable;
 use App\Enums\PropertyNegotiable;
+use App\Filament\Resources\Common\SelectField;
 use App\Utils\SanitizationHelper;
 use Exception;
 use Filament\Forms\Components\FileUpload;
@@ -40,9 +41,8 @@ class PropertyForm
                                     ->schema([
                                         TextInput::make('name')
                                             ->required(),
-                                        Select::make('property_type_id')
+                                        SelectField::make('property_type_id')
                                             ->required()
-                                            ->searchable()
                                             ->label('Property Type')
                                             ->relationship('propertyType', 'type_name'),
                                     ])->columns(),
@@ -77,12 +77,10 @@ class PropertyForm
                                             ])->columnSpan(1),
                                         Section::make()
                                             ->schema([
-                                                Select::make('location_id')
-                                                    ->label('Location')
+                                                SelectField::make('location_id')
                                                     ->required()
-                                                    ->searchable()
-                                                    ->relationship('location', 'full_address')
-                                                    ->preload(),
+                                                    ->label('Location')
+                                                    ->relationship('location', 'full_address'),
                                             ])->columnSpan(1),
                                     ])->columns(),
                             ])->columnSpan(2),

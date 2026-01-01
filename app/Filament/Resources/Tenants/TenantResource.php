@@ -43,11 +43,6 @@ class TenantResource extends Resource
         return TenantForm::form($schema);
     }
 
-    public static function getGloballySearchableAttributes(): array
-    {
-        return ['user.name', 'user.middle_name', 'user.email', 'user.phone_number'];
-    }
-
     /**
      * @throws Exception
      */

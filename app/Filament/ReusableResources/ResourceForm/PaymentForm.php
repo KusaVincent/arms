@@ -2,6 +2,7 @@
 
 namespace App\Filament\ReusableResources\ResourceForm;
 
+use App\Filament\Resources\Common\SelectField;
 use App\Models\LeaseAgreement;
 use App\Models\PackageSubscription;
 use App\Utils\SanitizationHelper;
@@ -27,7 +28,12 @@ class PaymentForm
                 Section::make()
                     ->schema([
                         MorphToSelect::make('payable')
+                            ->required()
+                            ->searchable()
                             ->label('Paid Towards')
+                            ->loadingMessage(__('Loading...'))
+                            ->searchPrompt(__('Start typing to search...'))
+                            ->noSearchResultsMessage(__('No options match your search.'))
                             ->types([
                                 MorphToSelect\Type::make(LeaseAgreement::class)
                                     ->label('Lease Agreement')
@@ -52,6 +58,7 @@ class PaymentForm
                                     ->label('Package Subscription')
                                     ->getOptionLabelFromRecordUsing(fn (PackageSubscription $record) => "{$record->packageDescription?->name} (User: {$record->user?->name})"
                                     )
+                                    ->titleAttribute('name')
                                     ->getOptionsUsing(function (?string $search): array {
                                         return PackageSubscription::query()
                                             ->with(['packageDescription', 'user']) // Eager load to prevent N+1
@@ -67,12 +74,11 @@ class PaymentForm
                                             ->toArray();
                                     }),
                             ])
-                            ->required()
-                            ->searchable()->columns(),
+                            ->columns(),
                     ]),
                 Section::make()
                     ->schema([
-                        Select::make('payment_method')
+                        SelectField::make('payment_method')
                             ->required()
                             ->label('Payment Method')
                             ->relationship('paymentMethod', 'name'),

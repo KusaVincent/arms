@@ -2,6 +2,7 @@
 
 namespace App\Filament\ReusableResources\ResourceForm;
 
+use App\Filament\Resources\Common\SelectField;
 use Exception;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -27,9 +28,8 @@ class PropertyMediaForm
                     ->schema([
                         Section::make()
                             ->schema([
-                                Select::make('property_id')
+                                SelectField::make('property_id')
                                     ->required()
-                                    ->searchable()
                                     ->columnSpanFull()
                                     ->relationship('property', 'name'),
                             ]),

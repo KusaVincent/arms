@@ -70,7 +70,6 @@ trait HasPanelMethods
 
             FilamentShieldPlugin::make()
                 ->navigationBadge()
-//                ->globallySearchable()
                 ->navigationGroup('Security Management System')
                 ->gridColumns(['default' => 1, 'sm' => 2, 'lg' => 3]),
 

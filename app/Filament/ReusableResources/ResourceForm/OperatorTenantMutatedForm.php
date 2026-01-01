@@ -3,6 +3,7 @@
 namespace App\Filament\ReusableResources\ResourceForm;
 
 use App\Filament\Resources\Common\FilamentHelper;
+use App\Filament\Resources\Common\SelectField;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
@@ -32,10 +33,8 @@ class OperatorTenantMutatedForm
                     ])->columns(3),
                 Section::make()
                     ->schema([
-                        Select::make('roles')
+                        SelectField::make('roles')
                             ->multiple()
-                            ->preload()
-                            ->searchable()
                             ->when(
                                 $operation === 'create',
                                 fn (Select $component) => $component

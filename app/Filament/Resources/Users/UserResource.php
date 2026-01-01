@@ -40,11 +40,6 @@ class UserResource extends Resource
         return static::getModel()::isAdmin()->count();
     }
 
-    public static function getGloballySearchableAttributes(): array
-    {
-        return ['name', 'user_type', 'middle_name', 'email', 'phone_number'];
-    }
-
     /**
      * @throws \Exception
      */

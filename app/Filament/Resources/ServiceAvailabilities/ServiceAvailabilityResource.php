@@ -26,7 +26,7 @@ class ServiceAvailabilityResource extends Resource
 
     protected static ?string $model = ServiceAvailability::class;
 
-    protected static ?string $recordTitleAttribute = 'service_key';
+    protected static ?string $recordTitleAttribute = 'service_name';
 
     protected static string|null|\UnitEnum $navigationGroup = 'Settings';
 

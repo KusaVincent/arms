@@ -2,6 +2,7 @@
 
 namespace App\Filament\ReusableResources\ResourceForm;
 
+use App\Filament\Resources\Common\SelectField;
 use Exception;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -31,11 +32,10 @@ class UserForm
                             ->email()
                             ->required()
                             ->unique(ignoreRecord: true),
-                        Select::make('roles')
+                        SelectField::make('roles')
                             ->relationship('roles', 'name')
                             ->multiple()
-                            ->preload()
-                            ->searchable(),
+                            ->preload(),
                         TextInput::make('password')
                             ->password()
                             ->required()

@@ -2,6 +2,7 @@
 
 namespace App\Filament\ReusableResources\ResourceForm;
 
+use App\Filament\Resources\Common\SelectField;
 use App\Models\Tenant;
 use App\Utils\SanitizationHelper;
 use Exception;
@@ -26,10 +27,9 @@ class LeaseAgreementForm
                     ->schema([
                         Section::make()
                             ->schema([
-                                Select::make('tenant_id')
+                                SelectField::make('tenant_id')
                                     ->label('Tenant')
                                     ->required()
-                                    ->searchable()
                                     ->getSearchResultsUsing(fn (string $search): array => Tenant::query()
                                         ->whereHas('user', function ($query) use ($search) {
                                             $query->where('name', 'ilike', "%{$search}%");
@@ -40,9 +40,8 @@ class LeaseAgreementForm
                                     )
                                     ->getOptionLabelUsing(fn ($value): ?string => Tenant::find($value)?->user?->name
                                     ),
-                                Select::make('property_id')
+                                SelectField::make('property_id')
                                     ->required()
-                                    ->searchable()
                                     ->relationship('property', 'name'),
                             ])->columns(),
                         Section::make()
