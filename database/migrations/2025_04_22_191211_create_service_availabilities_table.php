@@ -20,7 +20,7 @@ return new class extends Migration
                 ->index();
             $table->string('service_name');
             $table->string('service_key')->unique();
-            $table->smallInteger('is_active')->default(1);
+            $table->smallInteger('is_active');
             $table->timestamps();
             $table->softDeletes();
         });

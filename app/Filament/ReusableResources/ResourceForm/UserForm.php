@@ -33,9 +33,10 @@ class UserForm
                             ->required()
                             ->unique(ignoreRecord: true),
                         SelectField::make('roles')
-                            ->relationship('roles', 'name')
+                            ->preload()
                             ->multiple()
-                            ->preload(),
+                            ->relationship('roles', 'name')
+                            ->getOptionLabelFromRecordUsing(fn ($record) =>ucwords(str_replace('_', ' ', $record->name))),
                         TextInput::make('password')
                             ->password()
                             ->required()

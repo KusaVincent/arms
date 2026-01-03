@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('icon');
             $table->string('link');
             $table->string('link_text');
-            $table->smallInteger('section')->default(0);
+            $table->smallInteger('section');
             $table->timestamps();
             $table->softDeletes();
         });

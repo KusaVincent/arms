@@ -242,7 +242,7 @@ return [
         'dashboard' => true,
         'widgets' => [
             ActivityChartWidget::class,
-            LatestActivityWidget::class,
+//            LatestActivityWidget::class,
         ],
 
         /**
@@ -251,7 +251,7 @@ return [
         'activity_chart' => [
             'enabled' => true,
             'heading' => 'Activity Over Time',
-            'sort' => 1,
+            'sort' => 15,
             'max_height' => '300px',
             'polling_interval' => null, // e.g., '10s', '1m', null to disable
             'days' => 30,

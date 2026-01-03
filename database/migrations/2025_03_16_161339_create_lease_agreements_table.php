@@ -31,6 +31,7 @@ return new class extends Migration
             $table->integer('lease_amount');
             $table->integer('deposit_amount');
             $table->string('lease_term');
+            $table->smallInteger('payment_confirmation');
             $table->timestamps();
         });
     }

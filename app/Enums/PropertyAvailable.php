@@ -2,9 +2,11 @@
 
 namespace App\Enums;
 
+use Filament\Support\Colors\Color;
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
+use Filament\Support\Icons\Heroicon;
 
 enum PropertyAvailable: int implements HasColor, HasIcon, HasLabel
 {
@@ -14,24 +16,24 @@ enum PropertyAvailable: int implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::NO => 'Unavailable',
             self::YES => 'Available',
+            self::NO => 'Unavailable',
         };
     }
 
-    public function getColor(): string
+    public function getColor(): array
     {
         return match ($this) {
-            self::NO => 'warning',
-            self::YES => 'success',
+            self::NO => Color::Yellow,
+            self::YES => Color::Green,
         };
     }
 
-    public function getIcon(): string
+    public function getIcon(): Heroicon
     {
         return match ($this) {
-            self::NO => 'heroicon-s-x-mark',
-            self::YES => 'heroicon-m-check',
+            self::NO => Heroicon::XMark,
+            self::YES => Heroicon::Check,
         };
     }
 

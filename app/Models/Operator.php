@@ -14,6 +14,7 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
  * @method static create(array $array)
  * @method static find(mixed $owner_id)
  * @method static whereNot(string $string, string $string1)
+ * @method static count()
  *
  * @property mixed $owner_id
  * @property mixed $owner

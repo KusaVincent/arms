@@ -2,21 +2,22 @@
 
 namespace App\Enums;
 
+use Filament\Support\Colors\Color;
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
 
 enum PackageStatus: int implements HasColor, HasLabel
 {
-    case INACTIVE = 0;
     case ACTIVE = 1;
     case EXPIRED = 2;
+    case INACTIVE = 0;
 
-    public function getColor(): string
+    public function getColor(): array
     {
         return match ($this) {
-            self::EXPIRED => 'danger',
-            self::ACTIVE => 'success',
-            self::INACTIVE => 'warning',
+            self::EXPIRED => Color::Red,
+            self::ACTIVE => Color::Emerald,
+            self::INACTIVE => Color::Yellow,
         };
     }
 

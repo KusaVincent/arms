@@ -10,6 +10,7 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
 /**
  * @method static inRandomOrder()
+ * @method static count()
  */
 class PackageDescription extends BaseModel
 {

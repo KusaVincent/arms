@@ -35,11 +35,6 @@ class UserResource extends Resource
 
     protected static string|null|BackedEnum $navigationIcon = Heroicon::User;
 
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::isAdmin()->count();
-    }
-
     /**
      * @throws \Exception
      */

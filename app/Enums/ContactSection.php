@@ -2,6 +2,7 @@
 
 namespace App\Enums;
 
+use Filament\Support\Colors\Color;
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
 
@@ -11,12 +12,12 @@ enum ContactSection: int implements HasColor, HasLabel
     case CONTACT = 1;
     case FOOTER = 2;
 
-    public function getColor(): string
+    public function getColor(): array
     {
         return match ($this) {
-            self::ALL => 'success',
-            self::CONTACT => 'danger',
-            self::FOOTER => 'warning',
+            self::ALL => Color::Green,
+            self::CONTACT => Color::Blue,
+            self::FOOTER => Color::Fuchsia,
         };
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Enums;
 
+use Filament\Support\Colors\Color;
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
 
@@ -10,13 +11,15 @@ enum MaintenanceStatus: int implements HasColor, HasLabel
     case PENDING = 0;
     case COMPLETED = 1;
     case IN_PROGRESS = 2;
+    case ASSIGNED = 3;
 
-    public function getColor(): string
+    public function getColor(): array|null|string
     {
         return match ($this) {
-            self::PENDING => 'danger',
-            self::COMPLETED => 'success',
-            self::IN_PROGRESS => 'warning',
+            self::PENDING => Color::Red,
+            self::COMPLETED => Color::Green,
+            self::ASSIGNED => Color::Blue,
+            self::IN_PROGRESS => Color::Yellow,
         };
     }
 

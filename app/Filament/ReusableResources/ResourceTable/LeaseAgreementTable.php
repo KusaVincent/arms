@@ -36,6 +36,10 @@ class LeaseAgreementTable
                     ->searchable(),
                 TextColumn::make('lease_term')
                     ->searchable(),
+                TextColumn::make('payment_confirmation')
+                    ->badge()
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->label('Added On')

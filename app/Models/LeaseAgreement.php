@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Casts\PaymentCast;
+use App\Enums\PaymentConfirmation;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -22,6 +23,13 @@ final class LeaseAgreement extends BaseModel
     protected $casts = [
         'lease_amount' => PaymentCast::class,
         'deposit_amount' => PaymentCast::class,
+        'payment_confirmation' => PaymentConfirmation::class,
+    ];
+
+
+
+    protected $attributes = [
+        'payment_confirmation' => PaymentConfirmation::NOT_CONFIRMED,
     ];
 
     public function tenant(): BelongsTo
