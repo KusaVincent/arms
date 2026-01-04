@@ -19,14 +19,15 @@ class StatsOverview extends StatsOverviewWidget
 {
     protected static ?int $sort = 1;
 
-    protected int | array | null $columns = 4;
+    protected int|array|null $columns = 4;
 
-    protected ?string $pollingInterval  = '15s';
+    protected ?string $pollingInterval = '15s';
 
-    private function chart() : array
+    private function chart(): array
     {
-        return [7,3,4,5,6,3,5,3];
+        return [7, 3, 4, 5, 6, 3, 5, 3];
     }
+
     protected function getStats(): array
     {
         return [

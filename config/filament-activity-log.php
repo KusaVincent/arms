@@ -242,7 +242,7 @@ return [
         'dashboard' => true,
         'widgets' => [
             ActivityChartWidget::class,
-//            LatestActivityWidget::class,
+            //            LatestActivityWidget::class,
         ],
 
         /**

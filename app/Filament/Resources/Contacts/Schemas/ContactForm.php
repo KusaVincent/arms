@@ -3,8 +3,8 @@
 namespace App\Filament\Resources\Contacts\Schemas;
 
 use App\Enums\ContactSection;
+use App\Filament\ReusableResources\Common\SelectField;
 use Exception;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -37,7 +37,7 @@ class ContactForm
                             ])->columns(),
                         Section::make('')
                             ->schema([
-                                Select::make('section')
+                                SelectField::default('section')
                                     ->native(false)
                                     ->default(ContactSection::ALL)
                                     ->options(ContactSection::class),

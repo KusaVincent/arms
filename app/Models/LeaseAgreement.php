@@ -26,8 +26,6 @@ final class LeaseAgreement extends BaseModel
         'payment_confirmation' => PaymentConfirmation::class,
     ];
 
-
-
     protected $attributes = [
         'payment_confirmation' => PaymentConfirmation::NOT_CONFIRMED,
     ];

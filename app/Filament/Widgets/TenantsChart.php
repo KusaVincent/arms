@@ -25,9 +25,9 @@ class TenantsChart extends ChartWidget
                 [
                     'label' => 'Tenants Created',
                     'data' => $data['countOfTenantsPerMonth'],
-                ]
+                ],
             ],
-            'labels' => $data['months']
+            'labels' => $data['months'],
         ];
     }
 
@@ -38,7 +38,7 @@ class TenantsChart extends ChartWidget
 
     private function getCountOfTenantsPerMonth(): array
     {
-        $data = new CountPerMonth()->getCountPerMonth(new Tenant());
+        $data = new CountPerMonth()->getCountPerMonth(new Tenant);
 
         return [
             'months' => $data->keys()->toArray(),

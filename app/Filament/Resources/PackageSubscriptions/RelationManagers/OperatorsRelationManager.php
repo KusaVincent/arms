@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\PackageSubscriptions\RelationManagers;
 
 use App\Filament\Resources\Operators\Tables\OperatorsTable;
-use App\Filament\Resources\Users\Tables\UserTable;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Table;
 

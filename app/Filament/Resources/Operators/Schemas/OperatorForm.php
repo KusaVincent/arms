@@ -17,7 +17,7 @@ class OperatorForm
                     TextInput::make('type')
                         ->required(),
                     OperatorTenantMutatedForm::make($schema),
-                ])
+                ]),
             ]);
     }
 }

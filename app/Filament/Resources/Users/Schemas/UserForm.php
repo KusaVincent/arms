@@ -35,7 +35,7 @@ class UserForm
                             ->preload()
                             ->multiple()
                             ->relationship('roles', 'name')
-                            ->getOptionLabelFromRecordUsing(fn ($record) =>ucwords(str_replace('_', ' ', $record->name))),
+                            ->getOptionLabelFromRecordUsing(fn ($record) => ucwords(str_replace('_', ' ', $record->name))),
                         TextInput::make('password')
                             ->password()
                             ->required()

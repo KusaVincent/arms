@@ -8,9 +8,14 @@ class SelectField
 {
     public static function make(string $field): Select
     {
-        return Select::make($field)
+        return static::default($field)
             ->preload()
-            ->searchable()
+            ->searchable();
+    }
+
+    public static function default(string $field): Select
+    {
+        return Select::make($field)
             ->loadingMessage(__('Loading...'))
             ->placeholder(__('Select an option'))
             ->searchPrompt(__('Start typing to search...'))

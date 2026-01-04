@@ -3,8 +3,8 @@
 namespace App\Filament\Resources\ServiceAvailabilities\Schemas;
 
 use App\Enums\ActiveServiceAvailability;
+use App\Filament\ReusableResources\Common\SelectField;
 use Exception;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -31,7 +31,7 @@ class ServiceAvailabilityForm
                                     ->unique(ignoreRecord: true)
                                     ->label('Service Key'),
                             ]),
-                        Select::make('is_active')
+                        SelectField::default('is_active')
                             ->label('Active')
                             ->default(ActiveServiceAvailability::NO)
                             ->options(ActiveServiceAvailability::class),

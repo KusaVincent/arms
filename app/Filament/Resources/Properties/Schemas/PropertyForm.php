@@ -9,7 +9,6 @@ use App\Utils\SanitizationHelper;
 use Exception;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Pages\EditRecord;
@@ -69,7 +68,7 @@ class PropertyForm
                                     ->schema([
                                         Section::make()
                                             ->schema([
-                                                Select::make('negotiable')
+                                                SelectField::default('negotiable')
                                                     ->required()
                                                     ->default(false)
                                                     ->hint('Are the terms negotiable?')
@@ -88,7 +87,7 @@ class PropertyForm
                             ->schema([
                                 Section::make()
                                     ->schema([
-                                        Select::make('available')
+                                        SelectField::default('available')
                                             ->required()
                                             ->label('Availability')
                                             ->options(PropertyAvailable::class)

@@ -25,24 +25,40 @@ use Filament\Support\Icons\Heroicon;
 trait HasSharedResourceProperties
 {
     private static string $userResource = UserResource::class;
-    private static string $aboutResource = AboutResource::class;
-    private static string $tenantResource = TenantResource::class;
-    private static string $contactResource = ContactResource::class;
-    private static string $paymentResource = PaymentResource::class;
-    private static string $amenityResource = AmenityResource::class;
-    private static string $locationResource = LocationResource::class;
-    private static string $operatorResource = OperatorResource::class;
-    private static string $propertyResource = PropertyResource::class;
-    private static string $maintenanceResource = MaintenanceResource::class;
-    private static string $propertyTypeResource = PropertyTypeResource::class;
-    private static string $propertyMediaResource = PropertyMediaResource::class;
-    private static string $paymentMethodResource = PaymentMethodResource::class;
-    private static string $leaseAgreementResource = LeaseAgreementResource::class;
-    private static string $packageDescription = PackageDescriptionResource::class;
-    private static string $packageSubscription = PackageSubscriptionResource::class;
-    private static string $customerSupportResource = CustomerSupportResource::class;
-    private static string $serviceAvailabilityResource = ServiceAvailabilityResource::class;
 
+    private static string $aboutResource = AboutResource::class;
+
+    private static string $tenantResource = TenantResource::class;
+
+    private static string $contactResource = ContactResource::class;
+
+    private static string $paymentResource = PaymentResource::class;
+
+    private static string $amenityResource = AmenityResource::class;
+
+    private static string $locationResource = LocationResource::class;
+
+    private static string $operatorResource = OperatorResource::class;
+
+    private static string $propertyResource = PropertyResource::class;
+
+    private static string $maintenanceResource = MaintenanceResource::class;
+
+    private static string $propertyTypeResource = PropertyTypeResource::class;
+
+    private static string $propertyMediaResource = PropertyMediaResource::class;
+
+    private static string $paymentMethodResource = PaymentMethodResource::class;
+
+    private static string $leaseAgreementResource = LeaseAgreementResource::class;
+
+    private static string $packageDescription = PackageDescriptionResource::class;
+
+    private static string $packageSubscription = PackageSubscriptionResource::class;
+
+    private static string $customerSupportResource = CustomerSupportResource::class;
+
+    private static string $serviceAvailabilityResource = ServiceAvailabilityResource::class;
 
     public static function globalSearchResultsLimit(): int
     {
@@ -56,7 +72,7 @@ trait HasSharedResourceProperties
 
     public static function getNavigationIcon(): Heroicon
     {
-        return match(static::class) {
+        return match (static::class) {
             static::$userResource => Heroicon::User,
             static::$locationResource => Heroicon::MapPin,
             static::$aboutResource => Heroicon::ArchiveBox,
@@ -102,8 +118,8 @@ trait HasSharedResourceProperties
     public static function getNavigationBadge(): ?string
     {
         return match (static::class) {
-            static::$userResource => (string)static::usersWithoutRolesCount() ?: null,
-            static::$customerSupportResource => (string)static::unrepliedCustomerSupportMessages() ?: null,
+            static::$userResource => (string) static::usersWithoutRolesCount() ?: null,
+            static::$customerSupportResource => (string) static::unrepliedCustomerSupportMessages() ?: null,
             default => null,
         };
     }

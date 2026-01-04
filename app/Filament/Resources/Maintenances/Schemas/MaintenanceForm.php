@@ -7,7 +7,6 @@ use App\Filament\ReusableResources\Common\SelectField;
 use Exception;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\MarkdownEditor;
-use Filament\Forms\Components\Select;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -31,7 +30,7 @@ class MaintenanceForm
                                 SelectField::make('tenant_id')
                                     ->required()
                                     ->relationship('tenant.user', 'name'),
-                                Select::make('status')
+                                SelectField::default('status')
                                     ->native(false)
                                     ->options(MaintenanceStatus::class)
                                     ->default(MaintenanceStatus::PENDING),

@@ -31,7 +31,9 @@ class UserResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?string $navigationLabel = 'User Management';
+    protected static ?string $navigationLabel = 'Internal Users';
+
+    protected static string|null|\UnitEnum $navigationGroup = 'User Management';
 
     protected static string|null|BackedEnum $navigationIcon = Heroicon::User;
 

@@ -4,10 +4,10 @@ namespace App\Filament\Resources\PackageDescriptions\Schemas;
 
 use App\Enums\PackagePublished;
 use App\Enums\PackageStatus;
+use App\Filament\ReusableResources\Common\SelectField;
 use App\Utils\SanitizationHelper;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\MarkdownEditor;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Schemas\Schema;
@@ -32,10 +32,10 @@ class PackageDescriptionForm
                         ? SanitizationHelper::stripFormatting($state)
                         : $state
                     ),
-                Select::make('status')
+                SelectField::default('status')
                     ->options(PackageStatus::class)
                     ->required(),
-                Select::make('published')
+                SelectField::default('published')
                     ->options(PackagePublished::class)
                     ->required(),
                 DateTimePicker::make('published_from'),

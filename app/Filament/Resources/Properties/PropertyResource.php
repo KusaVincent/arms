@@ -26,6 +26,7 @@ use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use pxlrbt\FilamentExcel\Actions\ExportBulkAction;
 
 class PropertyResource extends Resource
 {
@@ -65,6 +66,7 @@ class PropertyResource extends Resource
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
+                    ExportBulkAction::make(),
                     DeleteBulkAction::make(),
                 ]),
             ]);
@@ -74,7 +76,7 @@ class PropertyResource extends Resource
     public static function getRelations(): array
     {
         return [
-                        OperatorsRelationManager::class,
+            OperatorsRelationManager::class,
             AmenitiesRelationManager::class,
             LocationRelationManager::class,
             PropertyTypeRelationManager::class,

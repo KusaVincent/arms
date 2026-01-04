@@ -4,9 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Filament\Widgets\Common\CountPerMonth;
 use App\Models\Operator;
-use App\Models\Property;
 use Filament\Widgets\ChartWidget;
-use Illuminate\Support\Carbon;
 
 class OperatorsChart extends ChartWidget
 {
@@ -27,9 +25,9 @@ class OperatorsChart extends ChartWidget
                 [
                     'label' => 'Operators Created',
                     'data' => $data['countOfOperatorsPerMonth'],
-                ]
+                ],
             ],
-            'labels' => $data['months']
+            'labels' => $data['months'],
         ];
     }
 
@@ -40,7 +38,7 @@ class OperatorsChart extends ChartWidget
 
     private function getCountOfOperatorsPerMonth(): array
     {
-        $data = new CountPerMonth()->getCountPerMonth(new Operator());
+        $data = new CountPerMonth()->getCountPerMonth(new Operator);
 
         return [
             'months' => $data->keys()->toArray(),

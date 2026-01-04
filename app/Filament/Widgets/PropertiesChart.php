@@ -25,9 +25,9 @@ class PropertiesChart extends ChartWidget
                 [
                     'label' => 'Properties Created',
                     'data' => $data['countOfPropertiesPerMonth'],
-                ]
+                ],
             ],
-            'labels' => $data['months']
+            'labels' => $data['months'],
         ];
     }
 
@@ -38,7 +38,7 @@ class PropertiesChart extends ChartWidget
 
     private function getCountOfPropertiesPerMonth(): array
     {
-        $data = new CountPerMonth()->getCountPerMonth(new Property());
+        $data = new CountPerMonth()->getCountPerMonth(new Property);
 
         return [
             'months' => $data->keys()->toArray(),

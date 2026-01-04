@@ -3,9 +3,9 @@
 namespace App\Filament\Resources\PackageSubscriptions\Schemas;
 
 use App\Enums\PackageStatus;
+use App\Filament\ReusableResources\Common\SelectField;
 use App\Utils\SanitizationHelper;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Schemas\Schema;
@@ -34,7 +34,7 @@ class PackageSubscriptionForm
                         ? SanitizationHelper::stripFormatting($state)
                         : $state
                     ),
-                Select::make('status')
+                SelectField::default('status')
                     ->options(PackageStatus::class)
                     ->required(),
                 DateTimePicker::make('effective_date')

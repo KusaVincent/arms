@@ -21,6 +21,7 @@
         "league/flysystem-sftp-v3": "3.0",
         "livewire/livewire": "^3.6",
         "opcodesio/log-viewer": "^3.17",
+        "pxlrbt/filament-excel": "^3.3",
         "shuvroroy/filament-spatie-laravel-health": "^3.1",
         "spatie/cpu-load-health-check": "*",
         "spatie/laravel-deleted-models": "^1.1",

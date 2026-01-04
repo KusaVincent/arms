@@ -24,7 +24,7 @@ class UserTable
                 TextColumn::make('roles.name')
                     ->badge()
                     ->color(fn (string $state): string => AssignColor::getColor($state))
-                    ->formatStateUsing(fn (string $state): string =>ucwords(str_replace('_', ' ', $state))),
+                    ->formatStateUsing(fn (string $state): string => ucwords(str_replace('_', ' ', $state))),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->toggleable()

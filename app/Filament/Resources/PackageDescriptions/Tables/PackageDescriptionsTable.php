@@ -21,7 +21,8 @@ class PackageDescriptionsTable
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('description')
-                    ->searchable(),
+                    ->searchable()
+                    ->limit(15),
                 TextColumn::make('monthly_package_price')
                     ->numeric()
                     ->sortable(),

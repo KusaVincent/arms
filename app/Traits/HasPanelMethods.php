@@ -118,6 +118,10 @@ trait HasPanelMethods
             NavigationGroup::make()
                 ->label('Settings')
                 ->icon(Heroicon::Cog8Tooth),
+
+            NavigationGroup::make()
+                ->label('User Management')
+                ->icon(Heroicon::OutlinedUserCircle),
         ];
     }
 

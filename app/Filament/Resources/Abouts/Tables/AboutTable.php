@@ -23,7 +23,7 @@ class AboutTable
                     ->searchable(),
                 TextColumn::make('content')
                     ->searchable()
-                    ->words(12),
+                    ->limit(15),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->label('Added On')
