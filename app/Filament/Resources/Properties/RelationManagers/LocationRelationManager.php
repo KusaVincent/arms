@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Properties\RelationManagers;
 
-use App\Filament\ReusableResources\ResourceForm\LocationForm;
-use App\Filament\ReusableResources\ResourceTable\LocationTable;
+use App\Filament\Resources\Locations\Schemas\LocationForm;
+use App\Filament\Resources\Locations\Tables\LocationTable;
 use Exception;
 use Filament\Actions\BulkActionGroup;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -20,7 +20,7 @@ class LocationRelationManager extends RelationManager
      */
     public function form(Schema $schema): Schema
     {
-        return LocationForm::form($schema);
+        return LocationForm::configure($schema);
     }
 
     /**
@@ -28,7 +28,7 @@ class LocationRelationManager extends RelationManager
      */
     public function table(Table $table): Table
     {
-        return LocationTable::columns($table)
+        return LocationTable::configure($table)
             ->recordTitleAttribute('town_city')
             ->filters([
                 //

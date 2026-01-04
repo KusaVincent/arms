@@ -8,8 +8,8 @@ use App\Filament\Resources\Payments\Pages\EditPayment;
 use App\Filament\Resources\Payments\Pages\ListPayments;
 use App\Filament\Resources\Payments\RelationManagers\LeaseAgreementsRelationManager;
 use App\Filament\Resources\Payments\RelationManagers\PaymentMethodRelationManager;
-use App\Filament\ReusableResources\ResourceForm\PaymentForm;
-use App\Filament\ReusableResources\ResourceTable\PaymentTable;
+use App\Filament\Resources\Payments\Schemas\PaymentForm;
+use App\Filament\Resources\Payments\Tables\PaymentTable;
 use App\Models\Payment;
 use App\Traits\HasSharedResourceProperties;
 use Exception;
@@ -38,7 +38,7 @@ class PaymentResource extends Resource
     #[\Override]
     public static function form(Schema $schema): Schema
     {
-        return PaymentForm::form($schema);
+        return PaymentForm::configure($schema);
     }
 
     /**
@@ -47,7 +47,7 @@ class PaymentResource extends Resource
     #[\Override]
     public static function table(Table $table): Table
     {
-        return PaymentTable::columns($table)
+        return PaymentTable::configure($table)
             ->filters([
                 //
             ])

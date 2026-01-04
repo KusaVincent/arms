@@ -3,11 +3,10 @@
 namespace App\Filament\Resources\ServiceAvailabilities;
 
 use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
-use App\Filament\Resources\ServiceAvailabilities\Pages\CreateServiceAvailability;
 use App\Filament\Resources\ServiceAvailabilities\Pages\EditServiceAvailability;
 use App\Filament\Resources\ServiceAvailabilities\Pages\ListServiceAvailabilities;
-use App\Filament\ReusableResources\ResourceForm\ServiceAvailabilityForm;
-use App\Filament\ReusableResources\ResourceTable\ServiceAvailabilityTable;
+use App\Filament\Resources\ServiceAvailabilities\Schemas\ServiceAvailabilityForm;
+use App\Filament\Resources\ServiceAvailabilities\Tables\ServiceAvailabilityTable;
 use App\Models\ServiceAvailability;
 use App\Traits\HasSharedResourceProperties;
 use Exception;
@@ -36,7 +35,7 @@ class ServiceAvailabilityResource extends Resource
     #[\Override]
     public static function form(Schema $schema): Schema
     {
-        return ServiceAvailabilityForm::form($schema);
+        return ServiceAvailabilityForm::configure($schema);
     }
 
     /**
@@ -45,7 +44,7 @@ class ServiceAvailabilityResource extends Resource
     #[\Override]
     public static function table(Table $table): Table
     {
-        return ServiceAvailabilityTable::columns($table)
+        return ServiceAvailabilityTable::configure($table)
             ->filters([
                 //
             ])

@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Payments\RelationManagers;
 
-use App\Filament\ReusableResources\ResourceForm\PaymentMethodForm;
-use App\Filament\ReusableResources\ResourceTable\PaymentMethodTable;
+use App\Filament\Resources\PaymentMethods\Schemas\PaymentMethodForm;
+use App\Filament\Resources\PaymentMethods\Tables\PaymentMethodTable;
 use Exception;
 use Filament\Actions\BulkActionGroup;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -20,7 +20,7 @@ class PaymentMethodRelationManager extends RelationManager
      */
     public function form(Schema $schema): Schema
     {
-        return PaymentMethodForm::form($schema);
+        return PaymentMethodForm::configure($schema);
     }
 
     /**
@@ -28,7 +28,7 @@ class PaymentMethodRelationManager extends RelationManager
      */
     public function table(Table $table): Table
     {
-        return PaymentMethodTable::columns($table)
+        return PaymentMethodTable::configure($table)
             ->recordTitleAttribute('name')
             ->filters([
                 //

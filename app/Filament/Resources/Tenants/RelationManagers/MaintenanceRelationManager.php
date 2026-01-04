@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Tenants\RelationManagers;
 
-use App\Filament\ReusableResources\ResourceForm\MaintenanceForm;
-use App\Filament\ReusableResources\ResourceTable\MaintenanceTable;
+use App\Filament\Resources\Maintenances\Schemas\MaintenanceForm;
+use App\Filament\Resources\Maintenances\Tables\MaintenanceTable;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
@@ -21,7 +21,7 @@ class MaintenanceRelationManager extends RelationManager
      */
     public function form(Schema $schema): Schema
     {
-        return MaintenanceForm::form($schema);
+        return MaintenanceForm::configure($schema);
     }
 
     /**
@@ -29,7 +29,7 @@ class MaintenanceRelationManager extends RelationManager
      */
     public function table(Table $table): Table
     {
-        return MaintenanceTable::columns($table)
+        return MaintenanceTable::configure($table)
             ->recordTitleAttribute('property.name')
             ->filters([
                 //

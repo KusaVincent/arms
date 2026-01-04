@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\PackageSubscriptions\RelationManagers;
 
-use App\Filament\ReusableResources\ResourceTable\PaymentTable;
+use App\Filament\Resources\Payments\Tables\PaymentTable;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
@@ -17,7 +17,7 @@ class PaymentRelationManager extends RelationManager
 
     public function table(Table $table): Table
     {
-        return PaymentTable::columns($table)
+        return PaymentTable::configure($table)
             ->recordTitleAttribute('mnemonic')
             ->filters([
                 //

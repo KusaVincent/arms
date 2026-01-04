@@ -8,8 +8,8 @@ use App\Filament\Resources\Maintenances\Pages\EditMaintenance;
 use App\Filament\Resources\Maintenances\Pages\ListMaintenances;
 use App\Filament\Resources\Maintenances\RelationManagers\PropertyRelationManager;
 use App\Filament\Resources\Maintenances\RelationManagers\TenantRelationManager;
-use App\Filament\ReusableResources\ResourceForm\MaintenanceForm;
-use App\Filament\ReusableResources\ResourceTable\MaintenanceTable;
+use App\Filament\Resources\Maintenances\Schemas\MaintenanceForm;
+use App\Filament\Resources\Maintenances\Tables\MaintenanceTable;
 use App\Models\Maintenance;
 use App\Traits\HasSharedResourceProperties;
 use Exception;
@@ -40,7 +40,7 @@ class MaintenanceResource extends Resource
     #[\Override]
     public static function form(Schema $schema): Schema
     {
-        return MaintenanceForm::form($schema);
+        return MaintenanceForm::configure($schema);
     }
 
     /**
@@ -49,7 +49,7 @@ class MaintenanceResource extends Resource
     #[\Override]
     public static function table(Table $table): Table
     {
-        return MaintenanceTable::columns($table)
+        return MaintenanceTable::configure($table)
             ->filters([
                 //
             ])

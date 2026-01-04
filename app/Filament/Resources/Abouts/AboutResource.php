@@ -6,8 +6,8 @@ use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\Abouts\Pages\CreateAbout;
 use App\Filament\Resources\Abouts\Pages\EditAbout;
 use App\Filament\Resources\Abouts\Pages\ListAbouts;
-use App\Filament\ReusableResources\ResourceForm\AboutForm;
-use App\Filament\ReusableResources\ResourceTable\AboutTable;
+use App\Filament\Resources\Abouts\Schemas\AboutForm;
+use App\Filament\Resources\Abouts\Tables\AboutTable;
 use App\Models\About;
 use App\Traits\HasSharedResourceProperties;
 use Exception;
@@ -36,7 +36,7 @@ class AboutResource extends Resource
     #[\Override]
     public static function form(Schema $schema): Schema
     {
-        return AboutForm::form($schema);
+        return AboutForm::configure($schema);
     }
 
     /**
@@ -45,7 +45,7 @@ class AboutResource extends Resource
     #[\Override]
     public static function table(Table $table): Table
     {
-        return AboutTable::columns($table)
+        return AboutTable::configure($table)
             ->filters([
                 //
             ])

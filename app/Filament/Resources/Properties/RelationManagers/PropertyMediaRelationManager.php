@@ -2,14 +2,13 @@
 
 namespace App\Filament\Resources\Properties\RelationManagers;
 
-use App\Filament\ReusableResources\ResourceForm\PropertyMediaForm;
-use App\Filament\ReusableResources\ResourceTable\PropertyMediaTable;
+use App\Filament\Resources\PropertyMedia\Schemas\PropertyMediaForm;
+use App\Filament\Resources\PropertyMedia\Tables\PropertyMediaTable;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
-use Filament\Tables;
 use Filament\Tables\Table;
 
 class PropertyMediaRelationManager extends RelationManager
@@ -21,7 +20,7 @@ class PropertyMediaRelationManager extends RelationManager
      */
     public function form(Schema $schema): Schema
     {
-        return PropertyMediaForm::form($schema);
+        return PropertyMediaForm::configure($schema);
     }
 
     /**
@@ -29,7 +28,7 @@ class PropertyMediaRelationManager extends RelationManager
      */
     public function table(Table $table): Table
     {
-        return PropertyMediaTable::columns($table)
+        return PropertyMediaTable::configure($table)
             ->recordTitleAttribute('property.name')
             ->filters([
                 //

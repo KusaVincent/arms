@@ -6,8 +6,8 @@ use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\CustomerSupports\Pages\CreateCustomerSupport;
 use App\Filament\Resources\CustomerSupports\Pages\EditCustomerSupport;
 use App\Filament\Resources\CustomerSupports\Pages\ListCustomerSupports;
-use App\Filament\ReusableResources\ResourceForm\CustomerSupportForm;
-use App\Filament\ReusableResources\ResourceTable\CustomerSupportTable;
+use App\Filament\Resources\CustomerSupports\Schemas\CustomerSupportForm;
+use App\Filament\Resources\CustomerSupports\Tables\CustomerSupportTable;
 use App\Models\CustomerSupport;
 use App\Traits\HasSharedResourceProperties;
 use Exception;
@@ -39,7 +39,7 @@ class CustomerSupportResource extends Resource
     #[\Override]
     public static function form(Schema $schema): Schema
     {
-        return CustomerSupportForm::form($schema);
+        return CustomerSupportForm::configure($schema);
     }
 
     /**
@@ -48,7 +48,7 @@ class CustomerSupportResource extends Resource
     #[\Override]
     public static function table(Table $table): Table
     {
-        return CustomerSupportTable::columns($table)
+        return CustomerSupportTable::configure($table)
             ->filters([
                 //
             ])

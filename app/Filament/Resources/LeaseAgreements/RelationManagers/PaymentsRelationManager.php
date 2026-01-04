@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\LeaseAgreements\RelationManagers;
 
-use App\Filament\ReusableResources\ResourceForm\PaymentForm;
-use App\Filament\ReusableResources\ResourceTable\PaymentTable;
+use App\Filament\Resources\Payments\Schemas\PaymentForm;
+use App\Filament\Resources\Payments\Tables\PaymentTable;
 use Exception;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
@@ -23,7 +23,7 @@ class PaymentsRelationManager extends RelationManager
      */
     public function form(Schema $schema): Schema
     {
-        return PaymentForm::form($schema);
+        return PaymentForm::configure($schema);
     }
 
     /**
@@ -31,7 +31,7 @@ class PaymentsRelationManager extends RelationManager
      */
     public function table(Table $table): Table
     {
-        return PaymentTable::columns($table)
+        return PaymentTable::configure($table)
             ->recordTitleAttribute('')
             ->filters([
                 //

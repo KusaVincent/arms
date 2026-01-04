@@ -126,7 +126,7 @@ final class Property extends BaseModel
      */
     public function operators(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)
+        return $this->belongsToMany(Operator::class)
             ->using(OperatorProperty::class)
             ->withPivot(['created_by'])
             ->withTimestamps();

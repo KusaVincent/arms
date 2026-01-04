@@ -7,8 +7,8 @@ use App\Filament\Resources\Locations\Pages\CreateLocation;
 use App\Filament\Resources\Locations\Pages\EditLocation;
 use App\Filament\Resources\Locations\Pages\ListLocations;
 use App\Filament\Resources\Locations\RelationManagers\PropertiesRelationManager;
-use App\Filament\ReusableResources\ResourceForm\LocationForm;
-use App\Filament\ReusableResources\ResourceTable\LocationTable;
+use App\Filament\Resources\Locations\Schemas\LocationForm;
+use App\Filament\Resources\Locations\Tables\LocationTable;
 use App\Models\Location;
 use App\Traits\HasSharedResourceProperties;
 use Exception;
@@ -39,7 +39,7 @@ class LocationResource extends Resource
     #[\Override]
     public static function form(Schema $schema): Schema
     {
-        return LocationForm::form($schema);
+        return LocationForm::configure($schema);
     }
 
     /**
@@ -48,7 +48,7 @@ class LocationResource extends Resource
     #[\Override]
     public static function table(Table $table): Table
     {
-        return LocationTable::columns($table)
+        return LocationTable::configure($table)
             ->filters([
                 //
             ])

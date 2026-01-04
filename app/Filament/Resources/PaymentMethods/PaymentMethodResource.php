@@ -7,8 +7,8 @@ use App\Filament\Resources\PaymentMethods\Pages\CreatePaymentMethod;
 use App\Filament\Resources\PaymentMethods\Pages\EditPaymentMethod;
 use App\Filament\Resources\PaymentMethods\Pages\ListPaymentMethods;
 use App\Filament\Resources\PaymentMethods\RelationManagers\PaymentsRelationManager;
-use App\Filament\ReusableResources\ResourceForm\PaymentMethodForm;
-use App\Filament\ReusableResources\ResourceTable\PaymentMethodTable;
+use App\Filament\Resources\PaymentMethods\Schemas\PaymentMethodForm;
+use App\Filament\Resources\PaymentMethods\Tables\PaymentMethodTable;
 use App\Models\PaymentMethod;
 use App\Traits\HasSharedResourceProperties;
 use Exception;
@@ -36,7 +36,7 @@ class PaymentMethodResource extends Resource
     #[\Override]
     public static function form(Schema $schema): Schema
     {
-        return PaymentMethodForm::form($schema);
+        return PaymentMethodForm::configure($schema);
     }
 
     /**
@@ -45,7 +45,7 @@ class PaymentMethodResource extends Resource
     #[\Override]
     public static function table(Table $table): Table
     {
-        return PaymentMethodTable::columns($table)
+        return PaymentMethodTable::configure($table)
             ->filters([
                 //
             ])

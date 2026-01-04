@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Properties\RelationManagers;
 
-use App\Filament\ReusableResources\ResourceForm\LeaseAgreementForm;
-use App\Filament\ReusableResources\ResourceTable\LeaseAgreementTable;
+use App\Filament\Resources\LeaseAgreements\Schemas\LeaseAgreementForm;
+use App\Filament\Resources\LeaseAgreements\Tables\LeaseAgreementTable;
 use Exception;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
@@ -22,7 +22,7 @@ class LeaseAgreementsRelationManager extends RelationManager
      */
     public function form(Schema $schema): Schema
     {
-        return LeaseAgreementForm::form($schema);
+        return LeaseAgreementForm::configure($schema);
     }
 
     /**
@@ -30,7 +30,7 @@ class LeaseAgreementsRelationManager extends RelationManager
      */
     public function table(Table $table): Table
     {
-        return LeaseAgreementTable::columns($table)
+        return LeaseAgreementTable::configure($table)
             ->recordTitleAttribute('tenant.first_name')
             ->filters([
                 //

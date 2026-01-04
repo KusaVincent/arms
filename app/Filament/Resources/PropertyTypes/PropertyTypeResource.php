@@ -3,12 +3,11 @@
 namespace App\Filament\Resources\PropertyTypes;
 
 use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
-use App\Filament\Resources\PropertyTypeResource\Pages;
 use App\Filament\Resources\PropertyTypes\Pages\EditPropertyType;
 use App\Filament\Resources\PropertyTypes\Pages\ListPropertyTypes;
 use App\Filament\Resources\PropertyTypes\RelationManagers\PropertiesRelationManager;
-use App\Filament\ReusableResources\ResourceForm\PropertyTypeForm;
-use App\Filament\ReusableResources\ResourceTable\PropertyTypeTable;
+use App\Filament\Resources\PropertyTypes\Schemas\PropertyTypeForm;
+use App\Filament\Resources\PropertyTypes\Tables\PropertyTypeTable;
 use App\Models\PropertyType;
 use App\Traits\HasSharedResourceProperties;
 use Exception;
@@ -39,7 +38,7 @@ class PropertyTypeResource extends Resource
     #[\Override]
     public static function form(Schema $schema): Schema
     {
-        return PropertyTypeForm::form($schema);
+        return PropertyTypeForm::configure($schema);
     }
 
     /**
@@ -48,7 +47,7 @@ class PropertyTypeResource extends Resource
     #[\Override]
     public static function table(Table $table): Table
     {
-        return PropertyTypeTable::columns($table)
+        return PropertyTypeTable::configure($table)
             ->filters([
                 //
             ])

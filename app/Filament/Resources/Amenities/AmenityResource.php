@@ -7,8 +7,8 @@ use App\Filament\Resources\Amenities\Pages\CreateAmenity;
 use App\Filament\Resources\Amenities\Pages\EditAmenity;
 use App\Filament\Resources\Amenities\Pages\ListAmenities;
 use App\Filament\Resources\Amenities\RelationManagers\PropertiesRelationManager;
-use App\Filament\ReusableResources\ResourceForm\AmenityForm;
-use App\Filament\ReusableResources\ResourceTable\AmenityTable;
+use App\Filament\Resources\Amenities\Schemas\AmenityForm;
+use App\Filament\Resources\Amenities\Tables\AmenityTable;
 use App\Models\Amenity;
 use App\Traits\HasSharedResourceProperties;
 use Exception;
@@ -39,7 +39,7 @@ class AmenityResource extends Resource
     #[\Override]
     public static function form(Schema $schema): Schema
     {
-        return AmenityForm::form($schema);
+        return AmenityForm::configure($schema);
     }
 
     /**
@@ -48,7 +48,7 @@ class AmenityResource extends Resource
     #[\Override]
     public static function table(Table $table): Table
     {
-        return AmenityTable::columns($table)
+        return AmenityTable::configure($table)
             ->filters([
                 //
             ])

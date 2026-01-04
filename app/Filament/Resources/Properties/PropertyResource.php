@@ -10,11 +10,11 @@ use App\Filament\Resources\Properties\RelationManagers\AmenitiesRelationManager;
 use App\Filament\Resources\Properties\RelationManagers\LeaseAgreementsRelationManager;
 use App\Filament\Resources\Properties\RelationManagers\LocationRelationManager;
 use App\Filament\Resources\Properties\RelationManagers\MaintenanceRelationManager;
+use App\Filament\Resources\Properties\RelationManagers\OperatorsRelationManager;
 use App\Filament\Resources\Properties\RelationManagers\PropertyMediaRelationManager;
 use App\Filament\Resources\Properties\RelationManagers\PropertyTypeRelationManager;
-use App\Filament\Resources\Properties\RelationManagers\UsersRelationManager;
-use App\Filament\ReusableResources\ResourceForm\PropertyForm;
-use App\Filament\ReusableResources\ResourceTable\PropertyTable;
+use App\Filament\Resources\Properties\Schemas\PropertyForm;
+use App\Filament\Resources\Properties\Tables\PropertyTable;
 use App\Models\Property;
 use App\Traits\HasSharedResourceProperties;
 use Exception;
@@ -45,7 +45,7 @@ class PropertyResource extends Resource
     #[\Override]
     public static function form(Schema $schema): Schema
     {
-        return PropertyForm::form($schema);
+        return PropertyForm::configure($schema);
     }
 
     /**
@@ -54,7 +54,7 @@ class PropertyResource extends Resource
     #[\Override]
     public static function table(Table $table): Table
     {
-        return PropertyTable::columns($table)
+        return PropertyTable::configure($table)
             ->filters([
                 //
             ])
@@ -74,7 +74,7 @@ class PropertyResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //            UsersRelationManager::class,
+                        OperatorsRelationManager::class,
             AmenitiesRelationManager::class,
             LocationRelationManager::class,
             PropertyTypeRelationManager::class,

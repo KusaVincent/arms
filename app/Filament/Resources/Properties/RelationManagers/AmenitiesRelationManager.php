@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Properties\RelationManagers;
 
-use App\Filament\ReusableResources\ResourceForm\AmenityForm;
-use App\Filament\ReusableResources\ResourceTable\AmenityTable;
+use App\Filament\Resources\Amenities\Schemas\AmenityForm;
+use App\Filament\Resources\Amenities\Tables\AmenityTable;
 use Exception;
 use Filament\Actions\AttachAction;
 use Filament\Actions\BulkActionGroup;
@@ -23,7 +23,7 @@ class AmenitiesRelationManager extends RelationManager
      */
     public function form(Schema $schema): Schema
     {
-        return AmenityForm::form($schema);
+        return AmenityForm::configure($schema);
     }
 
     /**
@@ -31,7 +31,7 @@ class AmenitiesRelationManager extends RelationManager
      */
     public function table(Table $table): Table
     {
-        return AmenityTable::columns($table)
+        return AmenityTable::configure($table)
             ->recordTitleAttribute('amenity_name')
             ->filters([
                 //

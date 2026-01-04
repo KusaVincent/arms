@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Operators\Schemas;
 
-use App\Filament\ReusableResources\ResourceForm\OperatorTenantMutatedForm;
+use App\Filament\ReusableResources\Common\OperatorTenantMutatedForm;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 

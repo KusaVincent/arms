@@ -9,7 +9,7 @@ use App\Filament\Resources\PackageSubscriptions\Pages\ListPackageSubscriptions;
 use App\Filament\Resources\PackageSubscriptions\Pages\ViewPackageSubscription;
 use App\Filament\Resources\PackageSubscriptions\RelationManagers\PackageDescriptionRelationManager;
 use App\Filament\Resources\PackageSubscriptions\RelationManagers\PaymentRelationManager;
-use App\Filament\Resources\PackageSubscriptions\RelationManagers\UsersRelationManager;
+use App\Filament\Resources\PackageSubscriptions\RelationManagers\OperatorsRelationManager;
 use App\Filament\Resources\PackageSubscriptions\Schemas\PackageSubscriptionForm;
 use App\Filament\Resources\PackageSubscriptions\Schemas\PackageSubscriptionInfolist;
 use App\Filament\Resources\PackageSubscriptions\Tables\PackageSubscriptionsTable;
@@ -47,7 +47,7 @@ class PackageSubscriptionResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //            UsersRelationManager::class,
+            OperatorsRelationManager::class,
             PaymentRelationManager::class,
             PackageDescriptionRelationManager::class,
             ActivitiesRelationManager::class,

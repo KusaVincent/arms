@@ -7,8 +7,8 @@ use App\Filament\Resources\PropertyMedia\Pages\CreatePropertyMedia;
 use App\Filament\Resources\PropertyMedia\Pages\EditPropertyMedia;
 use App\Filament\Resources\PropertyMedia\Pages\ListPropertyMedia;
 use App\Filament\Resources\PropertyMedia\RelationManagers\PropertyRelationManager;
-use App\Filament\ReusableResources\ResourceForm\PropertyMediaForm;
-use App\Filament\ReusableResources\ResourceTable\PropertyMediaTable;
+use App\Filament\Resources\PropertyMedia\Schemas\PropertyMediaForm;
+use App\Filament\Resources\PropertyMedia\Tables\PropertyMediaTable;
 use App\Models\PropertyMedia;
 use App\Traits\HasSharedResourceProperties;
 use Exception;
@@ -39,7 +39,7 @@ class PropertyMediaResource extends Resource
     #[\Override]
     public static function form(Schema $schema): Schema
     {
-        return PropertyMediaForm::form($schema);
+        return PropertyMediaForm::configure($schema);
     }
 
     /**
@@ -48,7 +48,7 @@ class PropertyMediaResource extends Resource
     #[\Override]
     public static function table(Table $table): Table
     {
-        return PropertyMediaTable::columns($table)
+        return PropertyMediaTable::configure($table)
             ->filters([
                 //
             ])

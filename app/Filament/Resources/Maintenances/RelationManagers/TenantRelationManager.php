@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Maintenances\RelationManagers;
 
-use App\Filament\ReusableResources\ResourceForm\TenantForm;
-use App\Filament\ReusableResources\ResourceTable\TenantTable;
+use App\Filament\Resources\Tenants\Schemas\TenantForm;
+use App\Filament\Resources\Tenants\Tables\TenantTable;
 use Exception;
 use Filament\Actions\BulkActionGroup;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -20,7 +20,7 @@ class TenantRelationManager extends RelationManager
      */
     public function form(Schema $schema): Schema
     {
-        return TenantForm::form($schema);
+        return TenantForm::configure($schema);
     }
 
     /**
@@ -28,7 +28,7 @@ class TenantRelationManager extends RelationManager
      */
     public function table(Table $table): Table
     {
-        return TenantTable::columns($table)
+        return TenantTable::configure($table)
             ->recordTitleAttribute('fullname')
             ->filters([
                 //

@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\PropertyMedia\RelationManagers;
 
-use App\Filament\ReusableResources\ResourceForm\PropertyForm;
-use App\Filament\ReusableResources\ResourceTable\PropertyTable;
+use App\Filament\Resources\Properties\Schemas\PropertyForm;
+use App\Filament\Resources\Properties\Tables\PropertyTable;
 use Exception;
 use Filament\Actions\BulkActionGroup;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -20,7 +20,7 @@ class PropertyRelationManager extends RelationManager
      */
     public function form(Schema $schema): Schema
     {
-        return PropertyForm::form($schema);
+        return PropertyForm::configure($schema);
     }
 
     /**
@@ -28,7 +28,7 @@ class PropertyRelationManager extends RelationManager
      */
     public function table(Table $table): Table
     {
-        return PropertyTable::columns($table)
+        return PropertyTable::configure($table)
             ->recordTitleAttribute('name')
             ->filters([
                 //

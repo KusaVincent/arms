@@ -9,8 +9,8 @@ use App\Filament\Resources\LeaseAgreements\Pages\ListLeaseAgreements;
 use App\Filament\Resources\LeaseAgreements\RelationManagers\PaymentsRelationManager;
 use App\Filament\Resources\LeaseAgreements\RelationManagers\PropertyRelationManager;
 use App\Filament\Resources\LeaseAgreements\RelationManagers\TenantRelationManager;
-use App\Filament\ReusableResources\ResourceForm\LeaseAgreementForm;
-use App\Filament\ReusableResources\ResourceTable\LeaseAgreementTable;
+use App\Filament\Resources\LeaseAgreements\Schemas\LeaseAgreementForm;
+use App\Filament\Resources\LeaseAgreements\Tables\LeaseAgreementTable;
 use App\Models\LeaseAgreement;
 use App\Traits\HasSharedResourceProperties;
 use Exception;
@@ -41,7 +41,7 @@ class LeaseAgreementResource extends Resource
     #[\Override]
     public static function form(Schema $schema): Schema
     {
-        return LeaseAgreementForm::form($schema);
+        return LeaseAgreementForm::configure($schema);
     }
 
     /**
@@ -50,7 +50,7 @@ class LeaseAgreementResource extends Resource
     #[\Override]
     public static function table(Table $table): Table
     {
-        return LeaseAgreementTable::columns($table)
+        return LeaseAgreementTable::configure($table)
             ->filters([
                 //
             ])

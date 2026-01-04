@@ -6,8 +6,8 @@ use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\Contacts\Pages\CreateContact;
 use App\Filament\Resources\Contacts\Pages\EditContact;
 use App\Filament\Resources\Contacts\Pages\ListContacts;
-use App\Filament\ReusableResources\ResourceForm\ContactForm;
-use App\Filament\ReusableResources\ResourceTable\ContactTable;
+use App\Filament\Resources\Contacts\Schemas\ContactForm;
+use App\Filament\Resources\Contacts\Tables\ContactTable;
 use App\Models\Contact;
 use App\Traits\HasSharedResourceProperties;
 use Exception;
@@ -36,7 +36,7 @@ class ContactResource extends Resource
     #[\Override]
     public static function form(Schema $schema): Schema
     {
-        return ContactForm::form($schema);
+        return ContactForm::configure($schema);
     }
 
     /**
@@ -45,7 +45,7 @@ class ContactResource extends Resource
     #[\Override]
     public static function table(Table $table): Table
     {
-        return ContactTable::columns($table)
+        return ContactTable::configure($table)
             ->filters([
                 //
             ])

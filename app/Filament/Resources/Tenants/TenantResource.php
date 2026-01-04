@@ -8,8 +8,8 @@ use App\Filament\Resources\Tenants\Pages\EditTenant;
 use App\Filament\Resources\Tenants\Pages\ListTenants;
 use App\Filament\Resources\Tenants\RelationManagers\LeaseAgreementRelationManager;
 use App\Filament\Resources\Tenants\RelationManagers\MaintenanceRelationManager;
-use App\Filament\ReusableResources\ResourceForm\TenantForm;
-use App\Filament\ReusableResources\ResourceTable\TenantTable;
+use App\Filament\Resources\Tenants\Schemas\TenantForm;
+use App\Filament\Resources\Tenants\Tables\TenantTable;
 use App\Models\Tenant;
 use App\Traits\HasSharedResourceProperties;
 use Exception;
@@ -40,7 +40,7 @@ class TenantResource extends Resource
     #[\Override]
     public static function form(Schema $schema): Schema
     {
-        return TenantForm::form($schema);
+        return TenantForm::configure($schema);
     }
 
     /**
@@ -49,7 +49,7 @@ class TenantResource extends Resource
     #[\Override]
     public static function table(Table $table): Table
     {
-        return TenantTable::columns($table)
+        return TenantTable::configure($table)
             ->filters([
                 //
             ])

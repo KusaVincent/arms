@@ -6,8 +6,8 @@ use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\Users\Pages\CreateUser;
 use App\Filament\Resources\Users\Pages\EditUser;
 use App\Filament\Resources\Users\Pages\ListUsers;
-use App\Filament\ReusableResources\ResourceForm\UserForm;
-use App\Filament\ReusableResources\ResourceTable\UserTable;
+use App\Filament\Resources\Users\Schemas\UserForm;
+use App\Filament\Resources\Users\Tables\UserTable;
 use App\Models\User;
 use App\Traits\HasSharedResourceProperties;
 use BackedEnum;
@@ -41,7 +41,7 @@ class UserResource extends Resource
     #[\Override]
     public static function form(Schema $schema): Schema
     {
-        return UserForm::form($schema);
+        return UserForm::configure($schema);
     }
 
     /**
@@ -50,7 +50,7 @@ class UserResource extends Resource
     #[\Override]
     public static function table(Table $table): Table
     {
-        return UserTable::columns($table)
+        return UserTable::configure($table)
             ->filters([
                 //
             ])
