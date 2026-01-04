@@ -30,7 +30,7 @@ class MaintenanceForm
                                     ->relationship('property', 'name'),
                                 SelectField::make('tenant_id')
                                     ->required()
-                                    ->relationship('tenant', 'user_name'),
+                                    ->relationship('tenant.user', 'name'),
                                 Select::make('status')
                                     ->native(false)
                                     ->options(MaintenanceStatus::class)

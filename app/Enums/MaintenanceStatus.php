@@ -27,6 +27,7 @@ enum MaintenanceStatus: int implements HasColor, HasLabel
     {
         return match ($this) {
             self::PENDING => 'Pending',
+            self::ASSIGNED => 'Assigned',
             self::COMPLETED => 'Completed',
             self::IN_PROGRESS => 'In Progress',
         };
