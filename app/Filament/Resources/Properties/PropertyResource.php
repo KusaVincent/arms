@@ -6,6 +6,7 @@ use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\Properties\Pages\CreateProperty;
 use App\Filament\Resources\Properties\Pages\EditProperty;
 use App\Filament\Resources\Properties\Pages\ListProperties;
+use App\Filament\Resources\Properties\Pages\ViewProperty;
 use App\Filament\Resources\Properties\RelationManagers\AmenitiesRelationManager;
 use App\Filament\Resources\Properties\RelationManagers\LeaseAgreementsRelationManager;
 use App\Filament\Resources\Properties\RelationManagers\LocationRelationManager;
@@ -14,6 +15,7 @@ use App\Filament\Resources\Properties\RelationManagers\OperatorsRelationManager;
 use App\Filament\Resources\Properties\RelationManagers\PropertyMediaRelationManager;
 use App\Filament\Resources\Properties\RelationManagers\PropertyTypeRelationManager;
 use App\Filament\Resources\Properties\Schemas\PropertyForm;
+use App\Filament\Resources\Properties\Schemas\PropertyInfolist;
 use App\Filament\Resources\Properties\Tables\PropertyTable;
 use App\Models\Property;
 use App\Traits\HasSharedResourceProperties;
@@ -47,6 +49,11 @@ class PropertyResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return PropertyForm::configure($schema);
+    }
+
+    public static function infolist(Schema $schema): Schema
+    {
+        return PropertyInfolist::configure($schema);
     }
 
     /**
@@ -92,6 +99,7 @@ class PropertyResource extends Resource
         return [
             'index' => ListProperties::route('/'),
             'create' => CreateProperty::route('/create'),
+            'view' => ViewProperty::route('/{record}'),
             'edit' => EditProperty::route('/{record}/edit'),
         ];
     }
