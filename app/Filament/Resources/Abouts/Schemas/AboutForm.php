@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Abouts\Schemas;
 
-use Exception;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
@@ -10,20 +9,20 @@ use Filament\Schemas\Schema;
 
 class AboutForm
 {
-    /**
-     * @throws Exception
-     */
     public static function configure(Schema $schema): Schema
     {
         return $schema
             ->components([
-                Section::make()
+                Section::make('Main Content')
+                    ->description('The primary information for the About section.')
                     ->schema([
                         TextInput::make('title')
-                            ->required(),
+                            ->required()->maxLength(255)
+                            ->placeholder('e.g. Our Mission'),
+
                         MarkdownEditor::make('content')
                             ->required()
-                            ->maxLength(255),
+                            ->columnSpanFull(),
                     ]),
             ]);
     }

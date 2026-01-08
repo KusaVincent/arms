@@ -3,9 +3,12 @@
 namespace App\Filament\Resources\ServiceAvailabilities;
 
 use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
+use App\Filament\Resources\ServiceAvailabilities\Pages\CreateServiceAvailability;
 use App\Filament\Resources\ServiceAvailabilities\Pages\EditServiceAvailability;
 use App\Filament\Resources\ServiceAvailabilities\Pages\ListServiceAvailabilities;
+use App\Filament\Resources\ServiceAvailabilities\Pages\ViewServiceAvailability;
 use App\Filament\Resources\ServiceAvailabilities\Schemas\ServiceAvailabilityForm;
+use App\Filament\Resources\ServiceAvailabilities\Schemas\ServiceAvailabilityInfolist;
 use App\Filament\Resources\ServiceAvailabilities\Tables\ServiceAvailabilityTable;
 use App\Models\ServiceAvailability;
 use App\Traits\HasSharedResourceProperties;
@@ -37,6 +40,12 @@ class ServiceAvailabilityResource extends Resource
     {
         return ServiceAvailabilityForm::configure($schema);
     }
+
+    public static function infolist(Schema $schema): Schema
+    {
+        return ServiceAvailabilityInfolist::configure($schema);
+    }
+
 
     /**
      * @throws Exception
@@ -72,7 +81,8 @@ class ServiceAvailabilityResource extends Resource
     {
         return [
             'index' => ListServiceAvailabilities::route('/'),
-            //                        'create' => CreateServiceAvailability::route('/create'),
+            'create' => CreateServiceAvailability::route('/create'),
+            'view' => ViewServiceAvailability::route('/{record}'),
             'edit' => EditServiceAvailability::route('/{record}/edit'),
         ];
     }

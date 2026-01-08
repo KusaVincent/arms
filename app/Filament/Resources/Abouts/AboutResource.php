@@ -6,7 +6,9 @@ use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\Abouts\Pages\CreateAbout;
 use App\Filament\Resources\Abouts\Pages\EditAbout;
 use App\Filament\Resources\Abouts\Pages\ListAbouts;
+use App\Filament\Resources\Abouts\Pages\ViewAbout;
 use App\Filament\Resources\Abouts\Schemas\AboutForm;
+use App\Filament\Resources\Abouts\Schemas\AboutInfolist;
 use App\Filament\Resources\Abouts\Tables\AboutTable;
 use App\Models\About;
 use App\Traits\HasSharedResourceProperties;
@@ -37,6 +39,11 @@ class AboutResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return AboutForm::configure($schema);
+    }
+
+    public static function infolist(Schema $schema): Schema
+    {
+        return AboutInfolist::configure($schema);
     }
 
     /**
@@ -74,6 +81,7 @@ class AboutResource extends Resource
         return [
             'index' => ListAbouts::route('/'),
             'create' => CreateAbout::route('/create'),
+            'view' => ViewAbout::route('/{record}'),
             'edit' => EditAbout::route('/{record}/edit'),
         ];
     }

@@ -3,19 +3,18 @@
 namespace App\Filament\Resources\Abouts\Pages;
 
 use App\Filament\Resources\Abouts\AboutResource;
-use App\Filament\ReusableResources\EditRecordWithSanitization;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\ViewAction;
+use Filament\Actions;
+use Filament\Resources\Pages\ViewRecord;
 
-class EditAbout extends EditRecordWithSanitization
+class ViewAbout extends ViewRecord
 {
     protected static string $resource = AboutResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
-            ViewAction::make(),
-            DeleteAction::make(),
+            Actions\EditAction::make(),
+            Actions\DeleteAction::make(),
         ];
     }
 }

@@ -3,19 +3,18 @@
 namespace App\Filament\Resources\ServiceAvailabilities\Pages;
 
 use App\Filament\Resources\ServiceAvailabilities\ServiceAvailabilityResource;
-use App\Filament\ReusableResources\EditRecordWithSanitization;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\ViewAction;
-
-class EditServiceAvailability extends EditRecordWithSanitization
+use Filament\Actions;
+use Filament\Resources\Pages\ViewRecord;
+class ViewServiceAvailability extends ViewRecord
 {
+
     protected static string $resource = ServiceAvailabilityResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
-            ViewAction::make(),
-            DeleteAction::make(),
+            Actions\EditAction::make(),
+            Actions\DeleteAction::make(),
         ];
     }
 }

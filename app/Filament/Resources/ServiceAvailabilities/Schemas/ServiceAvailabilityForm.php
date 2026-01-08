@@ -3,39 +3,71 @@
 namespace App\Filament\Resources\ServiceAvailabilities\Schemas;
 
 use App\Enums\ActiveServiceAvailability;
-use App\Filament\ReusableResources\Common\SelectField;
-use Exception;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class ServiceAvailabilityForm
 {
-    /**
-     * @throws Exception
-     */
     public static function configure(Schema $schema): Schema
     {
         return $schema
             ->components([
-                Section::make()
+                Grid::make(3)
                     ->schema([
-                        TextInput::make('service_name')
-                            ->required()
-                            ->label('Service Name'),
-                        Section::make()
-                            ->description('This field is what is used by the system to check if service is active or not')
-                            ->schema([
-                                TextInput::make('service_key')
-                                    ->required()
-                                    ->unique(ignoreRecord: true)
-                                    ->label('Service Key'),
-                            ]),
-                        SelectField::default('is_active')
-                            ->label('Active')
-                            ->default(ActiveServiceAvailability::NO)
-                            ->options(ActiveServiceAvailability::class),
-                    ]),
+                        Group::make([
+                            Section::make('General Information')
+                                ->icon('heroicon-m-information-circle')
+                                ->schema([
+                                    TextInput::make('service_name')
+                                        ->label('Service Display Name')
+                                        ->placeholder('e.g., Email Notifications')
+                                        ->required()
+                                        ->maxLength(255),
+                                ]),
+
+                            Section::make('Technical Configuration')
+                                ->icon('heroicon-m-cpu-chip')
+                                ->description('This unique key is utilized by the system logic to verify availability.')
+                                ->schema([
+                                    TextInput::make('service_key')
+                                        ->label('Service Key')
+                                        ->placeholder('e.g., email_service')
+                                        ->required()
+                                        ->unique(ignoreRecord: true)
+                                        ->helperText('Warning: Changing this may affect system integrations.')
+                                        ->disabledOn('edit'),
+                                ]),
+                        ])->columnSpan(2),
+
+                        Group::make([
+                            Section::make('Status')
+                                ->schema([
+                                    Select::make('is_active')
+                                        ->label('Service Availability')
+                                        ->options(ActiveServiceAvailability::class)
+                                        ->default(ActiveServiceAvailability::NO)
+                                        ->native(false)
+                                        ->prefixIcon('heroicon-m-bolt')
+                                        ->required(),
+                                ]),
+
+                            Section::make('Record History')
+                                ->schema([
+                                    TextInput::make('created_at')
+                                        ->label('Date Registered')
+                                        ->disabled()
+                                        ->visibleOn('edit'),
+                                    TextInput::make('updated_at')
+                                        ->label('Last Sync')
+                                        ->disabled()
+                                        ->visibleOn('edit'),
+                                ]),
+                        ])->columnSpan(1),
+                    ])->columnSpanFull(),
             ]);
     }
 }
