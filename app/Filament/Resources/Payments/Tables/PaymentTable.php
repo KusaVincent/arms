@@ -22,70 +22,30 @@ class PaymentTable
                     ->searchable(),
                 TextColumn::make('payable_user')
                     ->label('Paid By / Target')
-                    ->state(fn ($record) => $record->payable)
-                    ->formatStateUsing(function ($state) {
-                        if (! $state) {
-                            return 'N/A';
-                        }
+                    ->getStateUsing(function ($record) {
+                        $payable = $record->payable;
 
                         return match (true) {
-                            $state instanceof LeaseAgreement => $state->tenant?->user?->name ?? 'Unknown Tenant',
-                            $state instanceof PackageSubscription => $state->user?->name ?? 'Unknown User',
-                            default => 'Unknown',
-                        };
+                            $payable instanceof LeaseAgreement => $payable->tenant?->user?->name,
+                            $payable instanceof PackageSubscription => $payable->operator?->user?->name,
+                            default => null,
+                        } ?? 'N/A';
                     })
                     ->description(fn ($record): string => match ($record->payable_type) {
                         'lease', LeaseAgreement::class => 'Lease Agreement',
                         'subscription', PackageSubscription::class => 'Subscription Package',
                         default => 'Other',
-                    })->searchable(query: function ($query, string $search): void {
-                        $query->whereHasMorph(
-                            'payable',
-                            [LeaseAgreement::class, PackageSubscription::class],
-                            function ($query, $type) use ($search) {
-                                if ($type === LeaseAgreement::class) {
-                                    $query->whereHas('tenant.user', function ($q) use ($search) {
-                                        $q->where('name', 'ilike', "%{$search}%");
-                                    });
-                                }
-                                if ($type === PackageSubscription::class) {
-                                    $query->whereHas('user', function ($q) use ($search) {
-                                        $q->where('name', 'ilike', "%{$search}%");
-                                    });
-                                }
-                            }
-                        );
                     }),
                 TextColumn::make('payable_item')
                     ->label('Paid For')
-                    ->state(fn ($record) => $record->payable)
-                    ->formatStateUsing(function ($state) {
-                        if (! $state) {
-                            return '—';
-                        }
+                    ->getStateUsing(function ($record) {
+                        $payable = $record->payable;
 
                         return match (true) {
-                            $state instanceof LeaseAgreement => $state->property?->name ?? 'No Property',
-                            $state instanceof PackageSubscription => $state->packageDescription?->name ?? 'No Package',
-                            default => 'Unknown Type',
-                        };
-                    })->searchable(query: function ($query, string $search): void {
-                        $query->whereHasMorph(
-                            'payable',
-                            [LeaseAgreement::class, PackageSubscription::class],
-                            function ($query, $type) use ($search) {
-                                if ($type === LeaseAgreement::class) {
-                                    $query->whereHas('property', function ($q) use ($search) {
-                                        $q->where('name', 'ilike', "%{$search}%");
-                                    });
-                                }
-                                if ($type === PackageSubscription::class) {
-                                    $query->whereHas('packageDescription', function ($q) use ($search) {
-                                        $q->where('name', 'ilike', "%{$search}%");
-                                    });
-                                }
-                            }
-                        );
+                            $payable instanceof LeaseAgreement => $payable->property?->name,
+                            $payable instanceof PackageSubscription => $payable->packageDescription?->name,
+                            default => null,
+                        } ?? '—';
                     }),
                 TextColumn::make('paymentMethod.name')
                     ->badge()

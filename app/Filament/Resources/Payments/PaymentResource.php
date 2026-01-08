@@ -6,10 +6,11 @@ use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\Payments\Pages\CreatePayment;
 use App\Filament\Resources\Payments\Pages\EditPayment;
 use App\Filament\Resources\Payments\Pages\ListPayments;
-use App\Filament\Resources\Payments\RelationManagers\LeaseAgreementsRelationManager;
 use App\Filament\Resources\Payments\RelationManagers\PaymentMethodRelationManager;
 use App\Filament\Resources\Payments\Schemas\PaymentForm;
 use App\Filament\Resources\Payments\Tables\PaymentTable;
+use App\Models\LeaseAgreement;
+use App\Models\PackageSubscription;
 use App\Models\Payment;
 use App\Traits\HasSharedResourceProperties;
 use Exception;
@@ -21,6 +22,7 @@ use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class PaymentResource extends Resource
 {
@@ -61,6 +63,19 @@ class PaymentResource extends Resource
                     DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->with([
+            'paymentMethod',
+            'payable' => function ($morphTo) {
+                $morphTo->morphWith([
+                    LeaseAgreement::class => ['property', 'tenant.user'],
+                    PackageSubscription::class => ['operator.user', 'packageDescription'],
+                ]);
+            },
+        ]);
     }
 
     #[\Override]

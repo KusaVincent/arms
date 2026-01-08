@@ -9,6 +9,7 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Support\Enums\Width;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -27,6 +28,7 @@ class AdminPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop()
             ->brandLogoHeight('3rem')
             ->colors(['primary' => Color::Blue])
+            ->maxContentWidth(Width::Full)
             ->favicon(asset('storage/favicon.png'))
             ->brandLogo(asset('storage/logo/logo.png'))
             ->globalSearchKeyBindings(['command+k', 'ctrl+k'])

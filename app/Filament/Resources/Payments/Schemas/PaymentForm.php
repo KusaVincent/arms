@@ -55,20 +55,25 @@ class PaymentForm
 
                                 MorphToSelect\Type::make(PackageSubscription::class)
                                     ->label('Package Subscription')
-                                    ->getOptionLabelFromRecordUsing(fn (PackageSubscription $record) => "{$record->packageDescription?->name} (User: {$record->user?->name})"
+                                    ->getOptionLabelFromRecordUsing(fn (PackageSubscription $record) =>
+                                    "{$record->packageDescription?->name} (User: {$record->operator?->user?->name})"
                                     )
-                                    ->titleAttribute('name')
                                     ->getOptionsUsing(function (?string $search): array {
                                         return PackageSubscription::query()
-                                            ->with(['packageDescription', 'user']) // Eager load to prevent N+1
+                                            ->with(['packageDescription', 'operator.user'])
                                             ->when($search, function ($query) use ($search) {
-                                                $query->whereHas('packageDescription', fn ($q) => $q->where('name', 'ilike', "%{$search}%"))
+                                                $query->whereHas('packageDescription', fn ($q) =>
+                                                $q->where('name', 'ilike', "%{$search}%")
+                                                )
+                                                    ->orWhereHas('operator.user', fn ($q) =>
+                                                    $q->where('name', 'ilike', "%{$search}%")
+                                                    )
                                                     ->orWhere('id', 'like', "%{$search}%");
                                             })
                                             ->limit(50)
                                             ->get()
                                             ->mapWithKeys(fn ($record) => [
-                                                $record->id => "{$record->packageDescription?->name} (User: {$record->user?->name})",
+                                                $record->id => "{$record->packageDescription?->name} (User: {$record->operator?->user?->name})",
                                             ])
                                             ->toArray();
                                     }),
@@ -77,7 +82,7 @@ class PaymentForm
                     ]),
                 Section::make()
                     ->schema([
-                        SelectField::make('payment_method')
+                        SelectField::make('payment_method_id')
                             ->required()
                             ->label('Payment Method')
                             ->relationship('paymentMethod', 'name'),
