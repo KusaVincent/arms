@@ -5,7 +5,7 @@ namespace App\Filament\Resources\PackageDescriptions\Schemas;
 use App\Enums\PackagePublished;
 use App\Enums\PackageStatus;
 use App\Filament\ReusableResources\Common\SelectField;
-use App\Utils\SanitizationHelper;
+use App\Support\SanitizationHelper;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\TextInput;

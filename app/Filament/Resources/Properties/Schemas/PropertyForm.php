@@ -5,7 +5,7 @@ namespace App\Filament\Resources\Properties\Schemas;
 use App\Enums\PropertyAvailable;
 use App\Enums\PropertyNegotiable;
 use App\Filament\ReusableResources\Common\SelectField;
-use App\Utils\SanitizationHelper;
+use App\Support\SanitizationHelper;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\TextInput;

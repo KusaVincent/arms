@@ -2,47 +2,20 @@
 
 namespace App\Filament\Widgets;
 
-use App\Filament\Widgets\Common\CountPerMonth;
+use App\Filament\Widgets\Common\MonthlyCountChartWidget;
 use App\Models\Operator;
-use Filament\Widgets\ChartWidget;
 
-class OperatorsChart extends ChartWidget
+class OperatorsChart extends MonthlyCountChartWidget
 {
-    protected static ?int $sort = 3;
+    protected string $label = 'Operators';
+    protected string $modelClass = Operator::class;
 
-    protected string $color = 'primary';
+    protected ?string $heading = 'Operators Created Over Time';
 
-    protected ?string $maxHeight = '300px';
+    protected string $backgroundColor = 'rgba(16, 185, 129, 0.2)';
 
-    protected ?string $heading = 'Operators Chart';
-
-    protected function getData(): array
+    public static function getSort(): int
     {
-        $data = $this->getCountOfOperatorsPerMonth();
-
-        return [
-            'datasets' => [
-                [
-                    'label' => 'Operators Created',
-                    'data' => $data['countOfOperatorsPerMonth'],
-                ],
-            ],
-            'labels' => $data['months'],
-        ];
-    }
-
-    protected function getType(): string
-    {
-        return 'line';
-    }
-
-    private function getCountOfOperatorsPerMonth(): array
-    {
-        $data = new CountPerMonth()->getCountPerMonth(new Operator);
-
-        return [
-            'months' => $data->keys()->toArray(),
-            'countOfOperatorsPerMonth' => $data->values()->toArray(),
-        ];
+        return 3;
     }
 }

@@ -4,7 +4,7 @@ namespace App\Filament\Resources\LeaseAgreements\Schemas;
 
 use App\Filament\ReusableResources\Common\SelectField;
 use App\Models\Tenant;
-use App\Utils\SanitizationHelper;
+use App\Support\SanitizationHelper;
 use Exception;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;

@@ -2,8 +2,16 @@
 
 namespace App\Providers;
 
+use App\Models\Amenity;
 use App\Models\LeaseAgreement;
+use App\Models\Location;
+use App\Models\Operator;
+use App\Models\PackageDescription;
 use App\Models\PackageSubscription;
+use App\Models\Property;
+use App\Models\PropertyType;
+use App\Models\Tenant;
+use App\Observers\CacheObserver;
 use App\Policies\AuthenticationLogPolicy;
 use App\Services\ElasticSearchService;
 use BezhanSalleh\FilamentShield\Commands\GenerateCommand;
@@ -55,6 +63,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->assignedDisk();
+        $this->statObservers();
         $this->configureModels();
         $this->configureCommands();
         $this->spatieLaravelHealthCheckPlugin();
@@ -90,7 +99,23 @@ class AppServiceProvider extends ServiceProvider
         DB::prohibitDestructiveCommands($this->app->isProduction());
     }
 
-    public function spatieLaravelHealthCheckPlugin(): void
+    private function statObservers(): void
+    {
+        $monitoredModels = [
+            Tenant::class,
+            Amenity::class,
+            Location::class,
+            Operator::class,
+            Property::class,
+            PropertyType::class,
+            PackageDescription::class,
+        ];
+
+        foreach ($monitoredModels as $model) {
+            $model::observe(CacheObserver::class);
+        }
+    }
+    private function spatieLaravelHealthCheckPlugin(): void
     {
         Health::checks([
             RedisCheck::new(),
@@ -128,7 +153,7 @@ class AppServiceProvider extends ServiceProvider
         SuperAdminCommand::prohibit($this->app->isProduction());
     }
 
-    public function assignedDisk(): void
+    private function assignedDisk(): void
     {
         if (app()->runningInConsole()) {
             return;

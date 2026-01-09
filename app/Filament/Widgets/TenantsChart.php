@@ -2,47 +2,23 @@
 
 namespace App\Filament\Widgets;
 
-use App\Filament\Widgets\Common\CountPerMonth;
+use App\Filament\Widgets\Common\MonthlyCountChartWidget;
 use App\Models\Tenant;
-use Filament\Widgets\ChartWidget;
 
-class TenantsChart extends ChartWidget
+class TenantsChart extends MonthlyCountChartWidget
 {
-    protected static ?int $sort = 4;
+    protected string $label = 'Tenants';
 
-    protected string $color = 'warning';
+    protected string $modelClass = Tenant::class;
 
-    protected ?string $maxHeight = '300px';
+    protected string $borderColor = '#f97316';
 
-    protected ?string $heading = 'Tenants Chart';
+    protected ?string $heading = 'Tenants Created Over Time';
 
-    protected function getData(): array
+    protected string $backgroundColor = 'rgba(249, 115, 22, 0.2)';
+
+    public static function getSort(): int
     {
-        $data = $this->getCountOfTenantsPerMonth();
-
-        return [
-            'datasets' => [
-                [
-                    'label' => 'Tenants Created',
-                    'data' => $data['countOfTenantsPerMonth'],
-                ],
-            ],
-            'labels' => $data['months'],
-        ];
-    }
-
-    protected function getType(): string
-    {
-        return 'line';
-    }
-
-    private function getCountOfTenantsPerMonth(): array
-    {
-        $data = new CountPerMonth()->getCountPerMonth(new Tenant);
-
-        return [
-            'months' => $data->keys()->toArray(),
-            'countOfTenantsPerMonth' => $data->values()->toArray(),
-        ];
+        return 4;
     }
 }
