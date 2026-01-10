@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Payments\Schemas;
 
+use App\Filament\ReusableResources\Common\MoneyField;
 use App\Filament\ReusableResources\Common\SelectField;
 use App\Models\LeaseAgreement;
 use App\Models\PackageSubscription;
@@ -86,15 +87,10 @@ class PaymentForm
                             ->required()
                             ->label('Payment Method')
                             ->relationship('paymentMethod', 'name'),
-                        TextInput::make('payment_amount')
-                            ->required()
-                            ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
-                                ? SanitizationHelper::stripFormatting($state)
-                                : $state
-                            )
+                        MoneyField::make('payment_amount')
+                            ->rules(['numeric'])
                             ->label('Payment Amount')
-                            ->dehydrateStateUsing(fn ($state) => $state)
-                            ->rules(fn ($livewire): array => $livewire instanceof ViewRecord ? [] : ['numeric']),
+                            ->dehydrateStateUsing(fn ($state) => $state),
                         DatePicker::make('payment_date')
                             ->date()
                             ->required()

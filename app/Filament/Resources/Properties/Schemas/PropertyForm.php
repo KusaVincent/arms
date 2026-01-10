@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Properties\Schemas;
 
 use App\Enums\PropertyAvailable;
 use App\Enums\PropertyNegotiable;
+use App\Filament\ReusableResources\Common\MoneyField;
 use App\Filament\ReusableResources\Common\SelectField;
 use App\Support\SanitizationHelper;
 use Filament\Forms\Components\FileUpload;
@@ -65,22 +66,12 @@ class PropertyForm
                         Section::make('Financial Terms')
                             ->icon('heroicon-m-currency-rupee')
                             ->schema([
-                                TextInput::make('rent')
-                                    ->required()
-                                    ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
-                                        ? SanitizationHelper::stripFormatting($state)
-                                        : $state
-                                    )
-                                    ->dehydrateStateUsing(fn ($state) => $state)
-                                    ->rules(['numeric']),
-                                TextInput::make('deposit')
-                                    ->required()
-                                    ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
-                                        ? SanitizationHelper::stripFormatting($state)
-                                        : $state
-                                    )
-                                    ->dehydrateStateUsing(fn ($state) => $state)
-                                    ->rules(['numeric']),
+                                MoneyField::make('rent')
+                                    ->rules(['numeric'])
+                                    ->dehydrateStateUsing(fn ($state) => $state),
+                                MoneyField::make('deposit')
+                                    ->rules(['numeric'])
+                                    ->dehydrateStateUsing(fn ($state) => $state),
 
                                 SelectField::make('negotiable')
                                     ->label('Terms Negotiable')

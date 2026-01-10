@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\LeaseAgreements\Schemas;
 
+use App\Filament\ReusableResources\Common\MoneyField;
 use App\Filament\ReusableResources\Common\SelectField;
 use App\Models\Tenant;
 use App\Support\SanitizationHelper;
@@ -55,22 +56,12 @@ class LeaseAgreementForm
                             ])->columns(3),
                         Section::make()
                             ->schema([
-                                TextInput::make('lease_amount')
-                                    ->required()
-                                    ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
-                                        ? SanitizationHelper::stripFormatting($state)
-                                        : $state
-                                    )
-                                    ->dehydrateStateUsing(fn ($state) => $state)
-                                    ->rules(fn ($livewire): array => $livewire instanceof ViewRecord ? [] : ['numeric']),
-                                TextInput::make('deposit_amount')
-                                    ->required()
-                                    ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
-                                        ? SanitizationHelper::stripFormatting($state)
-                                        : $state
-                                    )
-                                    ->dehydrateStateUsing(fn ($state) => $state)
-                                    ->rules(fn ($livewire): array => $livewire instanceof ViewRecord ? [] : ['numeric']),
+                                MoneyField::make('lease_amount')
+                                    ->rules(['numeric'])
+                                    ->dehydrateStateUsing(fn ($state) => $state),
+                                MoneyField::make('deposit_amount')
+                                    ->rules(['numeric'])
+                                    ->dehydrateStateUsing(fn ($state) => $state),
                             ])->columns(),
                     ]),
             ]);

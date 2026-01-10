@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\PackageSubscriptions\Schemas;
 
 use App\Enums\PackageStatus;
+use App\Filament\ReusableResources\Common\MoneyField;
 use App\Filament\ReusableResources\Common\SelectField;
 use App\Support\SanitizationHelper;
 use Filament\Forms\Components\DateTimePicker;
@@ -22,18 +23,8 @@ class PackageSubscriptionForm
                 TextInput::make('no_of_support_team')
                     ->required()
                     ->numeric(),
-                TextInput::make('package_price')
-                    ->required()
-                    ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
-                        ? SanitizationHelper::stripFormatting($state)
-                        : $state
-                    ),
-                TextInput::make('negotiated_price')
-                    ->required()
-                    ->formatStateUsing(fn ($state, $livewire) => $livewire instanceof EditRecord
-                        ? SanitizationHelper::stripFormatting($state)
-                        : $state
-                    ),
+                MoneyField::make('package_price'),
+                MoneyField::make('negotiated_price'),
                 SelectField::default('status')
                     ->options(PackageStatus::class)
                     ->required(),

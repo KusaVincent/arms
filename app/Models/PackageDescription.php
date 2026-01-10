@@ -21,13 +21,13 @@ class PackageDescription extends BaseModel
     protected $attributes = [
         'published' => PackagePublished::NO,
         'status' => PackageStatus::INACTIVE,
-        'annual_package_price' => PaymentCast::class,
-        'monthly_package_price' => PaymentCast::class,
     ];
 
     protected $casts = [
         'status' => PackageStatus::class,
         'published' => PackagePublished::class,
+        'annual_package_price' => PaymentCast::class,
+        'monthly_package_price' => PaymentCast::class,
     ];
 
     public function subscriptionPackages(): HasMany
