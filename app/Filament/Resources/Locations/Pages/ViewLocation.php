@@ -3,19 +3,18 @@
 namespace App\Filament\Resources\Locations\Pages;
 
 use App\Filament\Resources\Locations\LocationResource;
-use App\Filament\ReusableResources\EditRecordWithSanitization;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\ViewAction;
+use Filament\Actions;
+use Filament\Resources\Pages\ViewRecord;
 
-class EditLocation extends EditRecordWithSanitization
+class ViewLocation extends ViewRecord
 {
     protected static string $resource = LocationResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
-            ViewAction::make(),
-            DeleteAction::make(),
+            Actions\EditAction::make(),
+            Actions\DeleteAction::make(),
         ];
     }
 }

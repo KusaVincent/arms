@@ -2,10 +2,11 @@
 
 namespace App\Filament\Resources\Contacts\Schemas;
 
+use BladeUI\Icons\Factory;
 use Filament\Infolists\Components\TextEntry;
-use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Group;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\FontWeight;
 use Filament\Support\Enums\TextSize;
@@ -16,48 +17,86 @@ class ContactInfolist
     {
         return $schema
             ->components([
-                Grid::make(3)
+                Section::make('Contact Management')
+                    ->description('Configuration for public-facing contact links and social icons.')
                     ->schema([
-                        Group::make([
-                            Section::make('Contact Overview')
-                                ->schema([
-                                    TextEntry::make('label')
-                                        ->weight(FontWeight::Bold)
-                                        ->size(TextSize::Large),
+                        Grid::make(3)
+                            ->schema([
+                                Group::make([
+                                    Section::make('General Details')
+                                        ->icon('heroicon-m-identification')
+                                        ->compact()
+                                        ->schema([
+                                            TextEntry::make('label')
+                                                ->label('Reference Label')
+                                                ->weight(FontWeight::Bold)
+                                                ->size(TextSize::Large),
 
-                                    TextEntry::make('link')
-                                        ->label('Destination URL')
-                                        ->icon('heroicon-m-arrow-top-right-on-square')
-                                        ->color('primary')
-                                        ->url(fn ($record) => $record->link, true),
+                                            Grid::make(2)->schema([
+                                                TextEntry::make('link')
+                                                    ->label('Destination URL')
+                                                    ->icon('heroicon-m-link')
+                                                    ->color('primary')
+                                                    ->url(fn ($record) => $record->link, true)
+                                                    ->limit(30),
 
-                                    TextEntry::make('link_text')
-                                        ->label('Button Label')
-                                        ->badge()
-                                        ->color('gray'),
+                                                TextEntry::make('link_text')
+                                                    ->label('Display Text')
+                                                    ->badge()
+                                                    ->color('gray'),
+                                            ]),
+                                        ]),
+                                ])->columnSpan(2),
 
-                                    TextEntry::make('icon')
-                                        ->copyable()
-                                        ->fontFamily('mono'),
-                                ])->columns(2),
-                        ])->columnSpan(2),
+                                Group::make([
+                                    Section::make('Configuration')
+                                        ->icon('heroicon-m-cog')
+                                        ->compact()
+                                        ->schema([
+                                            TextEntry::make('section')
+                                                ->label('App Section')
+                                                ->badge()
+                                                ->color('info'),
 
-                        Group::make([
-                            Section::make('Attributes')
-                                ->schema([
-                                    TextEntry::make('section')
-                                        ->badge()
-                                        ->color('info'),
+                                            TextEntry::make('icon')
+                                                ->icon(function (?string $state) {
+                                                    if (! $state) return 'heroicon-m-question-mark-circle';
 
-                                    TextEntry::make('created_at')
-                                        ->dateTime(),
+                                                    $icon = "heroicon-m-{$state}";
 
-                                    TextEntry::make('updated_at')
-                                        ->label('Last Modified')
-                                        ->since(),
-                                ]),
-                        ])->columnSpan(1),
-                    ])->columnSpanFull(),
+                                                    if (view()->exists("filament-support::components.icons.{$icon}")) {
+                                                        return $icon;
+                                                    }
+
+                                                    try {
+                                                        app(Factory::class)->svg($icon);
+                                                        return $icon;
+                                                    } catch (\Exception $e) {
+                                                        return 'heroicon-m-question-mark-circle';
+                                                    }
+                                                })
+                                                ->tooltip(fn ($state) => "Icon key: {$state}")
+                                                ->copyable()
+                                                ->fontFamily('mono'),
+                                        ]),
+
+                                    Section::make('Metadata')
+                                        ->icon('heroicon-m-clock')
+                                        ->compact()
+                                        ->schema([
+                                            TextEntry::make('created_at')
+                                                ->label('Registered')
+                                                ->dateTime()
+                                                ->size(TextSize::ExtraSmall),
+
+                                            TextEntry::make('updated_at')
+                                                ->label('Modified')
+                                                ->since()
+                                                ->size(TextSize::ExtraSmall),
+                                        ]),
+                                ])->columnSpan(1),
+                            ]),
+                    ]),
             ]);
     }
 }

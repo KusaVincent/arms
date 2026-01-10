@@ -6,10 +6,12 @@ use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\LeaseAgreements\Pages\CreateLeaseAgreement;
 use App\Filament\Resources\LeaseAgreements\Pages\EditLeaseAgreement;
 use App\Filament\Resources\LeaseAgreements\Pages\ListLeaseAgreements;
+use App\Filament\Resources\LeaseAgreements\Pages\ViewLeaseAgreement;
 use App\Filament\Resources\LeaseAgreements\RelationManagers\PaymentsRelationManager;
 use App\Filament\Resources\LeaseAgreements\RelationManagers\PropertyRelationManager;
 use App\Filament\Resources\LeaseAgreements\RelationManagers\TenantRelationManager;
 use App\Filament\Resources\LeaseAgreements\Schemas\LeaseAgreementForm;
+use App\Filament\Resources\LeaseAgreements\Schemas\LeaseAgreementInfolist;
 use App\Filament\Resources\LeaseAgreements\Tables\LeaseAgreementTable;
 use App\Models\LeaseAgreement;
 use App\Traits\HasSharedResourceProperties;
@@ -42,6 +44,11 @@ class LeaseAgreementResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return LeaseAgreementForm::configure($schema);
+    }
+
+    public static function infolist(Schema $schema): Schema
+    {
+        return LeaseAgreementInfolist::configure($schema);
     }
 
     /**
@@ -82,6 +89,7 @@ class LeaseAgreementResource extends Resource
         return [
             'index' => ListLeaseAgreements::route('/'),
             'create' => CreateLeaseAgreement::route('/create'),
+            'view' => ViewLeaseAgreement::route('/{record}'),
             'edit' => EditLeaseAgreement::route('/{record}/edit'),
         ];
     }

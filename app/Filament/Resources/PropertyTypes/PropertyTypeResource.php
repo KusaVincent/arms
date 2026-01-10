@@ -5,8 +5,10 @@ namespace App\Filament\Resources\PropertyTypes;
 use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\PropertyTypes\Pages\EditPropertyType;
 use App\Filament\Resources\PropertyTypes\Pages\ListPropertyTypes;
+use App\Filament\Resources\PropertyTypes\Pages\ViewPropertyType;
 use App\Filament\Resources\PropertyTypes\RelationManagers\PropertiesRelationManager;
 use App\Filament\Resources\PropertyTypes\Schemas\PropertyTypeForm;
+use App\Filament\Resources\PropertyTypes\Schemas\PropertyTypeInfolist;
 use App\Filament\Resources\PropertyTypes\Tables\PropertyTypeTable;
 use App\Models\PropertyType;
 use App\Traits\HasSharedResourceProperties;
@@ -39,6 +41,11 @@ class PropertyTypeResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return PropertyTypeForm::configure($schema);
+    }
+
+    public static function infolist(Schema $schema): Schema
+    {
+        return PropertyTypeInfolist::configure($schema);
     }
 
     /**
@@ -76,7 +83,8 @@ class PropertyTypeResource extends Resource
     {
         return [
             'index' => ListPropertyTypes::route('/'),
-            //            'create' => Pages\CreatePropertyType::route('/create'),
+            'create' => Pages\CreatePropertyType::route('/create'),
+            'view' => ViewPropertyType::route('/{record}'),
             'edit' => EditPropertyType::route('/{record}/edit'),
         ];
     }

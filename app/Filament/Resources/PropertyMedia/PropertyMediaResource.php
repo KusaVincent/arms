@@ -6,8 +6,10 @@ use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\PropertyMedia\Pages\CreatePropertyMedia;
 use App\Filament\Resources\PropertyMedia\Pages\EditPropertyMedia;
 use App\Filament\Resources\PropertyMedia\Pages\ListPropertyMedia;
+use App\Filament\Resources\PropertyMedia\Pages\ViewPropertyMedia;
 use App\Filament\Resources\PropertyMedia\RelationManagers\PropertyRelationManager;
 use App\Filament\Resources\PropertyMedia\Schemas\PropertyMediaForm;
+use App\Filament\Resources\PropertyMedia\Schemas\PropertyMediaInfolist;
 use App\Filament\Resources\PropertyMedia\Tables\PropertyMediaTable;
 use App\Models\PropertyMedia;
 use App\Traits\HasSharedResourceProperties;
@@ -40,6 +42,11 @@ class PropertyMediaResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return PropertyMediaForm::configure($schema);
+    }
+
+    public static function infolist(Schema $schema): Schema
+    {
+        return PropertyMediaInfolist::configure($schema);
     }
 
     /**
@@ -78,6 +85,7 @@ class PropertyMediaResource extends Resource
         return [
             'index' => ListPropertyMedia::route('/'),
             'create' => CreatePropertyMedia::route('/create'),
+            'view' => ViewPropertyMedia::route('/{record}'),
             'edit' => EditPropertyMedia::route('/{record}/edit'),
         ];
     }

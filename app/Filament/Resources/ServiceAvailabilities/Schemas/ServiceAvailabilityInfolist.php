@@ -8,6 +8,7 @@ use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\FontWeight;
+use Filament\Support\Enums\TextSize;
 
 class ServiceAvailabilityInfolist
 {
@@ -15,44 +16,53 @@ class ServiceAvailabilityInfolist
     {
         return $schema
             ->components([
-                Grid::make(3)
+                Section::make('Service Availability Overview')
+                    ->description('Detailed configuration and status of the system service.')
                     ->schema([
-                        Group::make([
-                            Section::make('Service Details')
-                                ->schema([
-                                    TextEntry::make('service_name')
-                                        ->label('Display Name')
-                                        ->weight(FontWeight::Bold)
-                                        ->copyable(),
+                        Grid::make(3)
+                            ->schema([
+                                Group::make([
+                                    Section::make('Service Details')
+                                        ->icon('heroicon-m-information-circle')
+                                        ->schema([
+                                            TextEntry::make('service_name')
+                                                ->label('Display Name')
+                                                ->weight(FontWeight::Bold)
+                                                ->size(TextSize::Large)
+                                                ->copyable(),
 
-                                    TextEntry::make('service_key')
-                                        ->label('System Key')
-                                        ->fontFamily('mono')
-                                        ->icon('heroicon-m-code-bracket')
-                                        ->copyable(),
-                                ])->columns(2),
-                        ])->columnSpan(2),
+                                            TextEntry::make('service_key')
+                                                ->label('System Key')
+                                                ->fontFamily('mono')
+                                                ->icon('heroicon-m-code-bracket')
+                                                ->color('primary')
+                                                ->copyable(),
+                                        ])->columns(2),
+                                ])->columnSpan(2),
 
-                        Group::make([
-                            Section::make('Current State')
-                                ->schema([
-                                    TextEntry::make('is_active')
-                                        ->label('Availability Status')
-                                        ->badge()
-                                        ->color(fn ($state): string => match ($state) {
-                                            'active', 'yes', '1' => 'success',
-                                            default => 'danger',
-                                        }),
+                                Group::make([
+                                    Section::make('Current State')
+                                        ->icon('heroicon-m-signal')
+                                        ->schema([
+                                            TextEntry::make('is_active')
+                                                ->label('Availability Status')
+                                                ->badge(),
+                                        ]),
 
-                                    TextEntry::make('created_at')
-                                        ->dateTime(),
+                                    Section::make('Audit Information')
+                                        ->icon('heroicon-m-clock')
+                                        ->schema([
+                                            TextEntry::make('created_at')
+                                                ->label('Date Registered')
+                                                ->dateTime(),
 
-                                    TextEntry::make('updated_at')
-                                        ->label('Last Checked')
-                                        ->since(),
-                                ]),
-                        ])->columnSpan(1),
-                    ])->columnSpanFull(),
+                                            TextEntry::make('updated_at')
+                                                ->label('Last Modified')
+                                                ->dateTime(),
+                                        ]),
+                                ])->columnSpan(1),
+                            ]),
+                    ]),
             ]);
     }
 }

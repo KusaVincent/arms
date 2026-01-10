@@ -6,8 +6,10 @@ use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\Locations\Pages\CreateLocation;
 use App\Filament\Resources\Locations\Pages\EditLocation;
 use App\Filament\Resources\Locations\Pages\ListLocations;
+use App\Filament\Resources\Locations\Pages\ViewLocation;
 use App\Filament\Resources\Locations\RelationManagers\PropertiesRelationManager;
 use App\Filament\Resources\Locations\Schemas\LocationForm;
+use App\Filament\Resources\Locations\Schemas\LocationInfolist;
 use App\Filament\Resources\Locations\Tables\LocationTable;
 use App\Models\Location;
 use App\Traits\HasSharedResourceProperties;
@@ -41,6 +43,12 @@ class LocationResource extends Resource
     {
         return LocationForm::configure($schema);
     }
+
+    public static function infolist(Schema $schema): Schema
+    {
+        return LocationInfolist::configure($schema);
+    }
+
 
     /**
      * @throws Exception
@@ -78,6 +86,7 @@ class LocationResource extends Resource
         return [
             'index' => ListLocations::route('/'),
             'create' => CreateLocation::route('/create'),
+            'view' => ViewLocation::route('/{record}'),
             'edit' => EditLocation::route('/{record}/edit'),
         ];
     }

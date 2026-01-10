@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Amenity;
+use App\Models\Contact;
 use App\Models\LeaseAgreement;
 use App\Models\Location;
 use App\Models\Operator;
@@ -12,6 +13,8 @@ use App\Models\Property;
 use App\Models\PropertyType;
 use App\Models\Tenant;
 use App\Observers\CacheObserver;
+use App\Observers\ContactObserver;
+use App\Observers\OperatorObserver;
 use App\Policies\AuthenticationLogPolicy;
 use App\Services\ElasticSearchService;
 use BezhanSalleh\FilamentShield\Commands\GenerateCommand;
@@ -62,8 +65,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->observers();
         $this->assignedDisk();
-        $this->statObservers();
         $this->configureModels();
         $this->configureCommands();
         $this->spatieLaravelHealthCheckPlugin();
@@ -97,6 +100,14 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->filamentShieldProhibitDestructiveCommands();
         DB::prohibitDestructiveCommands($this->app->isProduction());
+    }
+
+    private function observers(): void
+    {
+        $this->statObservers();
+
+        Contact::observe(ContactObserver::class);
+        Operator::observe(OperatorObserver::class);
     }
 
     private function statObservers(): void

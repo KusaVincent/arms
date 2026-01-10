@@ -6,8 +6,10 @@ use AlizHarb\ActivityLog\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\Amenities\Pages\CreateAmenity;
 use App\Filament\Resources\Amenities\Pages\EditAmenity;
 use App\Filament\Resources\Amenities\Pages\ListAmenities;
+use App\Filament\Resources\Amenities\Pages\ViewAmenity;
 use App\Filament\Resources\Amenities\RelationManagers\PropertiesRelationManager;
 use App\Filament\Resources\Amenities\Schemas\AmenityForm;
+use App\Filament\Resources\Amenities\Schemas\AmenityInfolist;
 use App\Filament\Resources\Amenities\Tables\AmenityTable;
 use App\Models\Amenity;
 use App\Traits\HasSharedResourceProperties;
@@ -40,6 +42,11 @@ class AmenityResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return AmenityForm::configure($schema);
+    }
+
+    public static function infolist(Schema $schema): Schema
+    {
+        return AmenityInfolist::configure($schema);
     }
 
     /**
@@ -78,6 +85,7 @@ class AmenityResource extends Resource
         return [
             'index' => ListAmenities::route('/'),
             'create' => CreateAmenity::route('/create'),
+            'view' => ViewAmenity::route('/{record}'),
             'edit' => EditAmenity::route('/{record}/edit'),
         ];
     }

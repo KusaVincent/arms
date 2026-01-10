@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Abouts\Schemas;
+namespace App\Filament\Resources\PropertyTypes\Schemas;
 
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Grid;
@@ -9,50 +9,47 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\FontWeight;
 use Filament\Support\Enums\TextSize;
+use Filament\Support\Icons\Heroicon;
 
-class AboutInfolist
+class PropertyTypeInfolist
 {
     public static function configure(Schema $schema): Schema
     {
         return $schema
             ->components([
-                Section::make('About Management')
-                    ->description('Draft and manage the About section.')
+                Section::make('Classification Details')
+                    ->description('Overview of the property category and system audit data.')
                     ->schema([
                         Grid::make(3)
                             ->schema([
                                 Group::make([
-                                    Section::make('About Content')
-                                        ->icon('heroicon-m-document-text')
+                                    Section::make('Category Information')
+                                        ->icon(Heroicon::Tag)
                                         ->compact()
                                         ->schema([
-                                            TextEntry::make('title')
-                                                ->label('About Title')
+                                            TextEntry::make('type_name')
+                                                ->label('Classification Name')
+                                                ->size(TextSize::Large)
                                                 ->weight(FontWeight::Bold)
-                                                ->size(TextSize::Large),
-
-                                            TextEntry::make('content')
-                                                ->label('Body Content')
-                                                ->markdown()
-                                                ->prose()
-                                                ->columnSpanFull(),
+                                                ->badge()
+                                                ->color('primary'),
                                         ]),
                                 ])->columnSpan(2),
 
                                 Group::make([
-                                    Section::make('Audit Information')
-                                        ->icon('heroicon-m-clock')
+                                    Section::make('Audit Trail')
+                                        ->icon(Heroicon::FingerPrint)
                                         ->compact()
                                         ->schema([
                                             TextEntry::make('created_at')
-                                                ->label('Date Created')
-                                                ->dateTime()
-                                                ->color('gray'),
+                                                ->label('System Entry')
+                                                ->dateTime('M j, Y H:i'),
 
                                             TextEntry::make('updated_at')
-                                                ->label('Last Modified')
+                                                ->label('Last Activity')
                                                 ->since()
-                                                ->color('gray'),
+                                                ->color('gray')
+                                                ->size(TextSize::Small),
                                         ]),
                                 ])->columnSpan(1),
                             ]),
